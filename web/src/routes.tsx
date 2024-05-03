@@ -13,6 +13,7 @@ function RoutesWeb(){
                 <Route path="/sign_up_student" Component={SignUpStudent}/>
                 <Route path="/sign_up_teacher" Component={SignUpTeacher}/>
                 <Route path="/teacher_list" Component={TeacherList}/>
+                
             </Routes>
         </BrowserRouter>
     )
