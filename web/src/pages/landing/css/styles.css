@@ -72,6 +72,16 @@ main {
   fill: var(--roxo2);
   position: absolute;
   max-width: 600px;
+  animation: spin 12s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 #link {
