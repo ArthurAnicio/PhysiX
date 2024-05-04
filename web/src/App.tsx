@@ -1,12 +1,9 @@
-import React from 'react';
-import './assents/styles/global.css';
-import RoutesWeb from './routes';
-
+import React from "react";
+import "./assets/styles/global.css";
+import RoutesWeb from "./routes";
 
 function App() {
-  return (
-    <RoutesWeb />
-  );
+  return <RoutesWeb />;
 }
 
 export default App;

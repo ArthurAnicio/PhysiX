@@ -1,3 +1,27 @@
-:root{
-    --pintogrande: red
+:root {
+  --roxo1: #8a5ac9;
+  --roxo2: #593c7e;
+  --cinza1: #252525;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+.switch {
+  padding-left: 1px;
+  padding-right: 1px;
+  display: flex;
+  border-radius: 100px;
+  height: 30px;
+  width: 60px;
+  align-items: center;
+  transition: 0.5s;
+}
+
+.switch div {
+  height: 28px;
+  width: 28px;
+  border-radius: 50%;
 }

@@ -1,17 +1,31 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import './styles.css';
-import Button from '../../components/button';
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import "./css/styles.css";
+import Button from "../../components/button";
+import AtomSVG from "../../components/icons/index";
 
-function Landding(){
-    return(
-        <div>
-            <h1>Landing Page</h1>
-            <Button label='Sou estudante' path="/sign_up_student"/>
-            <Button label="Sou professor" path="/sign_up_teacher"/>
-            <Button label="Estude" path="/teacher_list"/>
-            <Button label="Início" path="/"/>
+let grandeClaro = require("../../components/imgs/grandeClaro.png");
+
+function Landing() {
+  return (
+    <div id="container">
+      <header>
+        <AtomSVG id={"atom1"} />
+        <AtomSVG id={"atom2"} />
+        <div className="switch">
+          <div></div>
         </div>
-    )
-};
-export default Landding;
+        <div id="header-container">
+          <img src={grandeClaro} alt="Logo PhysiX" />
+          <h2>Divirta-se estudando física!</h2>
+          <h1>Entrar</h1>
+        </div>
+      </header>
+      <main>
+        <Button label="Sou um estudante" path="/log_in_student" />
+        <Button label="Sou um professor" path="/log_in_teacher" />
+      </main>
+    </div>
+  );
+}
+export default Landing;

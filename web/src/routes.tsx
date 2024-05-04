@@ -1,22 +1,21 @@
 import React from "react";
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import Landding from "./pages/landding";
-import SignUpStudent from "./pages/sign-up-student";
-import SignUpTeacher from "./pages/sign-up-teacher";
-import TeacherList from "./pages/teacher-list";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Landing from "./pages/landing";
+import LogInStudent from "./pages/log_in_student";
+import LogInTeacher from "./pages/log_in_teacher";
+import TeacherList from "./pages/teacher_list";
 
-function RoutesWeb(){
-    return(
-        <BrowserRouter>
-            <Routes>
-                <Route path="/" Component={Landding} />
-                <Route path="/sign_up_student" Component={SignUpStudent}/>
-                <Route path="/sign_up_teacher" Component={SignUpTeacher}/>
-                <Route path="/teacher_list" Component={TeacherList}/>
-                
-            </Routes>
-        </BrowserRouter>
-    )
+function RoutesWeb() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" Component={Landing} />
+        <Route path="/log_in_student" Component={LogInStudent} />
+        <Route path="/log_in_teacher" Component={LogInTeacher} />
+        <Route path="/teacher_list" Component={TeacherList} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
 export default RoutesWeb;
