@@ -54,11 +54,6 @@ main {
   flex-flow: column;
   align-items: center;
 }
-
-#link {
-  margin-top: 50px;
-}
-
 .switch {
   position: absolute;
   top: 6px;
@@ -81,6 +76,7 @@ main {
 
 #link {
   background-color: var(--roxo1);
+  margin-top: 50px;
 }
 
 #atom1 {
@@ -99,7 +95,7 @@ main {
   #atom1 {
     max-width: 500px;
     left: -90px;
-    top: 30px;
+    bottom: -30px;
   }
   #link {
     font-size: 2em !important;
@@ -114,6 +110,7 @@ main {
   #link {
     font-size: 1.2em !important;
     padding: 15px !important;
+    margin-top: 30px;
   }
   #atom1 {
     max-width: 300px;
@@ -128,7 +125,7 @@ main {
     font-size: 1.5em;
     width: 70%;
   }
-  #header-container img{
+  #header-container img {
     height: 7em;
   }
   #header-container {

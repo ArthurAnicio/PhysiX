@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./css/styles.css";
 import Button from "../../components/button";
+import Switch from "../../components/switch";
 import AtomSVG from "../../components/icons/index";
 
 let grandeClaro = require("../../components/imgs/grandeClaro.png");
@@ -12,9 +13,7 @@ function Landing() {
       <header>
         <AtomSVG id={"atom1"} />
         <AtomSVG id={"atom2"} />
-        <div className="switch">
-          <div></div>
-        </div>
+        <Switch />
         <div id="header-container">
           <img src={grandeClaro} alt="Logo PhysiX" />
           <h2>Divirta-se estudando física!</h2>
