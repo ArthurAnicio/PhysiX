@@ -3,9 +3,10 @@ import { Link } from "react-router-dom";
 import "./css/styles.css";
 import Button from "../../components/button";
 import Switch from "../../components/switch";
-import AtomSVG from "../../components/icons/index";
+import Footer from "../../components/footer";
+import AtomSVG from "../../components/icons/atom";
 
-let grandeClaro = require("../../components/imgs/grandeClaro.png");
+let mainLogo = require("../../components/imgs/grandeClaroPng.png");
 
 function Landing() {
   return (
@@ -15,7 +16,7 @@ function Landing() {
         <AtomSVG id={"atom2"} />
         <Switch />
         <div id="header-container">
-          <img src={grandeClaro} alt="Logo PhysiX" />
+          <img src={mainLogo} alt="Logo PhysiX" />
           <h2>Divirta-se estudando física!</h2>
           <h1>Entrar</h1>
         </div>
@@ -24,6 +25,7 @@ function Landing() {
         <Button label="Sou um estudante" path="/log_in_student" />
         <Button label="Sou um professor" path="/log_in_teacher" />
       </main>
+      <Footer />
     </div>
   );
 }

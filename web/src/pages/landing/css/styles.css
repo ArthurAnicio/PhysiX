@@ -50,9 +50,11 @@ header {
 }
 
 main {
+  height: 40vh;
   display: flex;
   flex-flow: column;
   align-items: center;
+  justify-content: space-evenly;
 }
 .switch {
   position: absolute;
@@ -72,7 +74,7 @@ main {
   fill: var(--roxo2);
   position: absolute;
   max-width: 600px;
-  animation: spin 12s linear infinite;
+  animation: spin 20s linear infinite;
 }
 
 @keyframes spin {
@@ -86,16 +88,15 @@ main {
 
 #link {
   background-color: var(--roxo1);
-  margin-top: 50px;
 }
 
 #atom1 {
-  top: 90px;
+  top: 0px;
   left: -260px;
 }
 #atom2 {
   right: -260px;
-  bottom: 90px;
+  bottom: 0px;
 }
 
 @media (max-width: 1200px) {
@@ -104,7 +105,7 @@ main {
   }
   #atom1 {
     max-width: 500px;
-    left: -90px;
+    left: -150px;
     bottom: -30px;
   }
   #link {
@@ -117,15 +118,20 @@ main {
 }
 
 @media (max-width: 500px) {
+  main {
+    height: 30vh;
+  }
+  footer {
+    min-height: 150px !important;
+  }
   #link {
     font-size: 1.2em !important;
     padding: 15px !important;
-    margin-top: 30px;
   }
   #atom1 {
-    max-width: 300px;
-    left: -90px;
-    top: 30px;
+    max-width: 400px;
+    left: -150px;
+    top: 70px;
   }
   #header-container h1 {
     font-size: 3em;
