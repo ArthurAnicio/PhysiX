@@ -21,7 +21,7 @@
 
 #icn {
   margin-right: 1vw;
-  margin-left: -4.5vw;
+  margin-left: -3.5vw;
   margin-top: 0.5vh;
   width: 3.5vw;
   height: 3.5vw;
@@ -30,9 +30,10 @@
 #lbl {
   width: 80%;
 }
-@media (max-width:1400px) {
+@media (max-width: 1400px) {
   #icn {
-    margin-right: 0;margin-top: -3vh;
+    margin-right: 0;
+    margin-top: -3vh;
     margin-left: 1vw;
     width: 3vw;
     height: 3vw;
@@ -41,7 +42,7 @@
     width: 90%;
   }
 }
-@media(max-width: 1250px) {
+@media (max-width: 1250px) {
   #icn {
     margin-right: 1vw;
     margin-top: 0.5vh;
@@ -49,15 +50,16 @@
     height: 4vw;
   }
 }
-@media(max-width: 800px) { 
+@media (max-width: 800px) {
   #icn {
-   width: 4.5vw;
-   height: 4.5vw;
+    width: 4.5vw;
+    height: 4.5vw;
   }
 }
-@media(max-width: 500px) {
+@media (max-width: 500px) {
   #icn {
-    width: 5vw;
-    height: 5vw;
-   }
+    display: none;
+    /* width: 5vw;
+    height: 5vw; */
+  }
 }
