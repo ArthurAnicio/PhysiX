@@ -4,9 +4,9 @@ import "./css/styles.css";
 import Button from "../../components/button";
 import Switch from "../../components/switch";
 import Footer from "../../components/footer";
-import AtomSVG from "../../components/icons/atom";
+import AtomSVG from "../../assets/images/icons/atom";
 
-let mainLogo = require("../../components/imgs/grandeClaroPng.png");
+let mainLogo = require("../../assets/images/img/grandeClaro.png");
 
 function Landing() {
   return (
