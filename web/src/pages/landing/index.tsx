@@ -5,8 +5,10 @@ import Button from "../../components/button";
 import Switch from "../../components/switch";
 import Footer from "../../components/footer";
 import AtomSVG from "../../assets/images/icons/atom";
+import giveClasses from "../../assets/images/icons/giveClasses";
+import study from "../../assets/images/icons/study";
 
-let mainLogo = require("../../assets/images/img/grandeClaro.png");
+let mainLogo = require("../../assets/images/imgs/grandeClaroPng.png");
 
 function Landing() {
   return (
@@ -22,8 +24,8 @@ function Landing() {
         </div>
       </header>
       <main>
-        <Button label="Sou um estudante" path="/log_in_student" />
-        <Button label="Sou um professor" path="/log_in_teacher" />
+        <Button label="Sou um estudante" path="/log_in_student" icon={study}/>
+        <Button label="Sou um professor" path="/log_in_teacher" icon={giveClasses}/>
       </main>
       <Footer />
     </div>

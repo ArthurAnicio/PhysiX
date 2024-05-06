@@ -5,11 +5,12 @@ import { Link } from "react-router-dom";
 interface ButtonProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
   path: string;
+  icon?: any;
 }
-const Button: React.FC<ButtonProps> = ({ label, path, ...rest }) => {
+const Button: React.FC<ButtonProps> = ({ label, path, icon, ...rest }) => {
   return (
     <Link id="link" to={path}>
-      {label}
+      {icon} {label}
     </Link>
   );
 };
