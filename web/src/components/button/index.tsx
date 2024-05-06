@@ -7,10 +7,10 @@ interface ButtonProps extends InputHTMLAttributes<HTMLInputElement> {
   path: string;
   icon?: any;
 }
-const Button: React.FC<ButtonProps> = ({ label, path, icon, ...rest }) => {
+const Button: React.FC<ButtonProps> = ({ label, path, icon: Icon, ...rest }) => {
   return (
     <Link id="link" to={path}>
-      {icon} {label}
+      <div>{Icon && <Icon />}</div> {label}
     </Link>
   );
 };

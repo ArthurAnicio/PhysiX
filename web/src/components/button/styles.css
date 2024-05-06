@@ -10,8 +10,18 @@
   font-weight: 600;
   padding: 20px;
   transition: 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #link:hover {
   scale: 1.05;
+}
+
+#link div {
+  margin-right: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
