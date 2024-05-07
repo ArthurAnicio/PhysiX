@@ -1,0 +1,27 @@
+#headerDefault {
+    background: linear-gradient(90deg,var(--roxo1),var(--roxo2));
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 15vh;
+    align-items: center;
+}
+#headerDefault>h1 {
+    color: #fff;
+    margin-right: 20vw;
+}
+#headerLogo {
+    width: 15vw;
+    margin-left: 5vw;
+    transition: 0.5s;
+}
+#headerLogo:hover {
+    transform: scale(1.1);
+}
+#atomHeader{
+    position: relative;
+    width: 5vw;
+    fill: var(--roxo1);
+    height: 5vw;
+    right: 5vw;
+}
