@@ -2,15 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './styles.css';
 import Button from '../../components/button';
+import Header from '../../components/header';
+import TeacherItem from '../../components/teacherItem';
 
 function TeacherList(){
     return(
         <div>
-            <h1>Teacher List</h1>
-            <Button label='Sou estudante' path="/log_in_student"/>
-            <Button label="Sou professor" path="/log_in_teacher"/>
-            <Button label="Estude" path="/teacher_list"/>
-            <Button label="Início" path="/"/>
+            <Header path="/" title="Lista de Professores"/>
+             <div id='teacherList-container'>
+                
+             </div>
         </div>
     )
 };

@@ -3,8 +3,8 @@ button {
     color: #fff;
     border: none;
     font-size: 2em;
-    font-family: inherit;
-    border-radius: 30px;
+    font-family: Poppins;
+    border-radius: 20px;
     font-weight: 600;
     padding-bottom: 5px;
     padding-top: 5px;
@@ -12,5 +12,7 @@ button {
 }
 button:hover {
     cursor: pointer;
-    background-color: var(--roxo2); 
+    
+    scale: 1.1;
 }
+

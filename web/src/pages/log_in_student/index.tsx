@@ -11,6 +11,7 @@ const smlIcon = require("../../assets/images/imgs/pequenoClaroPng.png")
 function LogInStudent() {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
   return (
     <div>
       <Header path="/" title="Login Estudante"/>
@@ -19,6 +20,8 @@ function LogInStudent() {
           <header><img src={smlIcon} width="70px"/></header>
           <h1>Usuário</h1>
           <TextBox type="text" value={name} onChange={(e) => {setName(e.target.value)}}/>
+          <h1>Email</h1>
+          <TextBox type="text" value={email} onChange={(e) => {setName(e.target.value)}}/>
           <h1>Senha</h1>
           <TextBox type="password" value={password} onChange={(e) => {setPassword(e.target.value)}}/>
           <Link to="" id="student-forgotpass">Esqueci minha senha</Link>
