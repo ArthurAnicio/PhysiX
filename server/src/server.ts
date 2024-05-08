@@ -1,12 +1,13 @@
-import express, { Request, Response } from 'express';
+import express from 'express';
+import routes from './routes';
+import cors from 'cors';
 
 const app = express();
-const PORT = 3000;
 
-app.get('/', (req: Request, res: Response) => {
-  res.send('Hello, world!');
-});
+app.use(cors());
+app.use(express.json());
+app.use(routes);
 
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+app.listen(3333, () => {
+    console.log('Server is running on port 3333');
 });
