@@ -4,8 +4,17 @@ import db from '../database/connection';
 
 
 export default class UserController{
-    async index(){
-        
+    async index(req: Request, res: Response){
+        const {
+            email,
+            password
+        } = req.query;
+
+        const user = await db('users').where({ email, password }).first();
+        if(!user){
+            return res.status(400).json('Usuário ou senha incorretos');
+        }
+        return res.json(user);
     }
 
     async create(req: Request, res: Response){
@@ -20,7 +29,8 @@ export default class UserController{
         if(quantVerify.length > 0){
             res.status(400).json('O usuário ja existe no banco de dados');
         }
-        else{try{
+        else{
+        try{
             await trx('users').insert({
                 name,
                 email,

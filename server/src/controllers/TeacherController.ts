@@ -9,8 +9,32 @@ interface ScheduleItem{
 
 export default class TeacherController{
 
-    async index(){
+    async index(req: Request, res: Response){
+        
+        const filters = req.query
+        const weak_days = filters.weak_day as string;
+        const time = filters.time as string;
 
+        if(!weak_days || !time){
+            return res.status(400).json('Missing filters to search classes')
+        }
+        else{
+            const timeInMinutes = convertHourToMinutes(time);
+            const [weak_day] = weak_days.split(',').map(Number);
+            const classes = await db('classes')
+               .whereExists(function(){
+                    this.select('class_schedule.*')
+                       .from('class_schedule')
+                       .whereRaw('`class_schedule`.`class_id` = `classes`.`id`')
+                       .whereRaw('`class_schedule`.`weak_day` =??', [weak_day])
+                       .whereRaw('`class_schedule`.`from` <=??', [timeInMinutes])
+                       .whereRaw('`class_schedule`.`to` >??', [timeInMinutes])
+                })
+               .join('teacher', 'teacher.id', '=', 'classes.teacher_id')
+               .select(['classes.*', 'teacher.name', 'teacher.email', 'teacher.id as teacher_id'])
+               
+               return res.json(classes)
+        }
     }
 
     async create(req: Request, res: Response){
