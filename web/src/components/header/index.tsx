@@ -12,9 +12,11 @@ interface HeaderParam extends InputHTMLAttributes<HTMLInputElement> {
 const Header: React.FC<HeaderParam> = ({ path, title }) => {
   return (
     <div id="headerDefault">
-      <Link to={path}  id="headerLogo" >
+      <div id="headerLogo">
+      <Link to={path}>
         <img src={mainLogo}/>
       </Link>
+      </div>
       <h1>{title}</h1>
       <div id="atomContainer">
         <AtomSVG id={"atomHeader"} />

@@ -1,0 +1,16 @@
+button {
+    background-color: var(--roxo1);
+    color: #fff;
+    border: none;
+    font-size: 2em;
+    font-family: inherit;
+    border-radius: 30px;
+    font-weight: 600;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    transition: 0.2s;
+}
+button:hover {
+    cursor: pointer;
+    background-color: var(--roxo2); 
+}
