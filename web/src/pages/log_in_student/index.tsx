@@ -1,17 +1,38 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, MouseEventHandler } from "react";
 import { Link } from "react-router-dom";
 import "./css/styles.css";
 import Header from "../../components/header";
 import Footer from "../../components/footer";
 import TextBox from "../../components/textbox";
 import Submit from "../../components/submit";
+import api from "../../services/api";
 
 const smlIcon = require("../../assets/images/imgs/pequenoClaroPng.png")
 
 function LogInStudent() {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState('')
+  async function validateLogin() {
+    const validateLogin = await api.get('/user', {params : { name, email, password}}).catch((error) => {alert('Falha no login')})
+    if(validateLogin){
+      window.location.href = '/teacher_list'
+    }
+  }
+  function signUp() {
+    api.post('/user',{
+      name,
+      email,
+      password,
+    }).then(() => {
+      alert('Cadastro realizado com sucesso!');
+
+    }).catch((err) => {
+      alert('Erro no cadastro!');
+      console.log(err);
+    })
+  }
+  
   return (
     <div>
       <Header path="/" title="Login Estudante"/>
@@ -21,12 +42,12 @@ function LogInStudent() {
           <h1>Usuário</h1>
           <TextBox type="text" value={name} onChange={(e) => {setName(e.target.value)}}/>
           <h1>Email</h1>
-          <TextBox type="text" value={email} onChange={(e) => {setName(e.target.value)}}/>
+          <TextBox type="text" value={email} onChange={(e) => {setEmail(e.target.value)}}/>
           <h1>Senha</h1>
           <TextBox type="password" value={password} onChange={(e) => {setPassword(e.target.value)}}/>
           <Link to="" id="student-forgotpass">Esqueci minha senha</Link>
-          <Submit label="Entrar"/>
-          <Submit label="Cadastrar"/>
+          <Submit label="Entrar" onClick={validateLogin}/>
+          <Submit label="Cadastrar" onClick={signUp}/>
         </div>
       </div>
       <Footer />

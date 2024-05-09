@@ -31,7 +31,7 @@ export default class TeacherController{
                        .whereRaw('`class_schedule`.`to` >??', [timeInMinutes])
                 })
                .join('teacher', 'teacher.id', '=', 'classes.teacher_id')
-               .select(['classes.*', 'teacher.name', 'teacher.email', 'teacher.number', 'teacher.id as teacher_id'])
+               .select(['classes.*', 'teacher.name', 'teacher.email', 'teacher.number', 'teacher.cost', 'teacher.description', 'teacher.id as teacher_id'])
                
                return res.json(classes)
         }

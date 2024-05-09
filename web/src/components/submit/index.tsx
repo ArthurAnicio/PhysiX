@@ -1,12 +1,13 @@
-import React, { MouseEventHandler, InputHTMLAttributes} from "react";
+import React, { MouseEventHandler, InputHTMLAttributes, ButtonHTMLAttributes} from "react";
 import "./styles.css";
 
-interface ButtonParams extends InputHTMLAttributes<HTMLInputElement> {
+interface ButtonParams extends ButtonHTMLAttributes<HTMLButtonElement> {
     label:string;
+
 }
-const Submit: React.FC<ButtonParams> = ({ label, ...rest}) => {
+const Submit: React.FC<ButtonParams> = ({ label,...rest}) => {
   return (
-    <button>{label}</button>
+    <button {...rest}>{label}</button>
   );
 };
 
