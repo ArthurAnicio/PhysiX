@@ -29,13 +29,13 @@ function TeacherList(){
                  <p>Dia</p>
                  <p>Horário</p>
                  <select value={weekDay} onChange={(e) => {setWeekDay(e.target.value)}}>
-                    <option value="0">Segunda</option>
-                    <option value="1">Terça</option>
-                    <option value="2">Quarta</option>
-                    <option value="3">Quinta</option>
-                    <option value="4">Sexta</option>
-                    <option value="5">Sábado</option>
-                    <option value="6">Domingo</option>
+                    <option value="0">Domingo</option>
+                    <option value="1">Segunda</option>
+                    <option value="2">Terça</option>
+                    <option value="3">Quarta</option>
+                    <option value="4">Quinta</option>
+                    <option value="5">Sexta</option>
+                    <option value="6">Sábado</option>
                  </select>
                 <input type="time" value={time} onChange={e => {setTime(e.target.value)}}/>
                 <input type="submit" placeholder='Pesquisar'></input>
