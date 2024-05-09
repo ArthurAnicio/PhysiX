@@ -38,6 +38,7 @@ function TeacherList(){
                     <option value="6">Domingo</option>
                  </select>
                 <input type="time" value={time} onChange={e => {setTime(e.target.value)}}/>
+                <input type="submit" placeholder='Pesquisar'></input>
              </form>
              <div id='teacherList-container'>
                 {teachers.map((teacher: Teacher) =>
