@@ -40,7 +40,7 @@ function LogInStudent() {
         <div id="login-window">
           <header><img src={smlIcon} width="70px"/></header>
           <h1>Usuário</h1>
-          <TextBox type="text" value={name} onChange={(e) => {setName(e.target.value)}}/>
+          <TextBox type="text" value={name} onChange={(e) => {setName(e.target.value);console.log("a")}}/>
           <h1>Email</h1>
           <TextBox type="text" value={email} onChange={(e) => {setEmail(e.target.value)}}/>
           <h1>Senha</h1>
