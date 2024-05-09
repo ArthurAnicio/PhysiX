@@ -7,7 +7,7 @@ import TeacherItem, {Teacher} from '../../components/teacherItem';
 import api from '../../services/api';
 
 function TeacherList(){
-    const [weekDay, setWeekDay] = useState('')
+    const [week_day, setWeekDay] = useState('')
     const [time, setTime] = useState('');
     const [teachers, setTeachers] = useState([]);
 
@@ -15,8 +15,8 @@ function TeacherList(){
         e.preventDefault();
         const response = await api.get('/teacher', {
             params: {
-                weekDay,
-                time,
+                week_day,
+                time
             }
         })
         setTeachers(response.data)
@@ -28,7 +28,7 @@ function TeacherList(){
              <form id="teacherList-filters" onSubmit={searchTeachers}>
                  <p>Dia</p>
                  <p>Horário</p>
-                 <select value={weekDay} onChange={(e) => {setWeekDay(e.target.value)}}>
+                 <select value={week_day} onChange={(e) => {setWeekDay(e.target.value)}}>
                     <option value="0">Domingo</option>
                     <option value="1">Segunda</option>
                     <option value="2">Terça</option>
@@ -44,7 +44,7 @@ function TeacherList(){
                 {teachers.map((teacher: Teacher) =>
                 {
                     return(
-                        <TeacherItem teacher={teacher}/>
+                        <TeacherItem key={teacher.id} teacher={teacher}/>
                     )
                 })}
                 

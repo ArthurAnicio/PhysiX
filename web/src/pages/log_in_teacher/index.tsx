@@ -56,11 +56,16 @@ function LogInTeacher(){
             api.post('/teacher', {
                 name,
                 email,
-                password,
                 number,
+                password,
                 description,
                 cost: Number(cost),
                 scheduleItems: scheduleItems
+            }).then(() => {
+                alert('Cadastro realizado com sucesso!')
+            }).catch((err) => {
+                alert('Erro no cadastro!');
+                console.log(err);
             })
         }
 
@@ -131,7 +136,7 @@ function LogInTeacher(){
                             )
                         })
                     }
-                    <Submit label="Entrar" onClick={signUp}/>
+                    <Submit label="Cadastrar" onClick={signUp}/>
                 
                 </div>
         

@@ -20,18 +20,18 @@ export default class TeacherController{
         }
         else{
             const timeInMinutes = convertHourToMinutes(time);
-            const [week_day] = week_days.split(',').map(Number);
+            
             const classes = await db('classes')
                .whereExists(function(){
                     this.select('class_schedule.*')
                        .from('class_schedule')
                        .whereRaw('`class_schedule`.`class_id` = `classes`.`id`')
-                       .whereRaw('`class_schedule`.`week_day` =??', [week_day])
+                       .whereRaw('`class_schedule`.`week_day` = ?', [week_days])
                        .whereRaw('`class_schedule`.`from` <=??', [timeInMinutes])
                        .whereRaw('`class_schedule`.`to` >??', [timeInMinutes])
                 })
                .join('teacher', 'teacher.id', '=', 'classes.teacher_id')
-               .select(['classes.*', 'teacher.name', 'teacher.email', 'teacher.number', 'teacher.cost', 'teacher.description', 'teacher.id as teacher_id'])
+               .select(['classes.*', 'teacher.name', 'teacher.email', 'teacher.number', 'classes.cost', 'classes.description', 'teacher.id as teacher_id'])
                
                return res.json(classes)
         }

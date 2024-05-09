@@ -2,14 +2,16 @@ import React, { InputHTMLAttributes } from "react";
 import "./styles.css";
 
 export interface Teacher {
+   
     name: string;
     email:string;
     description: string;
+    id: number;
     cost: number;
     number: string;
 }
 interface TeacherItemProps {
-    teacher: Teacher;
+    teacher: Teacher;   
 }
 const TeacherItem: React.FC<TeacherItemProps> = ({ teacher}) => {
     return (
