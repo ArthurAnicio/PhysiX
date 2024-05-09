@@ -6,13 +6,14 @@ import db from '../database/connection';
 export default class UserController{
     async index(req: Request, res: Response){
         const {
+            name,
             email,
             password
         } = req.query;
 
-        const user = await db('users').where({ email, password }).first();
+        const user = await db('users').where({name, email, password }).first();
         if(!user){
-            return res.status(400).json('Usuário ou senha incorretos');
+            return res.status(300).json('Usuário ou senha incorretos');
         }
         return res.json(user);
     }

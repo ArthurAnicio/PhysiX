@@ -26,12 +26,12 @@ export default class TeacherController{
                     this.select('class_schedule.*')
                        .from('class_schedule')
                        .whereRaw('`class_schedule`.`class_id` = `classes`.`id`')
-                       .whereRaw('`class_schedule`.`weak_day` =??', [week_day])
+                       .whereRaw('`class_schedule`.`week_day` =??', [week_day])
                        .whereRaw('`class_schedule`.`from` <=??', [timeInMinutes])
                        .whereRaw('`class_schedule`.`to` >??', [timeInMinutes])
                 })
                .join('teacher', 'teacher.id', '=', 'classes.teacher_id')
-               .select(['classes.*', 'teacher.name', 'teacher.email', 'teacher.number', 'teacher.id as teacher_id'])
+               .select(['classes.*', 'teacher.name', 'teacher.email', 'teacher.number', 'teacher.cost', 'teacher.description', 'teacher.id as teacher_id'])
                
                return res.json(classes)
         }
@@ -79,7 +79,7 @@ export default class TeacherController{
                 const classSchedule = schedule.map((scheduleItem: ScheduleItem) => {
                     return {
                         class_id: class_id,
-                        weak_day: scheduleItem.week_day,
+                        week_day: scheduleItem.week_day,
                         from: convertHourToMinutes(scheduleItem.from),
                         to: convertHourToMinutes(scheduleItem.to)
                     } 

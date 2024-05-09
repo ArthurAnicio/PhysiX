@@ -1,5 +1,5 @@
 import React, { useState, useEffect, MouseEventHandler } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./css/styles.css";
 import Header from "../../components/header";
 import Footer from "../../components/footer";
@@ -10,12 +10,18 @@ import api from "../../services/api";
 const smlIcon = require("../../assets/images/imgs/pequenoClaroPng.png")
 
 function LogInStudent() {
+  const history = useNavigate();
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('')
-  function validateLogin() {
-    console.log(api.get('/user'), {email, password})
+  
+  async function validateLogin() {
+    const validateLogin = await api.get('/user', {params : { name, email, password}}).catch((error) => {alert('Falha no login')})
+    if(validateLogin){
+      history('/teacher_list')
+    }
   }
+  
   function signUp() {
     api.post('/user',{
       name,
@@ -29,6 +35,7 @@ function LogInStudent() {
       console.log(err);
     })
   }
+  
   return (
     <div>
       <Header path="/" title="Login Estudante"/>
