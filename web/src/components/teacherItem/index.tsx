@@ -1,17 +1,28 @@
 import React, { InputHTMLAttributes } from "react";
 import "./styles.css";
 
-interface TeacherItemProps extends InputHTMLAttributes<HTMLInputElement> {
+export interface Teacher {
     name: string;
+    email:string;
     description: string;
     cost: number;
     number: string;
 }
-
-const TeacherItem: React.FC<TeacherItemProps> = ({ name, description, cost, number, ...rest}) => {
+interface TeacherItemProps {
+    teacher: Teacher;
+}
+const TeacherItem: React.FC<TeacherItemProps> = ({ teacher}) => {
     return (
         <div id="teacherCard">
-            
+            <h1>{teacher.name}</h1>
+            <div id="extraData">
+                <p>{teacher.email}</p>
+                <p>R${teacher.cost.toString().replace('.',',')}</p>
+                <p>{teacher.number}</p>
+            </div>
+            <div id="desc">
+                {teacher.description}
+            </div>
         </div>
     );
 }
