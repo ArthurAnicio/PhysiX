@@ -91,7 +91,7 @@ export default class TeacherController{
                 return res.status(201).json('professor registrado com sucesso');
             
             }catch(err){
-                await trx.rollback();
+               await trx.rollback();
                 return res.status(400).json('erro ao registrar professor');
             }
 
