@@ -7,19 +7,30 @@ import TeacherItem, {Teacher} from '../../components/teacherItem';
 import api from '../../services/api';
 
 function TeacherList(){
-    const [week_day, setWeekDay] = useState('')
+    const [week_day, setWeekDay] = useState(0)
     const [time, setTime] = useState('');
     const [teachers, setTeachers] = useState([]);
 
     async function searchTeachers(e: FormEvent) { 
         e.preventDefault();
-        const response = await api.get('/teacher', {
-            params: {
+
+        if (time != '' && week_day != undefined) {
+            try {const response = await api.get('/teacher', {
+                params: {
                 week_day,
                 time
-            }
-        })
+                }
+            });
         setTeachers(response.data)
+        
+        }
+        catch(err) {
+            alert('Falha na busca!')
+            console.log(err)
+        }
+       
+        }
+        
     }
 
     return(
@@ -28,7 +39,7 @@ function TeacherList(){
              <form id="teacherList-filters" onSubmit={searchTeachers}>
                  <p>Dia</p>
                  <p>Horário</p>
-                 <select value={week_day} onChange={(e) => {setWeekDay(e.target.value)}}>
+                 <select value={week_day} onChange={(e) => {setWeekDay(parseInt(e.target.value))}}>
                     <option value="0">Domingo</option>
                     <option value="1">Segunda</option>
                     <option value="2">Terça</option>

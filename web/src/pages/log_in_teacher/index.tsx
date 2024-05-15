@@ -19,13 +19,13 @@ function LogInTeacher(){
     const [number, setNumber] = useState('');
     const [cost, setCost] = useState('');
     const [description, setDescription] = useState('');
-    const [scheduleItems, setScheduleItems] = useState([
+    const [schedule, setschedule] = useState([
         { week_day: 0, from: '', to: '' }
     ]);
 
     function addNewScheduleItem() {
-        setScheduleItems([
-            ...scheduleItems,
+        setschedule([
+            ...schedule,
             {
                 week_day: 0,
                 from: '',
@@ -35,7 +35,7 @@ function LogInTeacher(){
     };
 
     function setScheduleItemValue(position: number, field: string, value: string) {
-        const updatedScheduleItems = scheduleItems.map((scheduleItem, index) => {
+        const updatedschedule = schedule.map((scheduleItem, index) => {
             if(index === position){
                 return {
                     ...scheduleItem, [field]: value
@@ -45,7 +45,7 @@ function LogInTeacher(){
             return scheduleItem;
         });
 
-        setScheduleItems(updatedScheduleItems);
+        setschedule(updatedschedule);
     }
 
     function signUp() {
@@ -60,7 +60,7 @@ function LogInTeacher(){
                 password,
                 description,
                 cost: Number(cost),
-                scheduleItems: scheduleItems
+                schedule: schedule,
             }).then(() => {
                 alert('Cadastro realizado com sucesso!')
             }).catch((err) => {
@@ -100,7 +100,7 @@ function LogInTeacher(){
                 </legend>
 
                     {
-                        scheduleItems.map((scheduleItem, index) => {
+                        schedule.map((scheduleItem, index) => {
                             return (
                                 <div key={index} className="schedule-item">
                                     <Select

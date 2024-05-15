@@ -16,4 +16,5 @@
     align-items: center;
     flex-direction: column;
     padding-top: 100px;
+    min-height: 80vh;
 }
