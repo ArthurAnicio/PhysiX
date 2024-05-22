@@ -7,7 +7,7 @@ interface ButtonParams extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 const Submit: React.FC<ButtonParams> = ({ label,...rest}) => {
   return (
-    <button {...rest}>{label}</button>
+    <button id="submit" {...rest}>{label}</button>
   );
 };
 

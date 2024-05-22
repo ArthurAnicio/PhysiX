@@ -7,7 +7,8 @@
     align-items: center;
 }
 #login-window{
-    width: 25%;
+    width: 40%;
+    min-width: 600px;
     padding-bottom: 60px;
     background-color: #fff;
     border-radius: 20px;
@@ -30,11 +31,66 @@
     width: 80%;
 }
 #login-window h1 {
-    font-size: 2em;
+    font-size: 1.6em;
+    font-weight: 500;
+}
+#schedule-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 0.3rem;
+    width: 80%;
+}
+#schedule-header p{
+    font-size: 1.2rem;
+    width: 50%;
+}
+#schedule-header button {
+    width: 50%;
+    border: none;
+    border-radius: 20px;
+    color: var(--roxo1);
+    background-color: #fff;
+    font-family: Poppins;
     font-weight: 600;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.schedule-item{
+    margin-bottom: 1rem;
+}
+#linha{
+    width: 100%;
+    height: 1px;
+    background-color: var(--roxo1);
 }
 
-button {
-    width: 80%;
-    margin-bottom: 40px;
+@media (max-width: 700px) {
+    #login-window {
+        width: 90%; 
+        min-width: 1px 
+    }
+    #login-window header {
+        height: 10vh; 
+        min-height: 10vh; 
+    }
+    #login-window h1 {
+        font-size: 1.4em; 
+    }
+    #schedule-header {
+        flex-direction: column;
+        align-items: center; 
+        width: 100%; 
+    }
+    #schedule-header p, #schedule-header button {
+        width: 100%; 
+        text-align: center; 
+    }
+    #schedule-header button {
+        margin-top: 0.5rem; 
+    }
+    #login-window input {
+        width: 80%; 
+    }
 }

@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import './styles.css';
 import Footer from '../../components/footer';
 import Header from '../../components/header';
+import Select from '../../components/select';
+import Input from '../../components/input';
 import TeacherItem, {Teacher} from '../../components/teacherItem';
 import api from '../../services/api';
 
@@ -37,19 +39,29 @@ function TeacherList(){
         <div>
             <Header path="/" title="Lista de Professores"/>
              <form id="teacherList-filters" onSubmit={searchTeachers}>
-                 <p>Dia</p>
-                 <p>Horário</p>
-                 <select value={week_day} onChange={(e) => {setWeekDay(parseInt(e.target.value))}}>
-                    <option value="0">Domingo</option>
-                    <option value="1">Segunda</option>
-                    <option value="2">Terça</option>
-                    <option value="3">Quarta</option>
-                    <option value="4">Quinta</option>
-                    <option value="5">Sexta</option>
-                    <option value="6">Sábado</option>
-                 </select>
-                <input type="time" value={time} onChange={e => {setTime(e.target.value)}}/>
-                <input type="submit" placeholder='Pesquisar'></input>
+                 <Select 
+                    value={week_day}
+                    label='Dia' 
+                    onChange={(e) => { setWeekDay(parseInt(e.target.value)); } }
+                    opitions={[
+                        { value: '0', label: 'Domingo' },
+                        { value: '1', label: 'Segunda-Feira' },
+                        { value: '2', label: 'Terça-Feira' },
+                        { value: '3', label: 'Quarta-Feira' },
+                        { value: '4', label: 'Quinta-Feira' },
+                        { value: '5', label: 'Sexta-Feira' },
+                        { value: '6', label: 'Sábado' },
+                    ]} 
+                />
+                <Input 
+                    id="from" 
+                    label="Horário" 
+                    type="time" 
+                    value={time}
+                    onChange={e => {setTime(e.target.value)}}
+                />
+                
+                <input id='pesquisar' type="submit" placeholder='Pesquisar'></input>
              </form>
              <div id='teacherList-container'>
                 {teachers.map((teacher: Teacher) =>

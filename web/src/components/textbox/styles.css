@@ -1,7 +1,7 @@
 input {
-    border-radius: 10px;
-    border: 2px solid #000;
-    height: 50px;
+    border-radius: 20px;
+    border: 2px solid var(--roxo1);
+    height: 3rem;
     font-size: 1.2em;
     font-family: inherit;
 }

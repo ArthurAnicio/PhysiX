@@ -49,8 +49,8 @@ function LogInStudent() {
           <h1>Senha</h1>
           <TextBox type="password" value={password} onChange={(e) => {setPassword(e.target.value)}}/>
           <Link to="" id="student-forgotpass">Esqueci minha senha</Link>
-          <Submit label="Entrar" onClick={validateLogin}/>
-          <Submit label="Cadastrar" onClick={signUp}/>
+          <Submit className="btn" label="Entrar" onClick={validateLogin}/>
+          <Submit className="btn" label="Cadastrar" onClick={signUp}/>
         </div>
       </div>
       <Footer />

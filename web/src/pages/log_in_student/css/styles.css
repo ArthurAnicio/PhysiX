@@ -6,7 +6,8 @@
     justify-content: center;
     align-items: center;
 }
-#login-window{
+
+#login-window {
     width: 25%;
     padding-bottom: 60px;
     background-color: #fff;
@@ -15,6 +16,7 @@
     flex-direction: column;
     align-items: center;
 }
+
 #login-window header {
     background-color: var(--roxo1);
     height: 7.5vh;
@@ -26,14 +28,17 @@
     align-items: center;
     width: 100%;
 }
-#login-window input{
+
+#login-window input {
     width: 80%;
 }
+
 #login-window h1 {
     font-size: 2em;
     font-weight: 600;
 }
-#student-forgotpass{
+
+#student-forgotpass {
     align-self: flex-end;
     color: var(--roxo1);
     text-decoration: none;
@@ -41,10 +46,36 @@
     transition: 0.5s;
     margin-bottom: 30px;
 }
+
 #student-forgotpass:hover {
     text-decoration: underline;
 }
-button {
+
+.btn {
     width: 80%;
-    margin-bottom: 40px;
+}
+
+@media (max-width: 700px) {
+    #login-window {
+        width: 90%; 
+        min-width: 1px; 
+    }
+    #login-window header {
+        height: 10vh; 
+        min-height: 10vh; 
+    }
+    #login-window h1 {
+        font-size: 1.6em; 
+    }
+    #student-forgotpass {
+        margin-right: 5%; 
+        font-size: 1em; 
+    }
+    #login-window input {
+        width: 100%;
+    }
+    .btn {
+        width: 80%; 
+        margin: 0.5rem;
+    }
 }

@@ -1,20 +1,57 @@
-#teacherList-filters{
+#teacherList-filters {
     display: grid;
     grid-template-columns: 1fr 1fr;
     padding: 50px;
     padding-top: 20px;
     padding-bottom: 20px;
 }
+
 #teacherList-filters select {
     margin-right: 20px;
 }
-#teacherList-container{
+
+#teacherList-container {
     background-image: url("../../assets/images/imgs/matriceLight.png");
     width: 100%;
+    border: none;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     padding-top: 100px;
     min-height: 80vh;
+}
+
+#pesquisar {
+    background-color: var(--roxo1);
+    grid-column: span 2; 
+    color: #fff;
+    border: none;
+    font-size: 2em;
+    font-family: Poppins;
+    width: 50%;
+    margin: 1rem auto;
+    border-radius: 20px;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+#pesquisar:hover {
+    cursor: pointer;
+    scale: 1.1;
+}
+
+@media (max-width: 700px) {
+    #teacherList-filters {
+        grid-template-columns: 1fr; 
+        padding: 20px; 
+    }
+    #pesquisar {
+        grid-column: span 1; 
+        font-size: 1.5em;
+    }
+    #teacherList-filters select {
+        margin-right: 0; 
+        margin-bottom: 10px; 
+    }
 }

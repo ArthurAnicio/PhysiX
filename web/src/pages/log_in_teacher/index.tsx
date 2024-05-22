@@ -92,20 +92,23 @@ function LogInTeacher(){
                 <h1>Descrição</h1>
                 <TextBox type="text" value={description} onChange={(e) => {setDescription(e.target.value)}}/>
                 <h1>Horário</h1>
-                <legend>
-                    Horários disponíveis
+                <div id='schedule-header'>
+                    <p>Horários disponíveis</p>
                     <button type="button" onClick={addNewScheduleItem}>
-                         + Novo horário
+                        + Novo horário
                     </button>
-                </legend>
+                </div> 
+                    
+                
 
                     {
                         schedule.map((scheduleItem, index) => {
                             return (
                                 <div key={index} className="schedule-item">
+                                    <div id='linha'/>
                                     <Select
                                         id="week_day"
-                                        label="Dia da semana"
+                                        label="Dia da semana:"
                                         value={scheduleItem.week_day}
                                         onChange={(e) => setScheduleItemValue(index, 'week_day', e.target.value)}
                                         opitions={[
@@ -120,14 +123,14 @@ function LogInTeacher(){
                                     />
                                     <Input 
                                         id="from" 
-                                        label="Das" 
+                                        label="Das:" 
                                         type="time" 
                                         value={scheduleItem.from}
                                         onChange={(e) => setScheduleItemValue(index, 'from', e.target.value)}
                                     />
                                     <Input 
                                         id="to" 
-                                        label="Até" 
+                                        label="Até:" 
                                         type="time" 
                                         value={scheduleItem.to}
                                         onChange={(e) => setScheduleItemValue(index, 'to', e.target.value)}
@@ -136,7 +139,7 @@ function LogInTeacher(){
                             )
                         })
                     }
-                    <Submit label="Cadastrar" onClick={signUp}/>
+                    <Submit className='btn' label="Cadastrar" onClick={signUp}/>
                 
                 </div>
         
