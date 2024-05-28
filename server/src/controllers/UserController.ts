@@ -10,12 +10,16 @@ export default class UserController{
             email,
             password
         } = req.query;
-
-        const user = await db('users').where({name, email, password }).first();
-        if(!user){
-            return res.status(300).json('Usuário ou senha incorretos');
+        try{
+            const user = await db('users').where({name, email, password }).first();
+            if(!user){
+                return res.status(400).json('Usuário ou senha incorretos');
+            }
+            return res.status(200).json(user);
         }
-        return res.json(user);
+        catch(err){
+            return res.status(400).json(`Erro ao acessar o banco: ${err}`);
+        }
     }
 
     async create(req: Request, res: Response){
@@ -38,10 +42,10 @@ export default class UserController{
                 password
             });
             await trx.commit();
-            return res.status(200).json('Mandou bem XD');
+            return res.status(200).json('Usuário criado com sucesso');
         }catch(err){
             await trx.rollback();
-            return res.status(400).json('Mandou mal :/');
+            return res.status(400).json(`Erro ao criar usuário:${err}`);
         }}
     }
 }

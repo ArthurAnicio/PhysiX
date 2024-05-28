@@ -8,6 +8,7 @@ const teacherController = new TeacherController();
 
 routes.get('/teacher', teacherController.index);
 routes.post('/teacher', teacherController.create)
+routes.get('/teacher-login', teacherController.login)
 
 routes.get('/user', userController.index);
 routes.post('/user', userController.create)

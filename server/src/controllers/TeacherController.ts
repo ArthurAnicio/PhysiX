@@ -16,24 +16,54 @@ export default class TeacherController{
         const time = filters.time as string;
 
         if(!week_days || !time){
-            return res.status(400).json('Missing filters to search classes')
+            return res.status(400).json('Campos vazios')
         }
         else{
-            const timeInMinutes = convertHourToMinutes(time);
-            
-            const classes = await db('classes')
-               .whereExists(function(){
-                    this.select('class_schedule.*')
-                       .from('class_schedule')
-                       .whereRaw('`class_schedule`.`class_id` = `classes`.`id`')
-                       .whereRaw('`class_schedule`.`week_day` = ?', [week_days])
-                       .whereRaw('`class_schedule`.`from` <=?', [timeInMinutes])
-                       .whereRaw('`class_schedule`.`to` >?', [timeInMinutes])
-                })
-               .join('teacher', 'teacher.id', '=', 'classes.teacher_id')
-               .select(['classes.*', 'teacher.name', 'teacher.email', 'teacher.number', 'classes.cost', 'classes.description', 'teacher.id as teacher_id'])
-               
-               return res.json(classes)
+            try {
+                const timeInMinutes = convertHourToMinutes(time);
+                const classes = await db('classes')
+                .whereExists(function(){
+                        this.select('class_schedule.*')
+                        .from('class_schedule')
+                        .whereRaw('`class_schedule`.`class_id` = `classes`.`id`')
+                        .whereRaw('`class_schedule`.`week_day` = ?', [week_days])
+                        .whereRaw('`class_schedule`.`from` <=?', [timeInMinutes])
+                        .whereRaw('`class_schedule`.`to` >?', [timeInMinutes])
+                    })
+                .join('teacher', 'teacher.id', '=', 'classes.teacher_id')
+                .select(['classes.*', 'teacher.name', 'teacher.email', 'teacher.number', 'classes.cost', 'classes.description', 'teacher.id as teacher_id'])
+                
+                return res.json(classes)
+            }
+            catch (err){
+                return res.status(400).json(`Erro ao acessar o banco:${err}`);
+            }
+        }
+    }
+
+    async login(req: Request, res: Response) {
+
+        const {
+            name,
+            email,
+            password
+        } = req.query;
+
+        if (!name || !email || !password) {
+            return res.status(400).json('Campos vazios')
+        }
+        else {
+            try {
+                const quantVerify = await db('teacher').where({ name, email, password })
+                if (quantVerify.length > 0){
+                    return res.status(200).json('Login efetuado com sucesso')
+                }
+                else {
+                    return res.status(400).json('Usuário ou senha incorretos')
+                }
+            }catch (err){
+                return res.status(400).json(`Erro ao acessar o banco:${err}`);
+            }
         }
     }
 
@@ -54,7 +84,7 @@ export default class TeacherController{
 
         if (quantVerify.length > 0){
             
-            return res.status(400).json('professor já registrado no sistema');
+            return res.status(400).json('Professor já registrado no sistema');
 
         }else{
            
@@ -88,11 +118,11 @@ export default class TeacherController{
                 await trx('class_schedule').insert(classSchedule);
 
                 await trx.commit();
-                return res.status(201).json('professor registrado com sucesso');
+                return res.status(201).json('Professor registrado com sucesso');
             
             }catch(err){
                await trx.rollback();
-                return res.status(400).json('erro ao registrar professor');
+                return res.status(400).json(`Erro ao registrar professor: ${err}`);
             }
 
 
