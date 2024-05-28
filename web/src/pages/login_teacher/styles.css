@@ -1,5 +1,5 @@
-#student-container {
-    background-image: url("../../../assets/images/imgs/matriceLight.png");
+#teacher-container {
+    background-image: url("../../assets/images/imgs/matriceLight.png");
     width: 100%;
     padding: 80px 0;
     display: flex;
@@ -38,7 +38,7 @@
     font-weight: 600;
 }
 
-#student-forgotpass {
+#create-teacher {
     align-self: flex-end;
     color: var(--roxo1);
     text-decoration: none;
@@ -47,7 +47,7 @@
     margin-bottom: 30px;
 }
 
-#student-forgotpass:hover {
+#create-teacher:hover {
     text-decoration: underline;
 }
 
@@ -68,7 +68,7 @@
     #login-window h1 {
         font-size: 1.6em; 
     }
-    #student-forgotpass {
+    #create-teacher {
         margin-right: 5%; 
         font-size: 1em; 
     }

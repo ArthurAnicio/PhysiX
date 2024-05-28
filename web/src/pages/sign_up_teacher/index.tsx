@@ -11,7 +11,7 @@ import Input from '../../components/input';
 import Footer from '../../components/footer';
 
 const smlIcon = require("../../assets/images/imgs/pequenoClaroPng.png")
-function LogInTeacher(){
+function SignUpTeacher(){
     const history = useNavigate();
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
@@ -63,6 +63,7 @@ function LogInTeacher(){
                 schedule: schedule,
             }).then(() => {
                 alert('Cadastro realizado com sucesso!')
+                history('/log_in_teacher')
             }).catch((err) => {
                 alert('Erro no cadastro!');
                 console.log(err);
@@ -149,4 +150,4 @@ function LogInTeacher(){
         
     )
 };
-export default LogInTeacher;
+export default SignUpTeacher;
