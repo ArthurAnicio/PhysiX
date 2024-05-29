@@ -5,7 +5,7 @@ import { useState } from "react";
 import "./styles.css"
 import { Link } from "react-router-dom";
 import Submit from "../../components/submit";
-import axios from "axios";
+import api from "../../services/api";
 
 const smlIcon = require("../../assets/images/imgs/pequenoClaroPng.png")
 function ForgotPassword() {
@@ -13,11 +13,7 @@ function ForgotPassword() {
 
     async function sendEmail() {
         try {
-            await axios.get('/forgot-password',{
-                params: {
-                    email: email
-                }
-            });
+            await api.post('/forgot-password',{email});
             alert("Email enviado com sucesso!");
         }
         catch (err) {
