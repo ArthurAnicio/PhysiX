@@ -13,5 +13,6 @@ routes.get('/teacher-login', teacherController.login)
 routes.get('/user', userController.index);
 routes.post('/user', userController.create)
 routes.post('/forgot-password', userController.forgotPass)
+routes.post('/reset-pass',userController.passReset)
 
 export default routes;
