@@ -8,6 +8,8 @@ import LogInTeacher from "./pages/login_teacher";
 import StudentArea from "./pages/student_area";
 import TeacherArea from "./pages/teacher_area";
 import TeacherList from "./pages/teacher_list";
+import ForgotPassword from "./pages/forgot_password";
+import ResetPass from "./pages/reset_pass";
 
 
 function RoutesWeb() {
@@ -22,6 +24,8 @@ function RoutesWeb() {
         <Route path="/student_area" Component={StudentArea} />
         <Route path="/teacher_area" Component={TeacherArea} />
         <Route path="/teacher_list" Component={TeacherList} />
+        <Route path="/forgot_password" Component={ForgotPassword} />
+        <Route path="/reset_pass" Component={ResetPass} />
       </Routes>
     </BrowserRouter>
   );

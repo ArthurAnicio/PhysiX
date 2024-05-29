@@ -37,17 +37,33 @@
     font-size: 2em;
     font-weight: 600;
 }
-
-#create-student {
+#password-forgot {
     align-self: flex-end;
     color: var(--roxo1);
+    text-decoration: none;
+    transition: 0.5s;
+    font-size: 0.9em;
+    margin-right: 10%;
+}
+#password-forgot:hover {
+    text-decoration: underline;
+}
+#create-student {
+    align-self: flex-end;
+    color: #000;
     text-decoration: none;
     margin-right: 10%;
     transition: 0.5s;
     margin-bottom: 30px;
+    font-size: 0.9em;
+}
+#create-student a {
+    color: var(--roxo1);
+    text-decoration: none;
+    transition: 0.5s;
 }
 
-#create-student:hover {
+#create-student a:hover {
     text-decoration: underline;
 }
 

@@ -1,0 +1,61 @@
+#password-container {
+    background-image: url("../../assets/images/imgs/matriceLight.png");
+    width: 100%;
+    padding: 80px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+#password-window {
+    width: 25%;
+    padding-bottom: 60px;
+    background-color: #fff;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+#password-window header {
+    background-color: var(--roxo1);
+    height: 7.5vh;
+    min-height: 7.5vh;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+#password-window input {
+    width: 80%;
+}
+#password-window h2 {
+    font-size: 1.5em;
+    font-weight: 600;
+    margin-top: 30px;
+
+}
+#password-window p {
+    width: 80%;
+}
+#login-return {
+    align-self: flex-end;
+    color: var(--roxo1);
+    text-decoration: none;
+    transition: 0.5s;
+    font-size: 0.9em;
+    margin-top: 10px;
+    margin-right: 10%;
+    margin-bottom: 50px;
+}
+#login-return:hover {
+    text-decoration: underline;
+}
+.btn {
+    width: 80%;
+    margin-bottom: 10px;
+}
