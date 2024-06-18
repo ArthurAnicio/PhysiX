@@ -23,7 +23,7 @@ function LogInStudent() {
           history('/student_area', {state:{userId: response.data.id}})
         }
         else{
-            alert('Falha no login')
+            alert('Usuário não encontrado')
         }
     }
     return (

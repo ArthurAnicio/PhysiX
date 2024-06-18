@@ -23,7 +23,7 @@ function LogInTeacher() {
           history('/teacher_area', {state:{teacherId: response.data.id}})
         }
         else{
-            alert('Falha no login')
+            alert('Professor não encontrado')
         }
     }
     return (
