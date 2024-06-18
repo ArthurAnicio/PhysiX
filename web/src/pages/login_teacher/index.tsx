@@ -16,9 +16,13 @@ function LogInTeacher() {
     const [email, setEmail] = useState('')
 
     async function validateLogin() {
-        const validateLogin = await api.get('/teacher-login', {params : { name, email, password}}).catch((error) => {alert('Falha no login')})
-        if(validateLogin){
-          history('/teacher_area')
+        const response = await api.get('/teacher-login', {params : { name, email, password}})
+        
+        if(response.status === 200){
+          history('/teacher_area', {state:{teacherId: response.data.id}})
+        }
+        else{
+            alert('Falha no login')
         }
     }
     return (
