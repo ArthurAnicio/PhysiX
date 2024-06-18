@@ -16,9 +16,13 @@ function LogInStudent() {
     const [email, setEmail] = useState('')
 
     async function validateLogin() {
-        const validateLogin = await api.get('/user', {params : { name, email, password}}).catch((error) => {alert('Falha no login')})
-        if(validateLogin){
-          history('/student_area')
+        const response = await api.get('/user', {params : { name, email, password}})
+        
+        if(response.status === 200){
+          history('/student_area', {state:{userId: response.data.id}})
+        }
+        else{
+            alert('Falha no login')
         }
     }
     return (

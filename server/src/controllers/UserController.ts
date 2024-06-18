@@ -101,4 +101,22 @@ export default class UserController{
             return res.status(404).json('Token inválido!');
         }
     }
+
+
+    async getUser(req: Request, res: Response){
+        const {id} = req.query;
+        try {
+            
+            const user = await db('users').where({id}).first();
+            
+            if (!user) {
+                return res.status(404).json('User not found')
+            }
+            return res.status(200).json({user:user.name,email:user.email});
+        }
+        catch (err) {
+
+            return res.status(400).json(`Erro ao acessar o banco: ${err}`);
+        }
+    }
 }
