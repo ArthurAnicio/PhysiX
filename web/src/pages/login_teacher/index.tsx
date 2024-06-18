@@ -17,8 +17,9 @@ function LogInTeacher() {
 
     async function validateLogin() {
         const response = await api.get('/teacher-login', {params : { name, email, password}})
-        
+        console.log(response.data);
         if(response.status === 200){
+          console.log(response.data.id)  
           history('/teacher_area', {state:{teacherId: response.data.id}})
         }
         else{

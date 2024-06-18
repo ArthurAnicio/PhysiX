@@ -40,7 +40,7 @@ function TeacherArea() {
     }
     return (
         <div>
-            <Header title="Área do Aluno" path="/"/>
+            <Header title="Área do Professor" path="/"/>
             <div id="area-container">
               <h1>Bem vindo, {teachername}!</h1>
             </div>
