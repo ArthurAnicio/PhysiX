@@ -2,10 +2,42 @@ import {Request, Response} from 'express';
 import db from '../database/connection';
 import nodemailer from 'nodemailer';
 import jwt from 'jsonwebtoken'
-import dotenv from 'dotenv'
+import dotenv from 'dotenv';
+import multer, { FileFilterCallback, Multer } from 'multer';
+import path from 'path';
+import fs from 'fs';
 dotenv.config();
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, '././uploads/useravatars')
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now()+path.extname(file.originalname))
+    }
+})
+const upload = multer({
+    storage:storage,
+    fileFilter:function (req,file,cb){
+        checkFileType(file,cb)
+    }
+
+})
+function checkFileType(file:Express.Multer.File,cb:FileFilterCallback){
+    const filetypes = /jpeg|jpg|png/;
+    const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+    const mimetype = filetypes.test(file.mimetype);
+    if(mimetype && extname){
+        return cb(null,true);
+    }
+    else{
+        cb(new Error('Error: Apenas imagens são permitidas'));
+    }
+}
+
+
 
 export default class UserController{
+    
     async index(req: Request, res: Response){
         const {
             name,
@@ -41,7 +73,8 @@ export default class UserController{
             await trx('users').insert({
                 name,
                 email,
-                password
+                password,
+                avatar: "uploads\\useravatars\\default.png"
             });
             await trx.commit();
             return res.status(200).json('Usuário criado com sucesso');
@@ -112,11 +145,54 @@ export default class UserController{
             if (!user) {
                 return res.status(404).json('User not found')
             }
-            return res.status(200).json({user:user.name,email:user.email});
+            return res.status(200).json({user:user.name,email:user.email,id:user.id,avatar:user.avatar});
         }
         catch (err) {
 
             return res.status(400).json(`Erro ao acessar o banco: ${err}`);
+        }
+    }
+
+    async createAvatar(req:Request, res:Response) {
+        async function registerAvatar(avatarPath:string){
+            await db('users').where({id:parseInt(req.body.id)}).update({avatar:avatarPath})
+            
+        }
+        try{
+        
+            upload.single('avatar')(req,res,(err) =>{
+            if(err) {
+                return res.status(400).json({message: `Error: ${err}`})
+            } else if (err instanceof multer.MulterError) {
+                return res.status(400).json({message: `Multer Erro: ${err}`})
+            }
+                if(req.file){
+                
+                registerAvatar(req.file.path)
+                return res.status(200).json({message: 'parabeinx'})
+                }
+        })
+            
+            
+        } catch(err) {
+            return res.status(400).json({message:`Erro: ${err}`})
+        }
+
+    }
+    async getImage(req: Request,res: Response) {
+        try {
+            if(req.query.route){
+                const avatarRoute:string = req.query.route.toString()
+                const filepath = path.join(__dirname,'..','..',avatarRoute);
+                if (fs.existsSync(filepath)){
+                    res.sendFile(filepath)
+                } else{
+                    res.status(404).json('Image not found')
+                }
+            }
+            
+        } catch(err) {
+            return res.status(400).json(`Erro: ${err}`)
         }
     }
 }
