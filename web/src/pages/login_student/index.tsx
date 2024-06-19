@@ -17,12 +17,13 @@ function LogInStudent() {
 
     async function validateLogin() {
         const response = await api.get('/user', {params : { name, email, password}})
-        
+        console.log(response.data);
         if(response.status === 200){
+          console.log(response.data.id) 
           history('/student_area', {state:{userId: response.data.id}})
         }
         else{
-            alert('Falha no login')
+            alert('Usuário não encontrado')
         }
     }
     return (

@@ -53,16 +53,15 @@ export default class TeacherController{
             return res.status(400).json('Campos vazios')
         }
         else {
-            try {
-                const quantVerify = await db('teacher').where({ name, email, password })
-                if (quantVerify.length > 0){
-                    return res.status(200).json('Login efetuado com sucesso')
+            try{
+                const teacher = await db('teacher').where({name, email, password }).first();
+                if(!teacher){
+                    return res.status(400).json('Usuário ou senha incorretos');
                 }
-                else {
-                    return res.status(400).json('Usuário ou senha incorretos')
-                }
-            }catch (err){
-                return res.status(400).json(`Erro ao acessar o banco:${err}`);
+                return res.status(200).json(teacher);
+            }
+            catch(err){
+                return res.status(400).json(`Erro ao acessar o banco: ${err}`);
             }
         }
     }
@@ -126,6 +125,23 @@ export default class TeacherController{
             }
 
 
+        }
+    }
+
+    async getTeacher(req: Request, res: Response){
+        const {id} = req.query;
+        try {
+            
+            const teacher = await db('teacher').where({id}).first();
+            
+            if (!teacher){
+                return res.status(404).json('teacher not found')
+            }
+            return res.status(200).json({teacher:teacher.name,email:teacher.email});
+        }
+        catch (err) {
+
+            return res.status(400).json(`Erro ao acessar o banco: ${err}`);
         }
     }
 }
