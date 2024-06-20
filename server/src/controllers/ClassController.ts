@@ -10,7 +10,7 @@ export default class ClassController{
             return res.status(400).json('Informe o id da turma');
         }else{
             try {
-                console.log(id)
+                
                 const classSchedules = await db('class_schedule')
                     .join('classes', 'class_schedule.class_id', 'classes.id')
                     .join('teacher', 'classes.teacher_id', 'teacher.id')

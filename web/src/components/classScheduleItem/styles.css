@@ -1,7 +1,43 @@
 #class-schedule-item{
-    height: 20vh;
+    padding: 2rem;
+    margin: 2rem 0;
     width: 50vw;
     border-radius: 20px;
     background-color: gray;
 
 }
+
+#edit{
+    width: 10%;
+    height: 3vh;
+    background-color: var(--roxo1);
+    color: #fff;
+    font-size: 1.2rem;
+    border: none !important;
+    border-radius: 10px;
+    font-family: Poppins;
+    margin: 1vh 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+#edit:hover{
+    background-color: var(--roxo2);
+    scale: 1.05;
+}
+
+select {
+    width: 30%;
+    text-align: center;
+    height: 2.6rem;
+    margin-top: 0.8rem;
+    margin-left: 0.5rem;
+    border-radius: 0.8rem;
+    border: 1px solid var(--roxo1);
+    outline: 0;
+    padding: 0 1.6rem;
+    font: 1.6rem Poppins;
+  }

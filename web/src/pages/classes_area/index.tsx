@@ -15,18 +15,29 @@ function ClassesArea() {
     useEffect(() => {
         async function setUp() {
             const { id } = location.state || {};
-            const response = await api.get('/class', { params: { id } });
-            setClassSchedule(response.data);
+            console.log('Fetching classes for teacher id:', id);
+            try {
+                const response = await api.get('/class', { params: { id } });
+                console.log('Response data:', response.data);
+                setClassSchedule(response.data);
+            } catch (error) {
+                console.error('Error fetching classes:', error);
+            }
         }
         setUp();
     }, [location.state]);
+
+    useEffect(() => {
+        console.log('Class schedule updated:', classSchedule);
+    }, [classSchedule]);
 
     return (
         <div>
             <Header path="/" title="Suas Aulas" />
             <div id="classes-container">
                 {
-                    classSchedule.map((schedule) => {
+                    classSchedule.map((schedule, index) => {
+                        console.log(`Rendering class schedule item ${index}:`, schedule);
                         return (
                             <ClassScheduleItem key={schedule.id} classSchedule={schedule} />
                         );
