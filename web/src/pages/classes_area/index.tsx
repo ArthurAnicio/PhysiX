@@ -14,8 +14,8 @@ function ClassesArea() {
 
     useEffect(() => {
         async function setUp() {
-            const teacherId = location.state || 0;
-            const response = await api.get('/class', { params: { teacherId } });
+            const { id } = location.state || {};
+            const response = await api.get('/class', { params: { id } });
             setClassSchedule(response.data);
         }
         setUp();
@@ -29,13 +29,13 @@ function ClassesArea() {
                     classSchedule.map((schedule) => {
                         return (
                             <ClassScheduleItem key={schedule.id} classSchedule={schedule} />
-                        )
+                        );
                     })
                 }
             </div>
             <Footer />
         </div>
-    )
+    );
 }
 
 export default ClassesArea;
