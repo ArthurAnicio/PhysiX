@@ -18,6 +18,8 @@ routes.post('/user', userController.create)
 routes.post('/forgot-password', userController.forgotPass)
 routes.post('/reset-pass',userController.passReset)
 routes.get('/getuser',userController.getUser)
+routes.post('/avatar',userController.createAvatar)
+routes.get('/avatar', userController.getImage)
 
 routes.get('/class', classController.index)
 routes.post('/class', classController.create)
