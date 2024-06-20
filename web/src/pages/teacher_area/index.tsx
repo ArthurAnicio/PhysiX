@@ -3,12 +3,9 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./styles.css";
 import Header from "../../components/header";
 import Footer from "../../components/footer";
-import Search from "../../assets/images/icons/search";
-import TextBox from "../../components/textbox";
-import Submit from "../../components/submit";
 import api from "../../services/api";
 
-const smlIcon = require("../../assets/images/imgs/pequenoClaroPng.png")
+
 
 function TeacherArea() {
     const location = useLocation();
@@ -38,11 +35,18 @@ function TeacherArea() {
             console.log(error)
         }
     }
+
+    async function sendToClassArea(){
+        const {teacherId} = location.state || 0;
+        history('/classes_area', {state:{teacherId: teacherId}})
+    }
+
     return (
         <div>
             <Header title="Área do Professor" path="/"/>
             <div id="area-container">
               <h1>Bem vindo, {teachername}!</h1>
+              <button onClick={sendToClassArea}></button>
             </div>
             <Footer/>
         </div>

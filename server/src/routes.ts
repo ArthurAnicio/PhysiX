@@ -21,5 +21,6 @@ routes.get('/getuser',userController.getUser)
 
 routes.get('/class', classController.index)
 routes.post('/class', classController.create)
+routes.put('/class', classController.update)
 
 export default routes;

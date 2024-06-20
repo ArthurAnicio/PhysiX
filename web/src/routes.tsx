@@ -10,6 +10,7 @@ import TeacherArea from "./pages/teacher_area";
 import TeacherList from "./pages/teacher_list";
 import ForgotPassword from "./pages/forgot_password";
 import ResetPass from "./pages/reset_pass";
+import ClassesArea from "./pages/classes_area";
 
 
 function RoutesWeb() {
@@ -26,6 +27,7 @@ function RoutesWeb() {
         <Route path="/teacher_list" Component={TeacherList} />
         <Route path="/forgot_password" Component={ForgotPassword} />
         <Route path="/reset_pass" Component={ResetPass} />
+        <Route path="/classes_area" Component={ClassesArea} />
       </Routes>
     </BrowserRouter>
   );

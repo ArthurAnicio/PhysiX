@@ -17,13 +17,14 @@ function TeacherList(){
         e.preventDefault();
 
         if (time != '' && week_day != undefined) {
-            try {const response = await api.get('/teacher', {
+            try {
+                const response = await api.get('/teacher', {
                 params: {
                 week_day,
                 time
                 }
             });
-        setTeachers(response.data)
+            setTeachers(response.data)
         
         }
         catch(err) {
