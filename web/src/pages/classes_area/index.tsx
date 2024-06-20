@@ -10,39 +10,103 @@ const smlIcon = require("../../assets/images/imgs/pequenoClaroPng.png");
 
 function ClassesArea() {
     const [classSchedule, setClassSchedule] = useState<ClassSchedule[]>([]);
+    const [showForm, setShowForm] = useState(false); // Estado para controlar a exibição do formulário
+    const [newClassSchedule, setNewClassSchedule] = useState({
+        week_day: '',
+        from: '',
+        to: ''
+    });
     const location = useLocation();
 
     useEffect(() => {
-        async function setUp() {
+        async function fetchClassSchedules() {
             const { id } = location.state || {};
-            console.log('Fetching classes for teacher id:', id);
             try {
                 const response = await api.get('/class', { params: { id } });
-                console.log('Response data:', response.data);
                 setClassSchedule(response.data);
             } catch (error) {
                 console.error('Error fetching classes:', error);
             }
         }
-        setUp();
+        fetchClassSchedules();
     }, [location.state]);
 
-    useEffect(() => {
-        console.log('Class schedule updated:', classSchedule);
-    }, [classSchedule]);
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
+        const { name, value } = e.target;
+        setNewClassSchedule(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
+    };
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        try {
+            const { id } = location.state || {};
+            const response = await api.post('/class', {
+                ...newClassSchedule,
+                class_id: id
+            });
+            setClassSchedule([...classSchedule, response.data]);
+            setNewClassSchedule({
+                week_day: '',
+                from: '',
+                to: ''
+            });
+            setShowForm(false); // Esconde o formulário após a criação da classSchedule
+        } catch (error) {
+            console.error('Error creating class schedule:', error);
+        }
+    };
 
     return (
         <div>
             <Header path="/" title="Suas Aulas" />
             <div id="classes-container">
-                {
-                    classSchedule.map((schedule, index) => {
-                        console.log(`Rendering class schedule item ${index}:`, schedule);
-                        return (
-                            <ClassScheduleItem key={schedule.id} classSchedule={schedule} />
-                        );
-                    })
-                }
+                {classSchedule.map((schedule, index) => (
+                    <ClassScheduleItem key={schedule.id} classSchedule={schedule} />
+                ))}
+                {showForm && (
+                    <form onSubmit={handleSubmit}>
+                        <section>
+                            <select
+                                name="week_day"
+                                value={newClassSchedule.week_day}
+                                onChange={handleInputChange}
+                                required
+                            >
+                                <option value="">Selecione</option>
+                                <option value="0">Domingo</option>
+                                <option value="1">Segunda-feira</option>
+                                <option value="2">Terça-feira</option>
+                                <option value="3">Quarta-feira</option>
+                                <option value="4">Quinta-feira</option>
+                                <option value="5">Sexta-feira</option>
+                                <option value="6">Sábado</option>
+                            </select>
+                            <input
+                                type="time"
+                                name="from"
+                                placeholder="De"
+                                value={newClassSchedule.from}
+                                onChange={handleInputChange}
+                                required
+                            />
+                            <input
+                                type="time"
+                                name="to"
+                                placeholder="Até"
+                                value={newClassSchedule.to}
+                                onChange={handleInputChange}
+                                required
+                            />
+                        </section>
+                        <button type="submit">+</button>
+                    </form>
+                )}
+                {!showForm && (
+                    <button  id="add" onClick={() => setShowForm(true)}>Novo Horário</button>
+                )}
             </div>
             <Footer />
         </div>

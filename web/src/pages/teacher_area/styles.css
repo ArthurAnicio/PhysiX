@@ -1,0 +1,17 @@
+#class{
+    width: 30vw;
+    height: 10vh;
+    border: none;
+    border-radius: 10px;
+    background-color: var(--roxo1);
+    color: #fff;
+    cursor: pointer;
+    font-family: Poppins;
+    font-size: 2rem;
+    transition: 0.2s;
+}
+
+#class:hover {
+    background-color: var(--roxo2);
+    scale: 1.05;
+}

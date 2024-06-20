@@ -44,7 +44,7 @@ function TeacherArea() {
             <Header title="Área do Professor" path="/"/>
             <div id="area-container">
                 <h1>Bem vindo, {teacherName}!</h1>
-                <button onClick={sendToClassArea}>Ver Aulas</button>
+                <button  id="class" onClick={sendToClassArea}>Ver Aulas</button>
             </div>
             <Footer />
         </div>
