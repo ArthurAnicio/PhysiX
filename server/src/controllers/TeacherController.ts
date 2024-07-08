@@ -1,11 +1,46 @@
 import {Response, Request} from 'express';
 import db from '../database/connection';
 import convertHourToMinutes from '../utils/convertHourToMinutes';
+import multer, { FileFilterCallback, Multer } from 'multer';
+import path from 'path';
+import fs from 'fs';
+import dotenv from 'dotenv';
+dotenv.config();
 interface ScheduleItem{
     week_day: number;
     from: string;
     to: string;
 }
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, '././uploads/teacheravatars')
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now()+path.extname(file.originalname))
+    }
+})
+const upload = multer({
+    storage:storage,
+    fileFilter:function (req,file,cb){
+        checkFileType(file,cb)
+    }
+
+})
+function checkFileType(file:Express.Multer.File,cb:FileFilterCallback){
+    const filetypes = /jpeg|jpg|png/;
+    const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+    const mimetype = filetypes.test(file.mimetype);
+    if(mimetype && extname){
+        return cb(null,true);
+    }
+    else{
+        cb(new Error('Error: Apenas imagens são permitidas'));
+    }
+}
+
+
+
 
 export default class TeacherController{
 
@@ -92,7 +127,8 @@ export default class TeacherController{
                     name,
                     email,
                     password,
-                    number
+                    number,
+                    avatar: "uploads\\teacheravatars\\default.png"
                 })
 
                 const teacher_id = insertedTeacherId[0];
@@ -142,6 +178,49 @@ export default class TeacherController{
         catch (err) {
 
             return res.status(400).json(`Erro ao acessar o banco: ${err}`);
+        }
+    }
+
+    async createAvatar(req:Request, res:Response) {
+        async function registerAvatar(avatarPath:string){
+            await db('users').where({id:parseInt(req.body.id)}).update({avatar:avatarPath})
+            
+        }
+        try{
+        
+            upload.single('avatar')(req,res,(err) =>{
+            if(err) {
+                return res.status(400).json({message: `Error: ${err}`})
+            } else if (err instanceof multer.MulterError) {
+                return res.status(400).json({message: `Multer Erro: ${err}`})
+            }
+                if(req.file){
+                
+                registerAvatar(req.file.path)
+                return res.status(200).json({message: 'parabeinx'})
+                }
+        })
+            
+            
+        } catch(err) {
+            return res.status(400).json({message:`Erro: ${err}`})
+        }
+
+    }
+    async getImage(req: Request,res: Response) {
+        try {
+            if(req.query.route){
+                const avatarRoute:string = req.query.route.toString()
+                const filepath = path.join(__dirname,'..','..',avatarRoute);
+                if (fs.existsSync(filepath)){
+                    res.sendFile(filepath)
+                } else{
+                    res.status(404).json('Image not found')
+                }
+            }
+            
+        } catch(err) {
+            return res.status(400).json(`Erro: ${err}`)
         }
     }
 }

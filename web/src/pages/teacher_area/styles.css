@@ -15,3 +15,6 @@
     background-color: var(--roxo2);
     scale: 1.05;
 }
+#submit {
+    margin-bottom: 50px;
+}

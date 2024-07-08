@@ -33,6 +33,7 @@ function StudentArea() {
                 setUsername(user.user)
                 getAvatar(user.avatar)
                 
+                
             } else{
                 alert('Falha no login! Por favor tente novamente.')
                 history('/log_in_student')

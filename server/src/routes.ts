@@ -12,6 +12,7 @@ routes.get('/teacher', teacherController.index);
 routes.post('/teacher', teacherController.create)
 routes.get('/teacher-login', teacherController.login)
 routes.get('/getTeacher', teacherController.getTeacher)
+routes.post('/teacher-avatar',userController.createAvatar)
 
 routes.get('/user', userController.index);
 routes.post('/user', userController.create) 
