@@ -107,11 +107,11 @@ const ClassScheduleItem: React.FC<ClassScheduleItemProps> = ({ classSchedule }) 
             api.delete(`/class?id=${id}`)
                 .then(res => {
                     console.log(res);
-                    setMessage('Aula excluída com sucesso.');
+                    
                 })
                 .catch(err => {
                     console.log(err);
-                    setMessage('Erro ao excluir a aula.');
+                    
                 });
         }
     
