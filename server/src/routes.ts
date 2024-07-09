@@ -25,5 +25,7 @@ routes.get('/avatar', userController.getImage)
 routes.get('/class', classController.index)
 routes.post('/class', classController.create)
 routes.put('/class', classController.update)
+routes.delete('/class', classController.delete);
+
 
 export default routes;

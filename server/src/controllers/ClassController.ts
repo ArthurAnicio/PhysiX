@@ -102,5 +102,25 @@ export default class ClassController{
 
         }
     }
+    async delete(req: Request, res: Response) {
+        const { id } = req.query;
 
+        if (!id) {
+            return res.status(400).json('Informe o id da aula');
+        }
+
+        try {
+            const classExists = await db('class_schedule').where('id', id).first();
+
+            if (!classExists) {
+                return res.status(400).json('A aula fornecida não existe');
+            }
+
+            await db('class_schedule').where('id', id).delete();
+
+            return res.status(200).json('Aula excluída com sucesso');
+        } catch (err) {
+            return res.status(400).json(`Erro ao acessar o banco: ${err}`);
+        }
+    }
 }

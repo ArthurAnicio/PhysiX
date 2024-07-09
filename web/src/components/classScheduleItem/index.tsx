@@ -97,7 +97,24 @@ const ClassScheduleItem: React.FC<ClassScheduleItemProps> = ({ classSchedule }) 
            .catch(err => {
                 console.log(err);
             })
-    }
+
+            setIsEditable(!isEditable);
+            {}
+        }
+        function deleteSchedule() {
+            const id = classSchedule.id;
+    
+            api.delete(`/class?id=${id}`)
+                .then(res => {
+                    console.log(res);
+                    setMessage('Aula excluída com sucesso.');
+                })
+                .catch(err => {
+                    console.log(err);
+                    setMessage('Erro ao excluir a aula.');
+                });
+        }
+    
 
     return (
         <div id="class-schedule-item">
@@ -125,6 +142,9 @@ const ClassScheduleItem: React.FC<ClassScheduleItemProps> = ({ classSchedule }) 
                 Editar
             </button>
             {isEditable && <Submit onClick={updateSchedule} label="Atualizar" />}
+            <button id="delete" onClick={deleteSchedule}>
+                Excluir
+            </button>
         </div>
     );
 }

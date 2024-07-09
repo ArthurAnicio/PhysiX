@@ -28,6 +28,7 @@ function RoutesWeb() {
         <Route path="/forgot_password" Component={ForgotPassword} />
         <Route path="/reset_pass" Component={ResetPass} />
         <Route path="/classes_area" Component={ClassesArea} />
+        
       </Routes>
     </BrowserRouter>
   );
