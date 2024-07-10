@@ -14,10 +14,12 @@ export interface ClassSchedule {
 }
 
 interface ClassScheduleItemProps {
+    
     classSchedule: ClassSchedule;
+    onDelete: (id: number) => void;
 }
 
-const ClassScheduleItem: React.FC<ClassScheduleItemProps> = ({ classSchedule }) => {
+const ClassScheduleItem: React.FC<ClassScheduleItemProps> = ({ classSchedule,onDelete  }) => {
     const [isEditable, setIsEditable] = useState(false);
     const [from, setFrom] = useState(classSchedule.from);
     const [to, setTo] = useState(classSchedule.to);
@@ -102,17 +104,7 @@ const ClassScheduleItem: React.FC<ClassScheduleItemProps> = ({ classSchedule }) 
             {}
         }
         function deleteSchedule() {
-            const id = classSchedule.id;
-    
-            api.delete(`/class?id=${id}`)
-                .then(res => {
-                    console.log(res);
-                    
-                })
-                .catch(err => {
-                    console.log(err);
-                    
-                });
+            onDelete(classSchedule.id);
         }
     
 

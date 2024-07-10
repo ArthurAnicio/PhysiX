@@ -10,7 +10,7 @@ const smlIcon = require("../../assets/images/imgs/pequenoClaroPng.png");
 
 function ClassesArea() {
     const [classSchedule, setClassSchedule] = useState<ClassSchedule[]>([]);
-    const [showForm, setShowForm] = useState(false); // Estado para controlar a exibição do formulário
+    const [showForm, setShowForm] = useState(false); 
     const [newClassSchedule, setNewClassSchedule] = useState({
         week_day: '',
         from: '',
@@ -58,13 +58,28 @@ function ClassesArea() {
             console.error('Error creating class schedule:', error);
         }
     };
+    const removeClassSchedule = (id: number) => {
+        setClassSchedule(classSchedule.filter(schedule => schedule.id !== id));
+    };
+
+    const handleDelete = (id: number) => {
+        api.delete(`/class?id=${id}`)
+            .then(res => {
+                removeClassSchedule(id);
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    };
+
 
     return (
         <div>
             <Header path="/" title="Suas Aulas" />
             <div id="classes-container">
                 {classSchedule.map((schedule, index) => (
-                    <ClassScheduleItem key={schedule.id} classSchedule={schedule} />
+                    <ClassScheduleItem key={schedule.id} classSchedule={schedule} onDelete={handleDelete} />
+
                 ))}
                 {showForm && (
                     <form onSubmit={handleSubmit}>

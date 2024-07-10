@@ -106,21 +106,20 @@ export default class ClassController{
         const { id } = req.query;
 
         if (!id) {
-            return res.status(400).json('Informe o id da aula');
+            return res.status(400).json('ID da aula é obrigatório');
         }
 
         try {
-            const classExists = await db('class_schedule').where('id', id).first();
+            await db('class_schedule').where('id', id).del();
 
-            if (!classExists) {
-                return res.status(400).json('A aula fornecida não existe');
+            const classSchedules = await db('class_schedule').orderBy('id');
+            for (let i = 0; i < classSchedules.length; i++) {
+                await db('class_schedule').where('id', classSchedules[i].id).update({ id: i + 1 });
             }
-
-            await db('class_schedule').where('id', id).delete();
 
             return res.status(200).json('Aula excluída com sucesso');
         } catch (err) {
-            return res.status(400).json(`Erro ao acessar o banco: ${err}`);
+            return res.status(400).json(`Erro ao excluir a aula: ${err}`);
         }
     }
 }
