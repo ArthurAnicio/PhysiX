@@ -18,3 +18,13 @@
 h1 {
     margin: 0;
 }
+#teacherListAvatar {
+    border-radius: 20px;
+    width: 200px;
+    object-fit: contain;
+}
+#teacherCardName {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}

@@ -66,7 +66,7 @@ export default class TeacherController{
                         .whereRaw('`class_schedule`.`to` >?', [timeInMinutes])
                     })
                 .join('teacher', 'teacher.id', '=', 'classes.teacher_id')
-                .select(['classes.*', 'teacher.name', 'teacher.email', 'teacher.number', 'classes.cost', 'classes.description', 'teacher.id as teacher_id'])
+                .select(['classes.*', 'teacher.name', 'teacher.email', 'teacher.number', 'classes.cost', 'classes.description', 'teacher.id as teacher_id', 'teacher.avatar'])
                 
                 return res.json(classes)
             }
@@ -173,7 +173,7 @@ export default class TeacherController{
             if (!teacher){
                 return res.status(404).json('teacher not found')
             }
-            return res.status(200).json({teacher:teacher.name,email:teacher.email});
+            return res.status(200).json({teacher:teacher.name,email:teacher.email,id:teacher.id,avatar:teacher.avatar});
         }
         catch (err) {
 
@@ -183,7 +183,7 @@ export default class TeacherController{
 
     async createAvatar(req:Request, res:Response) {
         async function registerAvatar(avatarPath:string){
-            await db('users').where({id:parseInt(req.body.id)}).update({avatar:avatarPath})
+            await db('teacher').where({id:parseInt(req.body.id)}).update({avatar:avatarPath})
             
         }
         try{
@@ -221,6 +221,33 @@ export default class TeacherController{
             
         } catch(err) {
             return res.status(400).json(`Erro: ${err}`)
+        }
+    }
+    async addFavorite(req:Request, res: Response) {
+        const {
+            user_id,
+            teacher_id,
+        } = req.body
+        const trx = await db.transaction();
+        const quantVerify = await trx('favorites').select('*').where({user_id,teacher_id})
+
+        if (quantVerify.length > 0){
+            await trx.rollback();
+            return res.status(400).json('Professor já favoritado pelo usuário');
+
+        }else{
+            
+                try{
+                    await trx('favorites').insert({
+                        user_id,
+                        teacher_id,
+                    });
+                    await trx.commit();
+                    return res.status(200).json('Professor favoritado com sucesso');
+                }catch(err){
+                    await trx.rollback();
+                    return res.status(400).json(`Erro ao favoritar:${err}`);
+                }
         }
     }
 }
