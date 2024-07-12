@@ -183,6 +183,7 @@ export default class TeacherController{
 
     async createAvatar(req:Request, res:Response) {
         async function registerAvatar(avatarPath:string){
+            console.log(req.body.id)
             await db('teacher').where({id:parseInt(req.body.id)}).update({avatar:avatarPath})
             
         }

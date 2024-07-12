@@ -17,10 +17,10 @@ function TeacherArea() {
 
     useEffect(() => {
         getTeacher();
-    }, []); // Ensure useEffect runs only once on mount
+    }, []);
 
     async function getTeacher() {
-        const { id } = location.state || {};
+        const { id } = location.state || 0;
         
         try {
             const response = await api.get('/getTeacher', { params: { id } });
@@ -68,7 +68,8 @@ function TeacherArea() {
         if (fileInput) {
             try {
                 const file = fileInput.files?.[0];
-                formData.append('id', teacher.id.toString());
+                const {id} = location.state||0;
+                formData.append('id',id);
                 formData.append('avatar', file || '');
                 const response = await api.post('/teacher-avatar', formData);
                 
