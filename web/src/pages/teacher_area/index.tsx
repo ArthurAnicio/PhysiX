@@ -43,6 +43,10 @@ function TeacherArea() {
         const { id } = location.state || {};
         history('/classes_area', { state: { id } });
     }
+    async function sendToStudentList() {
+        const { id } = location.state || {};
+        history('/student_list', { state: { id } });
+    }
 
     async function getAvatar(avatarPath: string) {
         try {
@@ -93,6 +97,7 @@ function TeacherArea() {
             <div id="area-container">
                 <h1>Bem vindo, {teacherName}!</h1>
                 <button id="class" onClick={sendToClassArea}>Ver Aulas</button>
+                <button id="class" onClick={sendToStudentList}>Ver Alunos</button>
                 <input type="file" id='avatarSend'/>
                 <Submit label="Enviar" onClick={sendAvatar} />
                 <Avatar size="600px" src={imgsrc} />

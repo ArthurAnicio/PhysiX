@@ -195,4 +195,20 @@ export default class UserController{
             return res.status(400).json(`Erro: ${err}`)
         }
     }
+    async getUserFavorites(req: Request, res: Response) {
+        const {teacher_id} = req.query;
+        
+        try {
+            const users = await db('users').select('avatar','email','id','name').whereIn('id', function() {
+                this.select('user_id')
+                  .from('favorites')
+                  .where('teacher_id', teacher_id);
+            })
+            return res.status(200).json(users)
+            
+            
+        } catch (err) {
+            return res.status(400).json(`Erro ao acessar o banco: ${err}`);
+        }
+    }
 }

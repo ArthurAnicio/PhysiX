@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import "./styles.css";
 import api from "../../services/api";
 import Submit from "../submit";
-import FavoriteButton from "../favorite_button";
+import FavoriteButton from "../favoriteButton";
 import Star from "../../assets/images/icons/star";
 
 type ReloadFunction = ()=>void;

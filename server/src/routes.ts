@@ -24,6 +24,7 @@ routes.post('/reset-pass',userController.passReset)
 routes.get('/getuser',userController.getUser)
 routes.post('/avatar',userController.createAvatar)
 routes.get('/avatar', userController.getImage)
+routes.get('/favorite-user',userController.getUserFavorites)
 
 routes.get('/class', classController.index)
 routes.post('/class', classController.create)
