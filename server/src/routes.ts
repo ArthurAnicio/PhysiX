@@ -14,6 +14,8 @@ routes.get('/teacher-login', teacherController.login)
 routes.get('/getTeacher', teacherController.getTeacher)
 routes.post('/teacher-avatar',teacherController.createAvatar)
 routes.post('/favorite-teacher',teacherController.addFavorite)
+routes.get('/favorite-teacher',teacherController.getFavorites)
+routes.delete('/favorite-teacher',teacherController.deleteFavorite)
 
 routes.get('/user', userController.index);
 routes.post('/user', userController.create) 

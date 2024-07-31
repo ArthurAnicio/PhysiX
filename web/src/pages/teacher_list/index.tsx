@@ -1,4 +1,5 @@
-import React, { useState, FormEvent } from 'react';
+import React, { useState, FormEvent, useEffect } from 'react';
+import { useNavigate,useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import './styles.css';
 import Footer from '../../components/footer';
@@ -9,13 +10,34 @@ import TeacherItem, { Teacher } from '../../components/teacherItem';
 import api from '../../services/api';
 
 function TeacherList() {
+    const location = useLocation();
     const [week_day, setWeekDay] = useState(0);
     const [time, setTime] = useState('');
     const [teachers, setTeachers] = useState<Teacher[]>([]);
+    const [favorites, setFavorites] = useState([0]);
+    const user_id = location.state || 0;
+
+    useEffect(() => {
+        getFavorites(); 
+    }, [favorites]);
+    async function getFavorites(){
+        try {
+            
+            const response = await api.get('/favorite-teacher',{
+                params: {
+                    user_id:user_id.userId
+                }
+            });
+            setFavorites(response.data);
+            
+        } catch (err) {
+            console.log(err);
+        }
+    }
 
     async function searchTeachers(e: FormEvent) {
         e.preventDefault();
-
+        getFavorites();
         if (time !== '' && week_day !== undefined) {
             try {
                 const response = await api.get('/teacher', {
@@ -29,6 +51,14 @@ function TeacherList() {
                 const updatedTeachers = await Promise.all(
                     teachersData.map(async (teacher: Teacher) => {
                         teacher.avatar = await getAvatar(teacher.avatar);
+                        if (favorites.includes(teacher.id)) {
+                            teacher.favorite = true
+                        }
+                        else {
+                            teacher.favorite = false
+                            
+                        }
+                        
                         return teacher;
                     })
                 );
@@ -57,7 +87,7 @@ function TeacherList() {
             return '';
         }
     }
-
+    
     return (
         <div>
             <Header path="/" title="Lista de Professores" />
@@ -87,7 +117,7 @@ function TeacherList() {
             </form>
             <div id='teacherList-container'>
                 {teachers.map((teacher: Teacher) => (
-                    <TeacherItem key={teacher.id} teacher={teacher} />
+                    <TeacherItem key={teacher.id} teacher={teacher} reload={getFavorites}/>
                 ))}
             </div>
             <Footer />

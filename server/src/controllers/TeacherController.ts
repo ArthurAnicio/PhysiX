@@ -251,4 +251,30 @@ export default class TeacherController{
                 }
         }
     }
+    async getFavorites(req:Request,res:Response) {
+        const {user_id} = req.query;
+        try {
+            
+            const favorites = await db('favorites').select('teacher_id').where({user_id})
+            const ids = favorites.map(favorite => favorite.teacher_id)
+            return res.status(200).json(ids);
+        } catch(err) {
+            return res.status(400).json(`Erro ao acessar o banco: ${err}`);
+        }
+    }
+    async deleteFavorite(req:Request,res:Response){
+        const {user_id,teacher_id} = req.query;
+        try{
+            await db('favorites').where({user_id,teacher_id}).del()
+            const favorites = await db('favorites').orderBy('id');
+            for (let i = 0; i < favorites.length; i++) {
+                await db('favorites').where('id', favorites[i].id).update({ id: i + 1 });
+            }
+
+            return res.status(200).json('Favorito excluído com sucesso!')
+
+        }catch(err) {
+            return res.status(400).json(`Erro ao acessar o banco: ${err}`);
+        }
+    }
 }

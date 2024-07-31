@@ -1,0 +1,27 @@
+.favoriteDisable>svg {
+    fill: lightgray;
+}
+.favoriteDisable>svg:hover {
+    fill:rgb(252, 206, 109);
+  
+}
+.favoriteEnable>svg{
+    fill:rgb(252, 206, 109);
+    
+}
+.favoriteEnable>svg:hover {
+   fill: lightgray;
+}
+.favoriteButton {
+    outline: none;
+    background:none;
+    border: none;
+}
+.favoriteButton:hover {
+    cursor: pointer;
+}
+.favoriteButton>svg {
+    width: 30px;
+    height: 30px;
+    transition: 0.5s;
+}
