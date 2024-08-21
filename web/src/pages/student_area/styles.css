@@ -6,6 +6,32 @@
     justify-content: center;
 }
 
+.send-to-profile{
+    margin: 3vh 0;
+    width: 20vw;
+    height: 10vh;
+    border: none;
+    border-radius: 20px;
+    padding: 1vh 1vw;
+    background-color: var(--cinza2);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    color: var(--cinza1);
+    font-size: 1.5rem;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.send-to-profile:hover{
+    scale: 1.01;
+    box-shadow: 0 0 10px #222;
+}
+
+.send-to-profile span{
+    margin-left: 1vw;
+}
+
 #teacher-list {
     width: 80%;
     height: 10vh;
@@ -18,6 +44,7 @@
     border-radius: 20px;
     font-size: 2em;
     transition: 0.2s;
+    cursor: pointer;
     display: flex;
     align-items: center;
 }
@@ -25,7 +52,6 @@
 #teacher-list:hover {
     background-color: var(--roxo2);
     scale: 1.01;
-    font-weight: 550;
 }
 #submit {
     margin-bottom: 50px;

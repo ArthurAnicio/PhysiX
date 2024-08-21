@@ -173,7 +173,7 @@ export default class TeacherController{
             if (!teacher){
                 return res.status(404).json('teacher not found')
             }
-            return res.status(200).json({teacher:teacher.name,email:teacher.email,id:teacher.id,avatar:teacher.avatar});
+            return res.status(200).json({teacher:teacher.name,email:teacher.email,id:teacher.id,avatar:teacher.avatar, password:teacher.password, number:teacher.number});
         }
         catch (err) {
 

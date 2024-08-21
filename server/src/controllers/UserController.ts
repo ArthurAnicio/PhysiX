@@ -145,11 +145,28 @@ export default class UserController{
             if (!user) {
                 return res.status(404).json('User not found')
             }
-            return res.status(200).json({user:user.name,email:user.email,id:user.id,avatar:user.avatar});
+            return res.status(200).json({user:user.name,email:user.email,id:user.id,avatar:user.avatar,password:user.password});
         }
         catch (err) {
 
             return res.status(400).json(`Erro ao acessar o banco: ${err}`);
+        }
+    }
+
+    async updateUser(req: Request, res: Response){
+        const {id} = req.query;
+        const {name, email, password} = req.body;
+        
+        try{
+            const user = await db('users').where({id}).first();
+            if(!user){
+                return res.status(400).json('Usuário não encontrado');
+            }
+            await db('users').where({id}).update({name, email, password});
+            return res.status(200).json('Usuário atualizado com sucesso');
+        }
+        catch(err){
+            return res.status(400).json(`Erro ao atualizar o usuário: ${err}`);
         }
     }
 

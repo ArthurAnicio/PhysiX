@@ -1,0 +1,163 @@
+.info-area{
+    width: 65vw;
+    height: 50vh;
+    padding: 1em;
+    border-radius: 1em;
+    background-color: var(--cinza2);
+    display: flex;
+    flex-direction: column;
+}
+
+.info-area h2{
+    color: rgb(65, 0 , 90);
+}
+
+.info{
+    width: 100%;
+    height: 100%;
+    max-height: 50vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#img-profile{
+    height: 25vh;
+    border-radius: 50%;
+    margin-left: 1vw;
+    box-shadow: 0 0 10px rgb(65, 0 , 90);
+}
+
+.info section{
+    width: 35vw;
+    height: 80%;
+    margin-left: 2vw;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
+.campo-info{
+    margin: 1vh 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: rgb(65, 0 , 90);
+}
+
+.campo-edit{
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#edit-profile{
+    height: 8vh;
+    width: 15vh;
+    border-radius: 1rem;
+    font-size: 1.5rem;
+    background-color: var(--roxo1);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    text-align: center;
+    padding: 0.5em 0;
+    margin-top: 1em;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+#edit-profile:hover{
+    scale: 1.02
+}
+
+#update-profile{
+    height: 8vh;
+    width: 15vh;
+    border-radius: 1rem;
+    font-size: 1.5rem;
+    background-color: var(--roxo1);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    text-align: center;
+    padding: 0.5em 0;
+    margin-top: 1em;
+    transition: 0.2s;
+}
+
+#update-profile:hover{
+    scale: 1.02
+}
+
+#show-hidden{
+    border: none;
+    background: none;
+}
+
+#icon-show-hidden{
+    height: 3vh;
+    fill: var(--roxo1);
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.input-profile{
+    border: none;
+    background: rgba(129, 105, 129, 0.6);
+    width: 25vw;
+    border-radius: 15px;
+    font-weight: 500;
+}
+
+.img-container{
+    height: 80%;
+    max-height: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.send-container{
+    margin-top: 0.5vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#avatarSend{
+    width: 10vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background-color: var(--roxo2);
+    border: none;
+    border-radius: 5px;
+}
+
+#send-avatar-btn{
+    height: 5vh;
+    width: 15vh;
+    border-radius: 1rem;
+    font-size: 1.3rem;
+    background-color: var(--roxo1);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    text-align: center;
+    padding: 0.5em 0;
+    margin-top: 0.3em;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+#send-avatar-btn:hover{
+    scale: 1.02;
+}
+
