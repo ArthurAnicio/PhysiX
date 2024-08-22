@@ -10,8 +10,9 @@ import Button from "../../components/button";
 
 function TeacherArea() {
     const location = useLocation();
+    const {teacherId} = location.state || {teacherId: 0};
     const history = useNavigate();
-    const [teacher, setTeacher] = useState({ teacher: '', email: '', id: 0, avatar: '' });
+    const [teacher, setTeacher] = useState({ teacher: '', email: '', number: '',id: 0, avatar: '' });
     const [teacherName, setTeacherName] = useState('');
     const [imgsrc, setImgsrc] = useState('');
 
@@ -23,6 +24,7 @@ function TeacherArea() {
         const { id } = location.state || 0;
         
         try {
+            console.log(id)
             const response = await api.get('/getTeacher', { params: { id } });
             if (response.status === 200) {
                 const { teacher, avatar } = response.data;
@@ -47,6 +49,10 @@ function TeacherArea() {
         const { id } = location.state || {};
         history('/student_list', { state: { id } });
     }
+    async function sendToProfile() {
+        const { id } = location.state || {};
+        history('/profile_teacher', { state: { id } });
+    }
 
     async function getAvatar(avatarPath: string) {
         try {
@@ -65,42 +71,17 @@ function TeacherArea() {
         }
     }
 
-    async function sendAvatar() {
-        const formData = new FormData();
-        const fileInput = document.getElementById('avatarSend') as HTMLInputElement | null;
-        
-        if (fileInput) {
-            try {
-                const file = fileInput.files?.[0];
-                const {id} = location.state||0;
-                formData.append('id',id);
-                formData.append('avatar', file || '');
-                const response = await api.post('/teacher-avatar', formData);
-                
-                if (response.status === 200) {
-                    alert('Avatar enviado com sucesso!');
-                    getTeacher();
-                } else {
-                    alert('Falha no envio do avatar!');
-                    console.log(response);
-                }
-            } catch (err) {
-                alert('Erro ao enviar avatar!');
-                console.log(err);
-            }
-        }
-    }
-
     return (
         <div>
             <Header title="Área do Professor" path="/" />
             <div id="area-container">
                 <h1>Bem vindo, {teacherName}!</h1>
+                <button className="send-to-profile" onClick={sendToProfile}>
+                    <img src={imgsrc} id="avatar-pic" /> <span>Seu perfil</span>
+                </button>
                 <button id="class" onClick={sendToClassArea}>Ver Aulas</button>
                 <button id="class" onClick={sendToStudentList}>Ver Alunos</button>
-                <input type="file" id='avatarSend'/>
-                <Submit label="Enviar" onClick={sendAvatar} />
-                <Avatar size="600px" src={imgsrc} />
+            
             </div>
             <Footer />
         </div>

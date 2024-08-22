@@ -12,6 +12,7 @@ routes.get('/teacher', teacherController.index);
 routes.post('/teacher', teacherController.create)
 routes.get('/teacher-login', teacherController.login)
 routes.get('/getTeacher', teacherController.getTeacher)
+routes.put('/updateteacher',teacherController.updateTeacher)
 routes.post('/teacher-avatar',teacherController.createAvatar)
 routes.post('/favorite-teacher',teacherController.addFavorite)
 routes.get('/favorite-teacher',teacherController.getFavorites)

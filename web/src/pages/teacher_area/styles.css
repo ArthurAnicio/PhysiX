@@ -1,20 +1,82 @@
-#class{
-    width: 30vw;
+#area-container{
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.send-to-profile{
+    margin: 3vh 0;
+    width: 20vw;
     height: 10vh;
     border: none;
-    border-radius: 10px;
+    border-radius: 20px;
+    padding: 1vh 1vw;
+    background-color: var(--cinza2);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    color: var(--cinza1);
+    font-size: 1.5rem;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+#avatar-pic{
+    height: 5vh;
+    border-radius: 50%;
+}
+
+.send-to-profile:hover{
+    scale: 1.01;
+    box-shadow: 0 0 10px #222;
+}
+
+.send-to-profile span{
+    margin-left: 1vw;
+}
+
+#student-list {
+    width: 80%;
+    height: 10vh;
+    margin: 2vh 0;
+    padding-left: 2vw;
+    text-decoration: none;
     background-color: var(--roxo1);
     color: #fff;
-    cursor: pointer;
-    font-family: Poppins;
-    font-size: 2rem;
+    border: none;
+    border-radius: 20px;
+    font-size: 2em;
     transition: 0.2s;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+#student-list:hover {
+    background-color: var(--roxo2);
+    scale: 1.01;
+}
+
+#class {
+    width: 80%;
+    height: 10vh;
+    margin: 5vh 0;
+    padding-left: 2vw;
+    text-decoration: none;
+    background-color: var(--roxo1);
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    font-size: 2em;
+    transition: 0.2s;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
 }
 
 #class:hover {
     background-color: var(--roxo2);
-    scale: 1.05;
-}
-#submit {
-    margin-bottom: 50px;
+    scale: 1.01;
 }

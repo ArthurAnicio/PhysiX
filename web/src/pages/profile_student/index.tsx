@@ -27,6 +27,7 @@ function ProfileStudent() {
 
     async function getUser() {
         try {
+            console.log(userId)
             const response = await api.get('/getuser', { params: { id: userId } });
             if (response.status === 200) {
                 setUser(response.data);

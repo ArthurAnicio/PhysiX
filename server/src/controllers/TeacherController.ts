@@ -181,6 +181,24 @@ export default class TeacherController{
         }
     }
 
+    async updateTeacher(req: Request, res: Response){
+        const {id} = req.query;
+        const {name, email, number, password} = req.body;
+
+        try{
+            const teacher = await db('teachers').where({id}).first();
+            if(!teacher){
+                return res.status(400).json('Professor não encontrado');
+            }
+            await db('users').where({id}).update({name, email, number, password});
+            return res.status(200).json('Professor atualizado com sucesso');
+        }
+        catch(err){
+            return res.status(400).json(`Erro ao atualizar o usuário: ${err}`);
+        }
+        
+    }
+
     async createAvatar(req:Request, res:Response) {
         async function registerAvatar(avatarPath:string){
             console.log(req.body.id)

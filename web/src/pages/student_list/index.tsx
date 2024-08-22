@@ -17,6 +17,7 @@ function StudentList() {
     const teacherId = location.state.id || 0
     const [users, setUsers] = useState<User[]>([])
     useEffect(() => {
+        console.log(teacherId);
         searchUsers()
     }, [teacherId, users])
     async function searchUsers(){
