@@ -1,7 +1,6 @@
 const AtomSVG = ({ id }) => {
   return (
     <svg
-      className="atom-svg"
       version="1.1"
       id={id}
       xmlns="http://www.w3.org/2000/svg"

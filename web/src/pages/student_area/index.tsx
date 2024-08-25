@@ -1,6 +1,6 @@
 import  { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import "./styles.css";
+import styles from "./StudentArea.module.css";
 import Header from "../../components/header";
 import Footer from "../../components/footer";
 import api from "../../services/api";
@@ -59,19 +59,29 @@ function StudentArea() {
     return (
         <div>
             <Header title="Área do Aluno" path="/" />
-            <div id="area-container">
-                
-                <h1>Bem vindo, {user.user}!  </h1>
-                <button className="send-to-profile" onClick={() => navigate("/profile_student", {state: { userId }})}>
-                    <Avatar size="5vh" src={imgsrc} /> <span>Seu perfil</span>
-                </button>
-                <button id="teacher-list" onClick={() => navigate("/teacher_list", { state: { userId } })}>
-                    Busque por professores
-                </button>
-            </div>
+            <main id={styles.areaContainer}>
+                <aside id={styles.areaAside}>
+                <i className='fa-solid fa-user' onClick={() => navigate("/profile_student", {state: { userId }})}></i>
+                <i className="fa-solid fa-chalkboard-user" onClick={() => navigate("/teacher_list", { state: { userId } })}></i>
+                </aside>
+                <section id="areaMain"></section>
+            </main>
             <Footer />
         </div>
     );
 }
 
 export default StudentArea;
+
+{/* <Header title="Área do Aluno" path="/" />
+            <div id={styles.areaContainer}>
+                
+                <h1>Bem vindo, {user.user}!  </h1>
+                <button className={styles.sendToProfile} onClick={() => navigate("/profile_student", {state: { userId }})}>
+                    <Avatar size="5vh" src={imgsrc} /> <span>Seu perfil</span>
+                </button>
+                <button id={styles.teacherList} onClick={() => navigate("/teacher_list", { state: { userId } })}>
+                    Busque por professores
+                </button>
+            </div>
+            <Footer /> */}

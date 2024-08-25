@@ -8,14 +8,14 @@ h1 {
   color: var(--roxo1);
 }
 
-header {
+#landingHeader {
   position: relative;
   overflow: hidden;
   background-color: var(--roxo1);
   min-height: 55vh;
 }
 
-#header-container {
+#headerContainer {
   min-height: 55vh;
   display: flex;
   flex-flow: column;
@@ -23,7 +23,7 @@ header {
   align-items: center;
 }
 
-#header-container * {
+#headerContainer * {
   z-index: 2;
 }
 
@@ -32,8 +32,8 @@ header {
   margin-top: 20px;
 }
 
-#header-container h1,
-#header-container h2 {
+#headerContainer h1,
+#headerContainer h2 {
   font-family: Poppins;
   font-weight: 600;
   color: white;
@@ -41,15 +41,15 @@ header {
   margin: 0;
 }
 
-#header-container h1 {
+#headerContainer h1 {
   font-size: 5em;
 }
-#header-container h2 {
+#headerContainer h2 {
   font-size: 2.5em;
-  text-align: center;
+  text-align: center; 
 }
 
-main {
+#landingMain {
   height: 40vh;
   display: flex;
   flex-flow: column;
@@ -70,7 +70,8 @@ main {
   background-color: var(--roxo1);
 }
 
-.atom-svg {
+#atom1,
+#atom2 {
   fill: var(--roxo2);
   position: absolute;
   max-width: 600px;
@@ -112,13 +113,13 @@ main {
     font-size: 2em !important;
     width: 60% !important;
   }
-  #header-container img {
+  #headerContainer img {
     height: 8.6em;
   }
 }
 
 @media (max-width: 700px) {
-  main {
+  #landingMain {
     height: 30vh;
   }
   footer {
@@ -133,18 +134,18 @@ main {
     left: -150px;
     top: 70px;
   }
-  #header-container h1 {
+  #headerContainer h1 {
     font-size: 3em;
     margin-bottom: 30px;
   }
-  #header-container h2 {
+  #headerContainer h2 {
     font-size: 1.5em;
     width: 70%;
   }
-  #header-container img {
+  #headerContainer img {
     height: 7em;
   }
-  #header-container {
+  #headerContainer {
     min-height: 65vh;
   }
 }

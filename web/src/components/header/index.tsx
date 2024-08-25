@@ -7,7 +7,7 @@ let mainLogo = require("../../assets/images/imgs/grandeClaroPng.png");
 interface HeaderParam extends InputHTMLAttributes<HTMLInputElement> {
   path: string;
   title: string;
-}
+} 
 
 const Header: React.FC<HeaderParam> = ({ path, title }) => {
   return (

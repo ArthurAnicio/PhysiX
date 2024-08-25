@@ -152,7 +152,7 @@ export default class UserController{
             return res.status(400).json(`Erro ao acessar o banco: ${err}`);
         }
     }
-
+  
     async updateUser(req: Request, res: Response){
         const {id} = req.query;
         const {name, email, password} = req.body;

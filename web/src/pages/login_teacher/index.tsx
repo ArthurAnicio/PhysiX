@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "./styles.css";
+import styles from "./LoginTeacher.module.css";
 import Header from "../../components/header";
 import Footer from "../../components/footer";
 import TextBox from "../../components/textbox";
@@ -29,19 +29,22 @@ function LogInTeacher() {
     }
 
     return (
-        <div>
+        <div className={styles.loginBody}>
             <Header path="/" title="Login Professor"/>
-            <div id="teacher-container">
-                <div id="login-window">
+            <div id={styles.loginContainer}>
+                <div id={styles.loginWindow}>
                     <header><img src={smlIcon} width="70px"/></header>
+                    <section id={styles.inputsMain}>
                     <h1>Usuário</h1>
                     <TextBox type="text" value={name} onChange={(e) => { setName(e.target.value) }} />
                     <h1>Email</h1>
                     <TextBox type="text" value={email} onChange={(e) => { setEmail(e.target.value) }} />
                     <h1>Senha</h1>
-                    <TextBox type="password" value={password} onChange={(e) => { setPassword(e.target.value) }} />
-                    <Link to="/sign_up_teacher" id="create-teacher">Crie uma conta</Link>
-                    <Submit className="btn" label="Entrar" onClick={validateLogin} />
+                    <TextBox type="password" value={password} onChange={(e) => { setPassword(e.target.value) }} />       
+                    <Link to="/forgot_password" id={styles.purpleLink}>Esqueci a senha</Link>
+                    <Submit className={styles.btn} label="Entrar" onClick={validateLogin} />
+                    <Link to="/sign_up_teacher" id={styles.purpleLink}>Crie uma conta</Link>
+                    </section>
                 </div>
             </div>
             <Footer />
