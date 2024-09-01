@@ -1,6 +1,6 @@
 import React, { useState, useEffect, MouseEventHandler } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "./css/styles.css";
+import styles from "./SignUpStu.module.css";
 import Header from "../../components/header";
 import Footer from "../../components/footer";
 import TextBox from "../../components/textbox";
@@ -27,21 +27,23 @@ function SignUpStudent() {
       alert('Erro no cadastro!');
       console.log(err);
     })
-  }
+  } 
   
-  return (
-    <div>
+  return ( 
+    <div className={styles.signUpBody}>
       <Header path="/" title="Cadastro Estudante"/>
-      <div id="student-container">
-        <div id="sign-window">
+      <div id={styles.signUpContainer}>
+        <div id={styles.signUpWindow}>
           <header><img src={smlIcon} width="70px"/></header>
+          <section id={styles.inputsMain}>
           <h1>Usuário</h1>
           <TextBox type="text" value={name} onChange={(e) => {setName(e.target.value)}}/>
           <h1>Email</h1>
           <TextBox type="text" value={email} onChange={(e) => {setEmail(e.target.value)}}/>
           <h1>Senha</h1>
           <TextBox type="password" value={password} onChange={(e) => {setPassword(e.target.value)}}/>
-          <Submit className="btn" label="Cadastrar" onClick={signUp}/>
+          <Submit className={styles.btn} label="Cadastrar" onClick={signUp}/>
+          </section>
         </div>
       </div>
       <Footer />

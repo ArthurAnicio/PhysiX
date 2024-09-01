@@ -25,7 +25,7 @@ function LogInStudent() {
         else{
             alert('Usuário não encontrado')
         }
-    }
+    } 
     return (
         <div className={styles.loginBody}>
             <Header path="/" title="Login Estudante"/>
@@ -45,7 +45,7 @@ function LogInStudent() {
                     </section>
                 </div>
             </div>
-            <Footer />
+            <Footer /> 
         </div>
     )
 }

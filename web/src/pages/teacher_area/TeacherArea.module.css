@@ -1,12 +1,30 @@
-#area-container{
-    background-color: #fff;
+#areaContainer {
     display: flex;
-    flex-direction: column;
+    width: 100%;
+  }
+  
+  #areaAside {
+    background-color: var(--roxo1);
+    width: 120px;
+    height: 1000px;
+    display: flex;
+    flex-flow: column;
     align-items: center;
-    justify-content: center;
-}
-
-.send-to-profile{
+  }
+  
+  #areaAside i {
+    margin-top: 30px;
+    font-size: 50px;
+    color: white;
+    transition: 0.3s;
+  }
+  
+  #areaAside i:hover {
+    scale: 1.1;
+    cursor: pointer;
+  }
+  
+  .sendToProfile {
     margin: 3vh 0;
     width: 20vw;
     height: 10vh;
@@ -21,27 +39,21 @@
     font-size: 1.5rem;
     font-weight: 600;
     transition: 0.2s;
-}
-
-#avatar-pic{
-    height: 5vh;
-    border-radius: 50%;
-}
-
-.send-to-profile:hover{
+  }
+  
+  .sendToProfile:hover {
     scale: 1.01;
     box-shadow: 0 0 10px #222;
-}
-
-.send-to-profile span{
+  }
+  
+  .sendToProfile span {
     margin-left: 1vw;
-}
-
-#student-list {
-    width: 80%;
+  }
+  
+  #teacherList {
     height: 10vh;
     margin: 2vh 0;
-    padding-left: 2vw;
+    padding: 20px;
     text-decoration: none;
     background-color: var(--roxo1);
     color: #fff;
@@ -52,31 +64,10 @@
     cursor: pointer;
     display: flex;
     align-items: center;
-}
-
-#student-list:hover {
+  }
+  
+  #teacherList:hover {
     background-color: var(--roxo2);
     scale: 1.01;
-}
-
-#class {
-    width: 80%;
-    height: 10vh;
-    margin: 5vh 0;
-    padding-left: 2vw;
-    text-decoration: none;
-    background-color: var(--roxo1);
-    color: #fff;
-    border: none;
-    border-radius: 20px;
-    font-size: 2em;
-    transition: 0.2s;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-}
-
-#class:hover {
-    background-color: var(--roxo2);
-    scale: 1.01;
-}
+  }
+  

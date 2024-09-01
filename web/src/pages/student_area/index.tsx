@@ -16,7 +16,7 @@ function StudentArea() {
     useEffect(() => {
         getUser();
     }, []);
-
+ 
     useEffect(() => {
         if (user.avatar) {
             getAvatar(user.avatar);
@@ -64,7 +64,6 @@ function StudentArea() {
                 <i className='fa-solid fa-user' onClick={() => navigate("/profile_student", {state: { userId }})}></i>
                 <i className="fa-solid fa-chalkboard-user" onClick={() => navigate("/teacher_list", { state: { userId } })}></i>
                 </aside>
-                <section id="areaMain"></section>
             </main>
             <Footer />
         </div>
@@ -72,16 +71,3 @@ function StudentArea() {
 }
 
 export default StudentArea;
-
-{/* <Header title="Área do Aluno" path="/" />
-            <div id={styles.areaContainer}>
-                
-                <h1>Bem vindo, {user.user}!  </h1>
-                <button className={styles.sendToProfile} onClick={() => navigate("/profile_student", {state: { userId }})}>
-                    <Avatar size="5vh" src={imgsrc} /> <span>Seu perfil</span>
-                </button>
-                <button id={styles.teacherList} onClick={() => navigate("/teacher_list", { state: { userId } })}>
-                    Busque por professores
-                </button>
-            </div>
-            <Footer /> */}

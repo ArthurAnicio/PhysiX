@@ -27,6 +27,7 @@ export default class ClassController{
     }
 
     async create(req: Request, res: Response){
+        console.log(req.body);
         const { week_day, from, to, class_id } = req.body;
 
         if (!week_day || !from || !to || !class_id) {
@@ -43,7 +44,7 @@ export default class ClassController{
             
             const fromInMinutes = convertHourToMinutes(from);
             const toInMinutes = convertHourToMinutes(to);
-
+ 
             
             const newClassSchedule = {
                 week_day,

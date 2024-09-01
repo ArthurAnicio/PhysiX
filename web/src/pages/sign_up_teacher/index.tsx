@@ -1,6 +1,6 @@
 import React, { useState, useEffect, FormEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import './styles.css';
+import styles from './SignUpTeach.module.css';
 import api from '../../services/api';
 import Button from '../../components/button';
 import Header from '../../components/header';
@@ -19,34 +19,6 @@ function SignUpTeacher(){
     const [number, setNumber] = useState('');
     const [cost, setCost] = useState('');
     const [description, setDescription] = useState('');
-    const [schedule, setschedule] = useState([
-        { week_day: 0, from: '', to: '' }
-    ]);
-
-    function addNewScheduleItem() {
-        setschedule([
-            ...schedule,
-            {
-                week_day: 0,
-                from: '',
-                to: ''
-            }
-        ]);
-    };
-
-    function setScheduleItemValue(position: number, field: string, value: string) {
-        const updatedschedule = schedule.map((scheduleItem, index) => {
-            if(index === position){
-                return {
-                    ...scheduleItem, [field]: value
-                }
-            }
-
-            return scheduleItem;
-        });
-
-        setschedule(updatedschedule);
-    }
 
     function signUp() {
         if(name === '' || email === '' || password === '' || number === '' || cost === '' || description === ''){
@@ -60,7 +32,6 @@ function SignUpTeacher(){
                 password,
                 description,
                 cost: Number(cost),
-                schedule: schedule,
             }).then(() => {
                 alert('Cadastro realizado com sucesso!')
                 history('/log_in_teacher')
@@ -75,11 +46,12 @@ function SignUpTeacher(){
 
     
     return(
-        <div>
+        <div className={styles.signUpBody}>
             <Header path={'/'} title='Bem vindo Professor' />
-            <div id="teacher-container">    
-                <div id="login-window">
+            <div id={styles.signUpContainer}>    
+                <div id={styles.signUpWindow}>
                 <header><img src={smlIcon} width="70px"/></header>
+                <section id={styles.inputsMain}>
                 <h1>Usuário</h1>
                 <TextBox type="text" value={name} onChange={(e) => {setName(e.target.value);console.log("a")}}/>
                 <h1>Email</h1>
@@ -92,56 +64,8 @@ function SignUpTeacher(){
                 <TextBox type="text" value={cost} onChange={(e) => {setCost(e.target.value)}}/>
                 <h1>Descrição</h1>
                 <TextBox type="text" value={description} onChange={(e) => {setDescription(e.target.value)}}/>
-                <h1>Horário</h1>
-                <div id='schedule-header'>
-                    <p>Horários disponíveis</p>
-                    <button type="button" onClick={addNewScheduleItem}>
-                        + Novo horário
-                    </button>
-                </div> 
-                    
-                
-
-                    {
-                        schedule.map((scheduleItem, index) => {
-                            return (
-                                <div key={index} className="schedule-item">
-                                    <div id='linha'/>
-                                    <Select
-                                        id="week_day"
-                                        label="Dia da semana:"
-                                        value={scheduleItem.week_day}
-                                        onChange={(e) => setScheduleItemValue(index, 'week_day', e.target.value)}
-                                        opitions={[
-                                            { value: '0', label: 'Domingo' },
-                                            { value: '1', label: 'Segunda-Feira' },
-                                            { value: '2', label: 'Terça-Feira' },
-                                            { value: '3', label: 'Quarta-Feira' },
-                                            { value: '4', label: 'Quinta-Feira' },
-                                            { value: '5', label: 'Sexta-Feira' },
-                                            { value: '6', label: 'Sábado' },
-                                        ]}
-                                    />
-                                    <Input 
-                                        id="from" 
-                                        label="Das:" 
-                                        type="time" 
-                                        value={scheduleItem.from}
-                                        onChange={(e) => setScheduleItemValue(index, 'from', e.target.value)}
-                                    />
-                                    <Input 
-                                        id="to" 
-                                        label="Até:" 
-                                        type="time" 
-                                        value={scheduleItem.to}
-                                        onChange={(e) => setScheduleItemValue(index, 'to', e.target.value)}
-                                    />
-                                </div>
-                            )
-                        })
-                    }
-                    <Submit className='btn' label="Cadastrar" onClick={signUp}/>
-                
+                <Submit className={styles.btn} label="Cadastrar" onClick={signUp}/>
+                </section>
                 </div>
         
             </div>
@@ -150,4 +74,4 @@ function SignUpTeacher(){
         
     )
 };
-export default SignUpTeacher;
+export default SignUpTeacher; 

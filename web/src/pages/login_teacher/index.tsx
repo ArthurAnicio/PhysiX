@@ -11,7 +11,7 @@ const smlIcon = require("../../assets/images/imgs/pequenoClaroPng.png");
 
 function LogInTeacher() {
     const history = useNavigate();
-    const [name, setName] = useState('');
+    const [name, setName] = useState(''); 
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
 
@@ -19,7 +19,7 @@ function LogInTeacher() {
         try {
             const response = await api.get('/teacher-login', { params: { name, email, password } });
             if (response.status === 200) {
-                history('/teacher_area', { state: { id: response.data.id } });
+                history('/teacher_area', { state: {teacherId: response.data.id}});
             } else {
                 alert('Professor não encontrado');
             }
@@ -45,7 +45,7 @@ function LogInTeacher() {
                     <Submit className={styles.btn} label="Entrar" onClick={validateLogin} />
                     <Link to="/sign_up_teacher" id={styles.purpleLink}>Crie uma conta</Link>
                     </section>
-                </div>
+                </div> 
             </div>
             <Footer />
         </div>

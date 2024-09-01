@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import "./styles.css";
+import styles from "./TeacherArea.module.css";
 import Header from "../../components/header";
 import Footer from "../../components/footer";
 import api from "../../services/api";
@@ -9,23 +9,23 @@ import Submit from "../../components/submit";
 import Button from "../../components/button";
 
 function TeacherArea() {
+    const navigate = useNavigate();
     const location = useLocation();
-    const {teacherId} = location.state || {teacherId: 0};
+    const { teacherId } = location.state || { teacherId: 0 };
     const history = useNavigate();
     const [teacher, setTeacher] = useState({ teacher: '', email: '', number: '',id: 0, avatar: '' });
     const [teacherName, setTeacherName] = useState('');
     const [imgsrc, setImgsrc] = useState('');
 
     useEffect(() => {
+        console.log(teacherId)
         getTeacher();
     }, []);
 
     async function getTeacher() {
-        const { id } = location.state || 0;
         
         try {
-            console.log(id)
-            const response = await api.get('/getTeacher', { params: { id } });
+            const response = await api.get('/getTeacher', { params: { id: teacherId } });
             if (response.status === 200) {
                 const { teacher, avatar } = response.data;
                 setTeacherName(teacher);
@@ -39,19 +39,6 @@ function TeacherArea() {
             history('/log_in_teacher');
             console.error('Erro ao obter dados do professor:', error);
         }
-    }
-
-    async function sendToClassArea() {
-        const { id } = location.state || {};
-        history('/classes_area', { state: { id } });
-    }
-    async function sendToStudentList() {
-        const { id } = location.state || {};
-        history('/student_list', { state: { id } });
-    }
-    async function sendToProfile() {
-        const { id } = location.state || {};
-        history('/profile_teacher', { state: { id } });
     }
 
     async function getAvatar(avatarPath: string) {
@@ -74,15 +61,13 @@ function TeacherArea() {
     return (
         <div>
             <Header title="Área do Professor" path="/" />
-            <div id="area-container">
-                <h1>Bem vindo, {teacherName}!</h1>
-                <button className="send-to-profile" onClick={sendToProfile}>
-                    <img src={imgsrc} id="avatar-pic" /> <span>Seu perfil</span>
-                </button>
-                <button id="class" onClick={sendToClassArea}>Ver Aulas</button>
-                <button id="class" onClick={sendToStudentList}>Ver Alunos</button>
-            
-            </div>
+            <main id={styles.areaContainer}>
+                <aside id={styles.areaAside}>
+                <i className='fa-solid fa-user' onClick={() => navigate("/profile_teacher", {state: { teacherId }})}></i>
+                <i className="fa-solid fa-chalkboard-user" onClick={() => navigate("/student_list", { state: { teacherId } })}></i>
+                <i className="fa-solid fa-chalkboard-user" onClick={() => navigate("/classes_area", { state: { teacherId } })}></i>
+                </aside>
+            </main>
             <Footer />
         </div>
     );

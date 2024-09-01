@@ -13,7 +13,7 @@ function ProfileStudent() {
     const [imgsrc, setImgsrc] = useState('');
     const [isEditable, setIsEditable] = useState(false);
     const [showPassword, setShowPassword] = useState(false); 
-    const { userId } = location.state || { userId: 0 };
+    const { userId } = location.state || { userId: 0 };  
 
     useEffect(() => {
         getUser();

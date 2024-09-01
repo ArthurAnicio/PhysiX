@@ -8,13 +8,12 @@ import { useEffect, useState } from 'react';
 
 function ProfileTeacher() {
     const location = useLocation();
-    const teacherId = location.state.id || 0
     const navigate = useNavigate();
     const [teacher, setTeacher] = useState({ teacher: '', email: '', id: 0, avatar: '',number:'', password: '' });
     const [imgsrc, setImgsrc] = useState('');
     const [isEditable, setIsEditable] = useState(false);
     const [showPassword, setShowPassword] = useState(false); 
-    //const { teacherId } = location.state.id || { teacherId: 0 };
+    const { teacherId } = location.state || { teacherId: 0 };
 
     useEffect(() => {
         getTeacher();
@@ -24,9 +23,10 @@ function ProfileTeacher() {
         if (teacher.avatar) {
             getAvatar(teacher.avatar);
         }
-    }, [teacher.avatar]);
+    }, [teacher.avatar]);  
 
     async function getTeacher() {
+        console.log(teacherId);
         try {
             
             const response = await api.get('/getTeacher', { params: { id: teacherId } });

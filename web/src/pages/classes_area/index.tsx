@@ -9,6 +9,8 @@ import api from "../../services/api";
 const smlIcon = require("../../assets/images/imgs/pequenoClaroPng.png");
 
 function ClassesArea() {
+    const location = useLocation();
+    const { teacherId } = location.state || { teacherId: 0 };
     const [classSchedule, setClassSchedule] = useState<ClassSchedule[]>([]);
     const [showForm, setShowForm] = useState(false); 
     const [newClassSchedule, setNewClassSchedule] = useState({
@@ -16,13 +18,12 @@ function ClassesArea() {
         from: '',
         to: ''
     });
-    const location = useLocation();
 
     useEffect(() => {
         async function fetchClassSchedules() {
             const { id } = location.state || {};
             try {
-                const response = await api.get('/class', { params: { id } });
+                const response = await api.get('/class', { params: { id: teacherId } });
                 setClassSchedule(response.data);
             } catch (error) {
                 console.error('Error fetching classes:', error);
@@ -45,7 +46,7 @@ function ClassesArea() {
             const { id } = location.state || {};
             const response = await api.post('/class', {
                 ...newClassSchedule,
-                class_id: id
+                class_id: teacherId,
             });
             setClassSchedule([...classSchedule, response.data]);
             setNewClassSchedule({
