@@ -25,7 +25,9 @@ const generatedPasswordH4 = useRef<HTMLHeadingElement>(null)
 
 const generatePassword = function () {
   
-  
+  if(generatedPasswordElement.current != undefined) {
+    generatedPasswordElement.current.classList.remove(styles.hide)
+  }
 
   let password = "";
 
@@ -106,7 +108,7 @@ const generatePassword = function () {
 function openCloseGenerator() {
 
   if (generatedPasswordElement.current != undefined) {
-    generatedPasswordElement.current.classList.toggle(styles.hide)
+    generatedPasswordElement.current.classList.add(styles.hide)
 
     console.log(generatedPasswordElement)
   }
@@ -156,19 +158,19 @@ function openCloseGenerator() {
           
           <div id={styles.generateOptions} ref={generatePasswordContainer} className={styles.hide}>
           <p>Selecione as opções que você deseja:</p>
-          <div className="form-control">
+          <div className={styles.formControl}>
             <label >Quantidade de caracteres:</label>
-            <input type="text" id={styles.length} ref={lengthInput} name="length" value="10" />
+            <input type="text" id={styles.length} ref={lengthInput} name="length" placeholder="10" />
           </div>
-          <div className="form-control">
+          <div className={styles.formControl}>
             <label >Letras:</label>
             <input type="checkbox" id={styles.letters} ref={lettersInput} name="letters" />
           </div>
-          <div className="form-control">
+          <div className={styles.formControl}>
             <label >Números:</label>
             <input type="checkbox" id={styles.numbers} ref={numbersInput} name="numbers" />
           </div>
-          <div className="form-control">
+          <div className={styles.formControl}>
             <label >Símbolos:</label>
             <input type="checkbox" id={styles.symbols} ref={symbolsInput} name="symbols" />
           </div>
