@@ -2,6 +2,26 @@
   background-color: #b9b9b9;
 }
 
+.hide {
+  display: none;
+}
+
+#createPassTxt {
+  display: flex;
+  flex-flow: column;
+  align-items: end;
+}
+
+#purpleLink {
+  color: var(--roxo1);
+  text-decoration: none;
+  transition: 0.5s;
+  font-size: 0.9em;
+}
+#purpleLink:hover {
+  text-decoration: underline;
+}
+
 #signUpContainer {
   width: 100%;
   display: flex;
