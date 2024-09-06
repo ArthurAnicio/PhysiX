@@ -168,7 +168,7 @@ function openCloseGenerator() {
           <p>Selecione as opções que você deseja:</p>
           <div className="form-control">
             <label >Quantidade de caracteres:</label>
-            <input type="text" id={styles.length} ref={lengthInput} name="length" value="10" />
+            <input type="text" id={styles.length} ref={lengthInput} name="length" placeholder="10" />
           </div>
           <div className="form-control">
             <label >Letras:</label>
