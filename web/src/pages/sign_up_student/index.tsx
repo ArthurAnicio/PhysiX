@@ -6,6 +6,7 @@ import Footer from "../../components/footer";
 import TextBox from "../../components/textbox";
 import Submit from "../../components/submit";
 import api from "../../services/api";
+import PassCheck from "../../components/passcheck";
 
 const smlIcon = require("../../assets/images/imgs/pequenoClaroPng.png")
 
@@ -23,11 +24,12 @@ const generatedPasswordH4 = useRef<HTMLHeadingElement>(null)
 
 
 
+
+
+
 const generatePassword = function () {
   
-  if(generatedPasswordElement.current != undefined) {
-    generatedPasswordElement.current.classList.remove(styles.hide)
-  }
+  
 
   let password = "";
 
@@ -108,7 +110,7 @@ const generatePassword = function () {
 function openCloseGenerator() {
 
   if (generatedPasswordElement.current != undefined) {
-    generatedPasswordElement.current.classList.add(styles.hide)
+    generatedPasswordElement.current.classList.toggle(styles.hide)
 
     console.log(generatedPasswordElement)
   }
@@ -124,9 +126,14 @@ function openCloseGenerator() {
   const history = useNavigate();
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
+  const [passwordCorrect, setPasswordCorrect] = useState(false);
   const [email, setEmail] = useState('')
   
   function signUp() {
+    if(passwordCorrect === false){
+      alert('Por favor complete todos os requisitos!');
+      return;
+    }
     api.post('/user',{
       name,
       email,
@@ -153,24 +160,25 @@ function openCloseGenerator() {
           <TextBox type="text" value={email} onChange={(e) => {setEmail(e.target.value)}}/>
           <h1>Senha</h1>
           <TextBox type="password" value={password} onChange={(e) => {setPassword(e.target.value)}}/>
+          <PassCheck password={password} setCorrect={setPasswordCorrect}/>
           <p id={styles.createPassTxt} >Quer ajuda para criar uma senha segura?<br />
           <span id={styles.purpleLink} onClick={openCloseGenerator}>Clique aqui</span></p>
           
           <div id={styles.generateOptions} ref={generatePasswordContainer} className={styles.hide}>
           <p>Selecione as opções que você deseja:</p>
-          <div className={styles.formControl}>
+          <div className="form-control">
             <label >Quantidade de caracteres:</label>
             <input type="text" id={styles.length} ref={lengthInput} name="length" value="10" />
           </div>
-          <div className={styles.formControl}>
+          <div className="form-control">
             <label >Letras:</label>
             <input type="checkbox" id={styles.letters} ref={lettersInput} name="letters" />
           </div>
-          <div className={styles.formControl}>
+          <div className="form-control">
             <label >Números:</label>
             <input type="checkbox" id={styles.numbers} ref={numbersInput} name="numbers" />
           </div>
-          <div className={styles.formControl}>
+          <div className="form-control">
             <label >Símbolos:</label>
             <input type="checkbox" id={styles.symbols} ref={symbolsInput} name="symbols" />
           </div>

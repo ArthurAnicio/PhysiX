@@ -1,0 +1,14 @@
+#boxdiv {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#boxdiv>div {
+    display: flex;
+    align-items: center;
+}
+#checks {
+    font-size: 1em;
+    margin-left: 20px;
+}
