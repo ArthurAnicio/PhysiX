@@ -11,12 +11,11 @@ const smlIcon = require("../../assets/images/imgs/pequenoClaroPng.png")
 
 function LogInStudent() {
     const history = useNavigate();
-    const [name, setName] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [email, setEmail] = useState('')
 
     async function validateLogin() {
-        const response = await api.get('/user', {params : { name, email, password}})
+        const response = await api.get('/user', {params : { username, password}})
         console.log(response.data);
         if(response.status === 200){
           console.log(response.data.id) 
@@ -34,11 +33,9 @@ function LogInStudent() {
                     <header><img src={smlIcon} width="70px"/></header>
                     <section id={styles.inputsMain}>
                     <h1>Usuário</h1>
-                    <TextBox type="text" value={name} onChange={(e) => {setName(e.target.value)}}/>
-                    <h1>Email</h1>
-                    <TextBox type="text" value={email} onChange={(e) => {setEmail(e.target.value)}}/>
+                    <TextBox type="text" value={username} onChange={(e) => {setUsername(e.target.value)}} placeholder="Digite seu nome de usuário ou email"/>
                     <h1>Senha</h1>
-                    <TextBox type="password" value={password} onChange={(e) => {setPassword(e.target.value)}}/>
+                    <TextBox type="password" value={password} onChange={(e) => {setPassword(e.target.value)}} placeholder="Digite sua senha"/>
                     <Link to="/forgot_password" id={styles.purpleLink}>Esqueci a senha</Link>
                     <Submit className={styles.btn} label="Entrar" onClick={validateLogin}/>
                     <Link to="/sign_up_student" id={styles.purpleLink}>Criar  uma conta</Link>

@@ -40,12 +40,17 @@ export default class UserController{
     
     async index(req: Request, res: Response){
         const {
-            name,
-            email,
+            username,
             password
         } = req.query;
         try{
-            const user = await db('users').where({name, email, password }).first();
+            const user = await db('users')
+    .where(function() {
+    this.where('name', username)
+      .orWhere('email', username);
+  })
+  .andWhere('password', password)
+  .first();
             if(!user){
                 return res.status(400).json('Usuário ou senha incorretos');
             }

@@ -7,7 +7,7 @@ const routes = express.Router();
 const userController = new UserController();
 const teacherController = new TeacherController();
 const classController = new ClassController();
-
+ 
 routes.get('/teacher', teacherController.index);
 routes.post('/teacher', teacherController.create)
 routes.get('/teacher-login', teacherController.login)

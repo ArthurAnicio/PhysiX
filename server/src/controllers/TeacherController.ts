@@ -5,7 +5,7 @@ import multer, { FileFilterCallback, Multer } from 'multer';
 import path from 'path';
 import fs from 'fs';
 import dotenv from 'dotenv';
-dotenv.config();
+dotenv.config(); 
 interface ScheduleItem{
     week_day: number;
     from: string;
@@ -79,17 +79,22 @@ export default class TeacherController{
     async login(req: Request, res: Response) {
 
         const {
-            name,
-            email,
+            username,
             password
         } = req.query;
 
-        if (!name || !email || !password) {
+        if (!username || !password) {
             return res.status(400).json('Campos vazios')
         }
         else {
             try{
-                const teacher = await db('teacher').where({name, email, password }).first();
+                const teacher = await db('teacher')
+  .where(function() {
+    this.where('name', username)
+      .orWhere('email', username);
+  })
+  .andWhere('password', password)
+  .first();
                 if(!teacher){
                     return res.status(400).json('Usuário ou senha incorretos');
                 }
@@ -133,24 +138,6 @@ export default class TeacherController{
 
                 const teacher_id = insertedTeacherId[0];
 
-                const insertedClassId = await trx('classes').insert({
-                    cost,
-                    description,
-                    teacher_id
-                })
-
-                const class_id = insertedClassId[0];
-
-                const classSchedule = schedule.map((scheduleItem: ScheduleItem) => {
-                    return {
-                        class_id: class_id,
-                        week_day: scheduleItem.week_day,
-                        from: convertHourToMinutes(scheduleItem.from),
-                        to: convertHourToMinutes(scheduleItem.to)
-                    } 
-                })
-
-                await trx('class_schedule').insert(classSchedule);
 
                 await trx.commit();
                 return res.status(201).json('Professor registrado com sucesso');
