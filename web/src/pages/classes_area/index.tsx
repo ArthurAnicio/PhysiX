@@ -18,6 +18,7 @@ function ClassesArea() {
         from: '',
         to: ''
     });
+    const [stateId, setStateId] = useState(0)
 
     useEffect(() => {
         async function fetchClassSchedules() {
@@ -25,6 +26,7 @@ function ClassesArea() {
             try {
                 const response = await api.get('/class', { params: { id: teacherId } });
                 setClassSchedule(response.data);
+                setStateId(response.data.id)
             } catch (error) {
                 console.error('Error fetching classes:', error);
             }
@@ -76,7 +78,7 @@ function ClassesArea() {
 
     return (
         <div>
-            <Header path="/" title="Suas Aulas" />
+            <Header state={stateId} title="Suas Aulas" />
             <div id="classes-container">
                 {classSchedule.map((schedule, index) => (
                     <ClassScheduleItem key={schedule.id} classSchedule={schedule} onDelete={handleDelete} />

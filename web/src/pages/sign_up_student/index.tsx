@@ -21,6 +21,7 @@ const numbersInput = useRef<HTMLInputElement>(null)
 const symbolsInput = useRef<HTMLInputElement>(null)
 const copyPasswordButton = useRef<HTMLButtonElement>(null)
 const generatedPasswordH4 = useRef<HTMLHeadingElement>(null)
+const [stateId, setStateId] = useState(0)
 
 
 
@@ -149,7 +150,7 @@ function openCloseGenerator() {
   
   return ( 
     <div className={styles.signUpBody}>
-      <Header path="/" title="Cadastro Estudante"/>
+      <Header state={stateId} title="Cadastro Estudante"/>
       <div id={styles.signUpContainer}>
         <div id={styles.signUpWindow}>
           <header><img src={smlIcon} width="70px"/></header>

@@ -14,6 +14,10 @@ function ResetPass() {
     const token = query.get("token");
     const [password, setPassword] = useState('');
     const history = useNavigate();
+    const [stateId, setStateId] = useState(0)
+
+    localStorage.setItem("loginType", "0");
+
     async function passwordReset() {
         try {
             api.post('/reset-pass',{ 
@@ -30,7 +34,7 @@ function ResetPass() {
     }
     return (
         <>
-            <Header path="/" title="Redefinição de Senha" />
+            <Header state={stateId} title="Redefinição de Senha" />
             <div id="reset-pass-container">
                 <div id="reset-pass-window">
                     <header><img src={smlIcon} width="70px"/></header>

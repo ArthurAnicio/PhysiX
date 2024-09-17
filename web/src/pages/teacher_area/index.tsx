@@ -16,6 +16,7 @@ function TeacherArea() {
     const [teacher, setTeacher] = useState({ teacher: '', email: '', number: '',id: 0, avatar: '' });
     const [teacherName, setTeacherName] = useState('');
     const [imgsrc, setImgsrc] = useState('');
+    const [stateId, setStateId] = useState(0)
 
     useEffect(() => {
         console.log(teacherId)
@@ -30,6 +31,7 @@ function TeacherArea() {
                 const { teacher, avatar } = response.data;
                 setTeacherName(teacher);
                 setImgsrc(await getAvatar(avatar));
+                setStateId(response.data.id)
             } else {
                 alert('Falha no login! Por favor tente novamente.');
                 history('/log_in_teacher');
@@ -60,7 +62,7 @@ function TeacherArea() {
 
     return (
         <div>
-            <Header title="Área do Professor" path="/" />
+            <Header title="Área do Professor" state={stateId} />
             <main id={styles.areaContainer}>
                 <aside id={styles.areaAside}>
                 <i className='fa-solid fa-user' onClick={() => navigate("/profile_teacher", {state: { teacherId }})}></i>

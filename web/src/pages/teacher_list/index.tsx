@@ -16,6 +16,7 @@ function TeacherList() {
     const [teachers, setTeachers] = useState<Teacher[]>([]);
     const [favorites, setFavorites] = useState([0]);
     const user_id = location.state || 0;
+    const [stateId, setStateId] = useState(0)
 
     useEffect(() => {
         getFavorites(); 
@@ -90,7 +91,7 @@ function TeacherList() {
     
     return (
         <div>
-            <Header path="/" title="Lista de Professores" />
+            <Header state={stateId} title="Lista de Professores" />
             <form id="teacherList-filters" onSubmit={searchTeachers}>
                 <Select
                     value={week_day}

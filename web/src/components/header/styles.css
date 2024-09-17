@@ -7,33 +7,33 @@
   align-items: center;
 }
 #headerDefault > h1 {
-  flex: 1;
+  
   text-align: center;
   color: #fff;
 }
 #headerLogo {
-  padding-left: 10vh;
-  flex: 1;
-  width: 15vw;
+  
+  width: 400px;
 
   text-align: start;
 }
-#headerLogo > a > img {
-  width: 15vw;
-  transition: 0.5s;
+#headerLogo > img {
+  width: 300px;
+  transition: 0.3s;
 }
 
-#headerLogo > a > img:hover {
-  transform: scale(1.1);
+#headerLogo > img:hover {
+  transform: scale(1.05);
 }
 #atomHeader {
-  width: 5vw;
+  
+  width: 100px;
   position: relative;
   fill: var(--roxo1);
-  height: 5vw;
+  height: 100px;
 }
 #atomContainer {
-  padding-right: 10vh;
-  flex: 1;
+
+  width: 400px;
   text-align: end;
 }

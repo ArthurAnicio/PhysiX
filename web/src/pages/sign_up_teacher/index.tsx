@@ -19,6 +19,7 @@ function SignUpTeacher(){
     const [number, setNumber] = useState('');
     const [cost, setCost] = useState('');
     const [description, setDescription] = useState('');
+    const [stateId, setStateId] = useState(0)
 
     function signUp() {
         if(name === '' || email === '' || password === '' || number === '' || cost === '' || description === ''){
@@ -47,7 +48,7 @@ function SignUpTeacher(){
     
     return(
         <div className={styles.signUpBody}>
-            <Header path={'/'} title='Bem vindo Professor' />
+            <Header state={stateId} title='Bem vindo Professor' />
             <div id={styles.signUpContainer}>    
                 <div id={styles.signUpWindow}>
                 <header><img src={smlIcon} width="70px"/></header>

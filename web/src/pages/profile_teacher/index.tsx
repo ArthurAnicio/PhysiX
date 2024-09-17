@@ -14,6 +14,7 @@ function ProfileTeacher() {
     const [isEditable, setIsEditable] = useState(false);
     const [showPassword, setShowPassword] = useState(false); 
     const { teacherId } = location.state || { teacherId: 0 };
+    const [stateId, setStateId] = useState(0)
 
     useEffect(() => {
         getTeacher();
@@ -32,6 +33,7 @@ function ProfileTeacher() {
             const response = await api.get('/getTeacher', { params: { id: teacherId } });
             if (response.status === 200) {
                 setTeacher(response.data);
+                setStateId(response.data.id)
             } else {
                 alert('Falha no login! Por favor tente novamente.');
                 navigate('/log_in_teacher');
@@ -114,7 +116,7 @@ function ProfileTeacher() {
 
     return (
         <div className={styles.profileBody}>
-            <Header title="Perfil do Professor" path="/" />
+            <Header title="Perfil do Professor" state={stateId} />
             <div id={styles.areaContainer}>
 
                 <div className={styles.infoArea}>

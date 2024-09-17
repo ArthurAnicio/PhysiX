@@ -11,6 +11,9 @@ import study from "../../assets/images/icons/study";
 let mainLogo = require("../../assets/images/imgs/grandeClaroPng.png");
 
 function Landing() {
+
+  localStorage.setItem("loginType", "0");
+
   return (
     <div id={styles.container}>
       <header id={styles.landingHeader}>

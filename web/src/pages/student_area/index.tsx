@@ -58,7 +58,7 @@ function StudentArea() {
 
     return (
         <div>
-            <Header title="Área do Aluno" path="/" />
+            <Header title="Área do Aluno" state={ userId } />
             <main id={styles.areaContainer}>
                 <aside id={styles.areaAside}>
                 <i className='fa-solid fa-user' onClick={() => navigate("/profile_student", {state: { userId }})}></i>

@@ -16,6 +16,7 @@ function StudentList() {
     const location = useLocation();
     const teacherId = location.state.id || 0
     const [users, setUsers] = useState<User[]>([])
+    const [stateId, setStateId] = useState(0)
     useEffect(() => {
         searchUsers()
     }, [teacherId, users])
@@ -34,6 +35,7 @@ function StudentList() {
             })
         )
         setUsers(updatedUsers)
+        setStateId(response.data.id)
     }
     async function getAvatar(avatarPath: string) {
         try {
@@ -53,7 +55,7 @@ function StudentList() {
     }
     return(
         <>
-        <Header title="Lista de Estudantes" path="/"/>
+        <Header title="Lista de Estudantes" state={stateId}/>
             
             <div id="studentList">
                 {users.map((user:User) => (

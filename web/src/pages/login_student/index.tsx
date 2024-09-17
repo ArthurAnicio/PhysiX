@@ -13,21 +13,31 @@ function LogInStudent() {
     const history = useNavigate();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [stateId, setStateId] = useState(0)
 
     async function validateLogin() {
+        if(username && password) {
+        try {
         const response = await api.get('/user', {params : { username, password}})
-        console.log(response.data);
         if(response.status === 200){
-          console.log(response.data.id) 
+          localStorage.setItem("loginType", "1");
+          setStateId(response.data.id)
           history('/student_area', {state:{userId: response.data.id}})
         }
         else{
             alert('Usuário não encontrado')
         }
+    } catch (error) {
+        console.error('Erro ao fazer login:', error);
+        alert('Login e/ou senha incorretos!')
+    }
+    } else {
+        alert('Preencha todo os campos!')
+    }
     } 
     return (
         <div className={styles.loginBody}>
-            <Header path="/" title="Login Estudante"/>
+            <Header state={stateId} title="Login Estudante"/>
             <div id={styles.loginContainer}>
                 <div id={styles.loginWindow}>
                     <header><img src={smlIcon} width="70px"/></header>

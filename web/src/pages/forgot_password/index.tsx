@@ -10,6 +10,7 @@ import api from "../../services/api";
 const smlIcon = require("../../assets/images/imgs/pequenoClaroPng.png")
 function ForgotPassword() {
     const [email, setEmail] = useState("")
+    const [stateId, setStateId] = useState(0)
 
     async function sendEmail() {
         try {
@@ -23,7 +24,7 @@ function ForgotPassword() {
     }
     return (
         <>
-            <Header path="/" title="Esqueci a senha"/>
+            <Header state={stateId} title="Esqueci a senha"/>
             <div id="password-container">
                 <div id="password-window">
                     <header><img src={smlIcon} width="70px"/></header>
