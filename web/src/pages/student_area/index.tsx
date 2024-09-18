@@ -12,6 +12,7 @@ function StudentArea() {
     const [user, setUser] = useState({ user: '', email: '', id: 0, avatar: '' });
     const [imgsrc, setImgsrc] = useState('');
     const { userId } = location.state || { userId: 0 };
+    const [stateId, setStateId] = useState(userId)
 
     useEffect(() => {
         getUser();
@@ -27,6 +28,7 @@ function StudentArea() {
         try {
             const response = await api.get('/getuser', { params: { id: userId } });
             if (response.status === 200) {
+                setStateId(response.data.id)
                 setUser(response.data);
             } else {
                 alert('Falha no login! Por favor tente novamente.');
@@ -58,11 +60,12 @@ function StudentArea() {
 
     return (
         <div>
-            <Header title="Área do Aluno" state={ userId } />
+            <Header title="Área do Aluno" state={ stateId } />
             <main id={styles.areaContainer}>
                 <aside id={styles.areaAside}>
                 <i className='fa-solid fa-user' onClick={() => navigate("/profile_student", {state: { userId }})}></i>
                 <i className="fa-solid fa-chalkboard-user" onClick={() => navigate("/teacher_list", { state: { userId } })}></i>
+                <i className="fa-solid fa-right-from-bracket" onClick={() => navigate("/")}></i>
                 </aside>
             </main>
             <Footer />

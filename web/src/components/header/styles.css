@@ -20,6 +20,7 @@
 #headerLogo > img {
   width: 300px;
   transition: 0.3s;
+  cursor: pointer;
 }
 
 #headerLogo > img:hover {

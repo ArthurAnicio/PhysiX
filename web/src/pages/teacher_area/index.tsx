@@ -16,7 +16,7 @@ function TeacherArea() {
     const [teacher, setTeacher] = useState({ teacher: '', email: '', number: '',id: 0, avatar: '' });
     const [teacherName, setTeacherName] = useState('');
     const [imgsrc, setImgsrc] = useState('');
-    const [stateId, setStateId] = useState(0)
+    const [stateId, setStateId] = useState(teacherId)
 
     useEffect(() => {
         console.log(teacherId)
@@ -68,6 +68,7 @@ function TeacherArea() {
                 <i className='fa-solid fa-user' onClick={() => navigate("/profile_teacher", {state: { teacherId }})}></i>
                 <i className="fa-solid fa-chalkboard-user" onClick={() => navigate("/student_list", { state: { teacherId } })}></i>
                 <i className="fa-solid fa-chalkboard-user" onClick={() => navigate("/classes_area", { state: { teacherId } })}></i>
+                <i className="fa-solid fa-right-from-bracket" onClick={() => navigate("/")}></i>
                 </aside>
             </main>
             <Footer />

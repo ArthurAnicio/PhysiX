@@ -11,9 +11,9 @@ interface HeaderParam extends InputHTMLAttributes<HTMLInputElement> {
 } 
 
 const Header: React.FC<HeaderParam> = ({ state, title }) => {
-
+  console.log(state)
   let path = "/"
-
+  let stateType = ""
 
 function handleRedirect(loginType: number) {
   switch (loginType){
@@ -22,9 +22,11 @@ function handleRedirect(loginType: number) {
     break
     case 1:
     path = "/student_area";
+    stateType = "userId"
     break
     case 2:
     path = "/teacher_area"
+    stateType = "teacherId"
     break
 
   }
@@ -38,9 +40,16 @@ function handleRedirect(loginType: number) {
     if (loginType) {
       loginToInt = parseInt(loginType)
     }
-    handleRedirect(loginToInt)
-
-    navigate(path, {state: {state}})
+    //handleRedirect(loginToInt)
+    
+    switch (loginToInt) {
+      case 0:
+        return navigate("/")
+      case 1:
+        return navigate("/student_area", {state: {userId: state}})
+      case 2:
+        return navigate("/teacher_area", {state: {teacherId: state}})
+    }
   }
   return (
     <div id="headerDefault">

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation,useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Header from "../../components/header";
 import Footer from "../../components/footer";
 import UserCard from "../../components/userCard";
@@ -14,9 +14,9 @@ interface User {
 }
 function StudentList() {
     const location = useLocation();
-    const teacherId = location.state.id || 0
+    const { teacherId } = location.state || { teacherId: 0 };
     const [users, setUsers] = useState<User[]>([])
-    const [stateId, setStateId] = useState(0)
+    const [stateId, setStateId] = useState(teacherId)
     useEffect(() => {
         searchUsers()
     }, [teacherId, users])
@@ -35,7 +35,6 @@ function StudentList() {
             })
         )
         setUsers(updatedUsers)
-        setStateId(response.data.id)
     }
     async function getAvatar(avatarPath: string) {
         try {

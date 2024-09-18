@@ -14,7 +14,7 @@ function ProfileStudent() {
     const [isEditable, setIsEditable] = useState(false);
     const [showPassword, setShowPassword] = useState(false); 
     const { userId } = location.state || { userId: 0 };  
-    const [stateId, setStateId] = useState(0)
+    const [stateId, setStateId] = useState(userId)
 
     useEffect(() => {
         getUser();
@@ -32,7 +32,7 @@ function ProfileStudent() {
             const response = await api.get('/getuser', { params: { id: userId } });
             if (response.status === 200) {
                 setUser(response.data);
-                setStateId(response.data.userId)
+                setStateId(response.data.id)
             } else {
                 alert('Falha no login! Por favor tente novamente.');
                 navigate('/log_in_student');

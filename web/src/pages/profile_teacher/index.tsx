@@ -14,7 +14,7 @@ function ProfileTeacher() {
     const [isEditable, setIsEditable] = useState(false);
     const [showPassword, setShowPassword] = useState(false); 
     const { teacherId } = location.state || { teacherId: 0 };
-    const [stateId, setStateId] = useState(0)
+    const [stateId, setStateId] = useState(teacherId)
 
     useEffect(() => {
         getTeacher();

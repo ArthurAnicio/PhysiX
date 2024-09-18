@@ -10,7 +10,7 @@ import api from "../../services/api";
 const smlIcon = require("../../assets/images/imgs/pequenoClaroPng.png")
 
 function LogInStudent() {
-    const history = useNavigate();
+    const history = useNavigate(); 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [stateId, setStateId] = useState(0)

@@ -16,7 +16,7 @@ function TeacherList() {
     const [teachers, setTeachers] = useState<Teacher[]>([]);
     const [favorites, setFavorites] = useState([0]);
     const user_id = location.state || 0;
-    const [stateId, setStateId] = useState(0)
+    const [stateId, setStateId] = useState(user_id.userId)
 
     useEffect(() => {
         getFavorites(); 

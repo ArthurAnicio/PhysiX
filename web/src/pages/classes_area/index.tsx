@@ -18,7 +18,7 @@ function ClassesArea() {
         from: '',
         to: ''
     });
-    const [stateId, setStateId] = useState(0)
+    const [stateId, setStateId] = useState(teacherId)
 
     useEffect(() => {
         async function fetchClassSchedules() {
@@ -26,7 +26,6 @@ function ClassesArea() {
             try {
                 const response = await api.get('/class', { params: { id: teacherId } });
                 setClassSchedule(response.data);
-                setStateId(response.data.id)
             } catch (error) {
                 console.error('Error fetching classes:', error);
             }
