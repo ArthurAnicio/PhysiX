@@ -2,11 +2,13 @@ import express from 'express';
 import UserController from './controllers/UserController';
 import TeacherController from './controllers/TeacherController';
 import ClassController from './controllers/ClassController';
+import InvitesController from './controllers/InvitesController';
 
 const routes = express.Router();
 const userController = new UserController();
 const teacherController = new TeacherController();
 const classController = new ClassController();
+const invitesController = new InvitesController();
  
 routes.get('/teacher', teacherController.index);
 routes.post('/teacher', teacherController.create)
@@ -32,6 +34,10 @@ routes.get('/class', classController.index)
 routes.post('/class', classController.create)
 routes.put('/class', classController.update)
 routes.delete('/class', classController.delete);
+
+routes.post('/invite', invitesController.create)
+routes.get('/invite', invitesController.index)
+routes.put('/invite', invitesController.accept)
 
 
 export default routes;

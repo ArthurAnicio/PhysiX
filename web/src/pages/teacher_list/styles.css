@@ -1,6 +1,8 @@
 #teacherList-filters {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    width: 50%;
+    margin: 2vh auto;
+    display: flex;
+    align-items: center;
     padding: 50px;
     padding-top: 20px;
     padding-bottom: 20px;
@@ -11,7 +13,7 @@
 }
 
 #teacherList-container {
-    background-image: url("../../assets/images/imgs/matriceLight.png");
+    background: var(--cinza1);
     width: 100%;
     border: none;
     display: flex;
@@ -23,14 +25,14 @@
 }
 
 #pesquisar {
-    background-color: var(--roxo1);
+    background-color: var(--verde);
     grid-column: span 2; 
-    color: #fff;
+    color: var(--branco);
     border: none;
     font-size: 2em;
     font-family: Poppins;
-    width: 50%;
-    margin: 1rem auto;
+    width: 25%;
+    margin: 2rem;
     border-radius: 20px;
     font-weight: 600;
     transition: 0.2s;
@@ -38,6 +40,7 @@
 
 #pesquisar:hover {
     cursor: pointer;
+    background-color: var(--verde2);
     scale: 1.1;
 }
 

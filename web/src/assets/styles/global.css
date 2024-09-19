@@ -1,8 +1,13 @@
 :root {
   --roxo1: #8a5ac9;
   --roxo2: #593c7e;
-  --cinza1: #252525;
-  --cinza2: #e7e3e7;
+  --branco: #faf7fc;
+  --preto: #0b0024;
+  --cinza1: #b9b9b9;
+  --cinza2: #252525;
+  --cinza3: #e7e3e7;
+  --verde: #3add55;
+  --verde2: #0b7a1e;
 }
 
 body {

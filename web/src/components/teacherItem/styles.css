@@ -1,6 +1,6 @@
 #teacherCard{
     border-radius: 20px;
-    background-color: white;
+    background-color: var(--branco);
     width: 80%;
     padding: 20px;
     margin-bottom: 200px;
@@ -55,4 +55,25 @@ h1 {
     width: 30px;
     height: 30px;
     transition: 0.5s;
+}
+
+.sendInvite{
+    width: 2vw;
+    height: 2vw;
+    background-color: var(--verde);
+    border: none;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.sendInvite svg {
+    fill: var(--branco);
+}
+
+.sendInvite:hover {
+    background-color: var(--verde2);
 }
