@@ -10,7 +10,7 @@
 #password-window {
     width: 25%;
     padding-bottom: 60px;
-    background-color: #fff;
+    background-color: var(--branco2);
     border-radius: 20px;
     display: flex;
     flex-direction: column;

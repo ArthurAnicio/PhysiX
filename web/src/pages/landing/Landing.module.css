@@ -4,7 +4,7 @@ h1 {
   color: var(--pintogrande);
 }
 ::selection {
-  background-color: white;
+  background-color: var(--branco2);
   color: var(--roxo1);
 }
 
@@ -36,7 +36,7 @@ h1 {
 #headerContainer h2 {
   font-family: Poppins;
   font-weight: 600;
-  color: white;
+  color: var(--branco2);
   padding: 0;
   margin: 0;
 }

@@ -10,7 +10,7 @@
 #reset-pass-window {
     width: 25%;
     padding-bottom: 60px;
-    background-color: #fff;
+    background-color: var(--branco2);
     border-radius: 20px;
     margin-top: 100px;
     margin-bottom: 100px;
