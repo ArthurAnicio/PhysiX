@@ -1,5 +1,5 @@
 #classes-container{
-    background-color: #fff;
+    background-color: var(--branco2);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -13,7 +13,7 @@ form{
     padding: 1.2rem;
     text-decoration: none;
     background-color: var(--roxo1);
-    color: #fff;
+    color: var(--branco2);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -40,8 +40,8 @@ form button {
     justify-content: center;
     align-items: center;
     border: none;
-    background-color: rgb(30, 233, 74);
-    color: #fff;
+    background-color: var(--verde3);
+    color: var(--branco2);
     font-size: 3rem;
     cursor: pointer;
     transition: 0.2s;
@@ -49,7 +49,7 @@ form button {
 
 form button:hover {
     color: #c7c5c5;
-    background-color: rgb(18, 119, 40);
+    background-color: var(--verde4);
     scale: 1.05;
 }
 
@@ -59,7 +59,7 @@ form button:hover {
     border: none;
     border-radius: 10px;
     background-color: var(--roxo1);
-    color: #fff;
+    color: var(--branco2);
     cursor: pointer;
     font-family: Poppins;
     font-size: 2rem;

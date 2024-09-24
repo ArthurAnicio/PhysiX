@@ -9,7 +9,7 @@
 #headerDefault > h1 {
   
   text-align: center;
-  color: #fff;
+  color: var(--branco2);
 }
 #headerLogo {
   

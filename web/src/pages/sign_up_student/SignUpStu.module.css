@@ -1,5 +1,5 @@
 .signUpBody {
-  background-color: #b9b9b9;
+  background-color: var(--cinza1);
 }
 
 #generateOptions.hide,
@@ -12,7 +12,7 @@
   border: 0;
   padding: 10px;
   border-radius: 5px;
-  color: white;
+  color: var(--branco2);
   font-size: 1.5em;
 }
 
@@ -67,7 +67,7 @@
 #signUpWindow {
   margin: 100px;
   width: 500px;
-  background-color: #fff;
+  background-color: var(--branco2);
   border-radius: 20px;
   display: flex;
   flex-direction: column;
@@ -99,7 +99,7 @@
 
 #createStudent {
   align-self: flex-end;
-  color: #000;
+  color: var(--preto2);
   text-decoration: none;
   margin-right: 10%;
   transition: 0.5s;

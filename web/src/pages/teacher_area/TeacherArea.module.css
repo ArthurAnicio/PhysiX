@@ -15,7 +15,7 @@
   #areaAside i {
     margin-top: 30px;
     font-size: 50px;
-    color: white;
+    color: var(--branco2);
     transition: 0.3s;
   }
   
@@ -43,7 +43,7 @@
   
   .sendToProfile:hover {
     scale: 1.01;
-    box-shadow: 0 0 10px #222;
+    box-shadow: 0 0 10px var(--preto4);
   }
   
   .sendToProfile span {
@@ -56,7 +56,7 @@
     padding: 20px;
     text-decoration: none;
     background-color: var(--roxo1);
-    color: #fff;
+    color: var(--branco2);
     border: none;
     border-radius: 20px;
     font-size: 2em;

@@ -1,5 +1,5 @@
 .loginBody {
-  background-color: #b9b9b9;
+  background-color: var(--cinza1);
 }
 
 #loginContainer {
@@ -18,7 +18,7 @@
 #loginWindow {
   margin: 100px;
   width: 500px;
-  background-color: #fff;
+  background-color: var(--branco2);
   border-radius: 20px;
   display: flex;
   flex-direction: column;

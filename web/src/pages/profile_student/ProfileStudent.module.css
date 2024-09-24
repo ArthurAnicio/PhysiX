@@ -1,5 +1,5 @@
 .profileBody {
-  background-color: #b9b9b9;
+  background-color: var(--cinza1);
 }
 
 #imgBox {
@@ -34,7 +34,7 @@
   top: 0;
   left: 0;
   position: absolute;
-  background-color: rgba(50, 50, 50, 0.6);
+  background-color: var(--preto3);
   width: 100%;
   height: 100%;
   transition: 0.3s;
@@ -74,7 +74,7 @@
 }
 
 #profileBoxHeader h2 {
-  color: white;
+  color: var(--branco2);
   margin: 0;
 }
 
@@ -96,13 +96,13 @@
   width: 700px;
   overflow: hidden;
   border-radius: 1em;
-  background-color: #fff;
+  background-color: var(--branco2);
   display: flex;
   flex-direction: column;
 }
 
 .infoArea h2 {
-  color: rgb(65, 0, 90);
+  color: var(--roxo3);
 }
 
 .info {
@@ -130,7 +130,7 @@
   align-items: center;
   font-size: 1.5rem;
   font-weight: 700;
-  color: rgb(65, 0, 90);
+  color: var(--roxo3);
 }
 
 .campoEdit {
@@ -146,7 +146,7 @@
   border-radius: 1rem;
   font-size: 1.5rem;
   background-color: var(--roxo1);
-  color: #fff;
+  color: var(--branco2);
   border: none;
   cursor: pointer;
   font-weight: bold;
@@ -204,7 +204,7 @@
   border-radius: 1rem;
   font-size: 1.3rem;
   background-color: var(--roxo1);
-  color: #fff;
+  color: var(--branco2);
   border: none;
   cursor: pointer;
   font-weight: bold;

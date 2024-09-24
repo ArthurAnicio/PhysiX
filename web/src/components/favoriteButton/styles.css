@@ -2,11 +2,11 @@
     fill: lightgray;
 }
 .favoriteDisable>svg:hover {
-    fill:rgb(252, 206, 109);
+    fill:var(--amarelo);
   
 }
 .favoriteEnable>svg{
-    fill:rgb(252, 206, 109);
+    fill:var(--amarelo);
     
 }
 .favoriteEnable>svg:hover {
