@@ -10,6 +10,8 @@
   display: flex;
   flex-flow: column;
   align-items: center;
+  overflow: hidden;
+  transition: .5s;
 }
 
 #areaAside i {
@@ -22,6 +24,10 @@
 #areaAside i:hover {
   scale: 1.1;
   cursor: pointer;
+}
+
+.asideClosed {
+  width: 0px !important;
 }
 
 .sendToProfile {

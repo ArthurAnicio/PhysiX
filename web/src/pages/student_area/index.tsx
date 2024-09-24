@@ -1,7 +1,7 @@
-import  { useState, useEffect } from "react";
+import  { useState, useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import styles from "./StudentArea.module.css";
-import Header from "../../components/header";
+import AreaHeader from "../../components/areaHeader";
 import Footer from "../../components/footer";
 import api from "../../services/api";
 import Avatar from "../../components/avatar";
@@ -13,6 +13,7 @@ function StudentArea() {
     const [imgsrc, setImgsrc] = useState('');
     const { userId } = location.state || { userId: 0 };
     const [stateId, setStateId] = useState(userId)
+    const asideRef = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
         getUser();
@@ -23,6 +24,13 @@ function StudentArea() {
             getAvatar(user.avatar);
         }
     }, [user.avatar]);
+
+    function asideOpen() {
+        if(asideRef.current!= undefined) {
+            asideRef.current.classList.toggle("StudentArea_asideClosed__HDMo7");
+        }
+        console.log(asideRef.current)
+    }
 
     async function getUser() {
         try {
@@ -60,9 +68,9 @@ function StudentArea() {
 
     return (
         <div>
-            <Header title="Área do Aluno" state={ stateId } />
+            <AreaHeader title="Área do Aluno" state={ stateId } asideOpen={asideOpen}  />
             <main id={styles.areaContainer}>
-                <aside id={styles.areaAside}>
+                <aside id={styles.areaAside} ref={asideRef} className={styles.asideClosed}>
                 <i className='fa-solid fa-user' onClick={() => navigate("/profile_student", {state: { userId }})}></i>
                 <i className="fa-solid fa-chalkboard-user" onClick={() => navigate("/teacher_list", { state: { userId } })}></i>
                 <i className="fa-solid fa-right-from-bracket" onClick={() => navigate("/")}></i>
