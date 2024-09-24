@@ -11,7 +11,6 @@ interface HeaderParam extends InputHTMLAttributes<HTMLInputElement> {
 } 
 
 const Header: React.FC<HeaderParam> = ({ state, title }) => {
-  console.log(state)
   let path = "/"
   let stateType = ""
 

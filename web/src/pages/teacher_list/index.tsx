@@ -17,10 +17,12 @@ function TeacherList() {
     const [favorites, setFavorites] = useState([0]);
     const user_id = location.state || 0;
     const [stateId, setStateId] = useState(user_id.userId)
+    const [allTeachers, setAllTeachers] = useState<Teacher[]>([]);
 
     useEffect(() => {
         getFavorites(); 
-    }, [favorites]);
+        searchTeachers()
+    }, []);
 
     async function getFavorites(){
         try {
@@ -37,42 +39,29 @@ function TeacherList() {
         }
     }
 
-    async function searchTeachers(e: FormEvent) {
-        e.preventDefault();
+    async function searchTeachers() {
         getFavorites();
-        if (time !== '' && week_day !== undefined) {
             try {
                 const response = await api.get('/teacher', {
-                    params: {
-                        week_day,
-                        time
-                    }
                 });
-                const teachersData = response.data;
-
+                const teachersData = response.data; 
                 const updatedTeachers = await Promise.all(
                     teachersData.map(async (teacher: Teacher) => {
                         teacher.avatar = await getAvatar(teacher.avatar);
-                        if (favorites.includes(teacher.id)) {
-                            teacher.favorite = true
-                        }
-                        else {
-                            teacher.favorite = false
-                            
-                        }
-                        
                         return teacher;
                     })
                 );
-
-                setTeachers(updatedTeachers);
+ 
+                setAllTeachers(updatedTeachers);
+                console.log(allTeachers)
+                setTeachers(allTeachers)
             } catch (err) {
                 alert('Falha na busca!');
                 console.log(err);
             }
-        }
     }
 
+  
     async function getAvatar(avatarPath: string) {
         try {
             const response = await api.get('/avatar', { params: { route: avatarPath } });
@@ -93,7 +82,7 @@ function TeacherList() {
     return (
         <div>
             <Header state={stateId} title="Lista de Professores" />
-            <form id="teacherList-filters" onSubmit={searchTeachers}>
+            <form id="teacherList-filters">
                 <Select
                     value={week_day}
                     label='Dia'
