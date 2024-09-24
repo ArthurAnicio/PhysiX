@@ -1,5 +1,5 @@
 import React, { InputHTMLAttributes } from "react";
-import "./styles.css";
+import styles from "./Header.module.css";
 import AtomSVG from "../../assets/images/icons/atom";
 import { Link, useNavigate } from "react-router-dom";
 import { parse } from "path";
@@ -52,15 +52,15 @@ function handleRedirect(loginType: number) {
     }
   }
   return (
-    <div id="headerDefault">
-      <div id="headerLogo">
-
-        <img src={mainLogo} onClick={handleNavigate}/> 
-
+    <div id={styles.headerDefault}>
+      <div id={styles.headerLogo}>
+        <img src={mainLogo} onClick={handleNavigate}/>
       </div>
+      <div id={styles.titleSection}>
       <h1>{title}</h1>
-      <div id="atomContainer">
-        <AtomSVG id={"atomHeader"} />
+      </div>
+      <div id={styles.atomContainer}>
+        <AtomSVG id={styles.atomHeader} />
       </div>
     </div>
   );

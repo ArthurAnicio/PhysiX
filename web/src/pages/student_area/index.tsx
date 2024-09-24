@@ -14,7 +14,7 @@ function StudentArea() {
     const { userId } = location.state || { userId: 0 };
     const [stateId, setStateId] = useState(userId)
     const asideRef = useRef<HTMLDivElement>(null)
-
+ 
     useEffect(() => {
         getUser();
     }, []);
@@ -27,7 +27,7 @@ function StudentArea() {
 
     function asideOpen() {
         if(asideRef.current!= undefined) {
-            asideRef.current.classList.toggle("StudentArea_asideClosed__HDMo7");
+            asideRef.current.classList.toggle(styles.asideClosed);
         }
         console.log(asideRef.current)
     }

@@ -1,40 +1,41 @@
+#bars {
+  color: #fff;
+  font-size: 60px;
+}
+
+#openAside {
+  cursor: pointer;
+  display: flex;
+  justify-content: start;
+  margin-left: 40px;
+}
+
+#headerDefault>div {
+  flex: 1;
+}
+
 #headerDefault {
   background: linear-gradient(90deg, var(--roxo1), var(--roxo2));
   display: flex;
-  justify-content: space-evenly;
   width: 100%;
   height: 15vh;
   align-items: center;
+  justify-content: space-between;
 }
-#headerDefault > h1 {
-  
+
+.titleHeader > h1 {
   text-align: center;
   color: #fff;
 }
-#headerLogo {
-  
-  width: 400px;
 
-  text-align: start;
-}
-#headerLogo > img {
-  width: 300px;
-  transition: 0.3s;
-  cursor: pointer;
-}
-
-#headerLogo > img:hover {
-  transform: scale(1.05);
-}
 #atomHeader {
-  
   width: 100px;
   position: relative;
   fill: var(--roxo1);
   height: 100px;
 }
 #atomContainer {
-
-  width: 400px;
+  margin-right: 40px;
+  justify-self: end;
   text-align: end;
 }

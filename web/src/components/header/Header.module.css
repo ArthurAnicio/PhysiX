@@ -6,15 +6,18 @@
   height: 15vh;
   align-items: center;
 }
-#headerDefault > h1 {
-  
+
+#headerDefault>div{
+  flex: 1;
+}
+
+#titleSection > h1 {
   text-align: center;
   color: var(--branco2);
 }
 #headerLogo {
-  
+  margin-left: 40px;
   width: 400px;
-
   text-align: start;
 }
 #headerLogo > img {
@@ -22,19 +25,17 @@
   transition: 0.3s;
   cursor: pointer;
 }
-
 #headerLogo > img:hover {
   transform: scale(1.05);
 }
 #atomHeader {
-  
+  margin-right: 40px;
   width: 100px;
   position: relative;
   fill: var(--roxo1);
   height: 100px;
 }
 #atomContainer {
-
-  width: 400px;
+  /* width: 400px; */
   text-align: end;
 }

@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import styles from "./TeacherArea.module.css";
-import Header from "../../components/header";
+import AreaHeader from "../../components/areaHeader";
 import Footer from "../../components/footer";
 import api from "../../services/api";
 import Avatar from "../../components/avatar";
@@ -17,11 +17,19 @@ function TeacherArea() {
     const [teacherName, setTeacherName] = useState('');
     const [imgsrc, setImgsrc] = useState('');
     const [stateId, setStateId] = useState(teacherId)
-
+    const asideRef = useRef<HTMLDivElement>(null)
+ 
     useEffect(() => {
         console.log(teacherId)
         getTeacher();
     }, []);
+
+    function asideOpen() {
+        if(asideRef.current!= undefined) {
+            asideRef.current.classList.toggle(styles.asideClosed);
+        }
+        console.log(asideRef.current)
+    }
 
     async function getTeacher() {
         
@@ -62,9 +70,9 @@ function TeacherArea() {
 
     return (
         <div>
-            <Header title="Área do Professor" state={stateId} />
+            <AreaHeader title="Área do Professor" state={stateId} asideOpen={asideOpen}/>
             <main id={styles.areaContainer}>
-                <aside id={styles.areaAside}>
+                <aside id={styles.areaAside} ref={asideRef} className={styles.asideClosed}>
                 <i className='fa-solid fa-user' onClick={() => navigate("/profile_teacher", {state: { teacherId }})}></i>
                 <i className="fa-solid fa-chalkboard-user" onClick={() => navigate("/student_list", { state: { teacherId } })}></i>
                 <i className="fa-solid fa-chalkboard-user" onClick={() => navigate("/classes_area", { state: { teacherId } })}></i>

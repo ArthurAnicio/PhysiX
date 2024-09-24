@@ -1,5 +1,5 @@
 import React, { InputHTMLAttributes } from "react";
-import "./styles.css";
+import styles from "./AreaHeader.module.css";
 import AtomSVG from "../../assets/images/icons/atom";
 import { Link, useNavigate } from "react-router-dom";
 import { parse } from "path";
@@ -10,7 +10,7 @@ interface HeaderParam extends InputHTMLAttributes<HTMLInputElement> {
   title: string;
   asideOpen: () => void
 } 
-
+ 
 const AreaHeader: React.FC<HeaderParam> = ({ state, title, asideOpen }) => {
   console.log(state)
 
@@ -34,14 +34,16 @@ const AreaHeader: React.FC<HeaderParam> = ({ state, title, asideOpen }) => {
     }
   }
   return (
-    <div id="headerDefault">
-      <div id="openAside" onClick={asideOpen}>
-        <i className="fa-solid fa-bars" ></i>
+    <div id={styles.headerDefault}>
+      <div id={styles.openAside} onClick={asideOpen}>
+        <i className="fa-solid fa-bars" id={styles.bars}></i>
       </div>
+      <div className={styles.titleHeader}>
       <h1>{title}</h1>
-      <div id="atomContainer">
-        <AtomSVG id={"atomHeader"} />
       </div>
+      <div id={styles.atomContainer}>
+        <AtomSVG id={styles.atomHeader} />
+      </div> 
     </div>
   );
 };
