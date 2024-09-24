@@ -21,6 +21,7 @@ function TeacherList() {
     useEffect(() => {
         getFavorites(); 
     }, [favorites]);
+
     async function getFavorites(){
         try {
             

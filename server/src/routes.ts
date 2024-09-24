@@ -3,13 +3,17 @@ import UserController from './controllers/UserController';
 import TeacherController from './controllers/TeacherController';
 import ClassController from './controllers/ClassController';
 import InvitesController from './controllers/InvitesController';
+import TestController from './controllers/TestController';
 
 const routes = express.Router();
 const userController = new UserController();
 const teacherController = new TeacherController();
 const classController = new ClassController();
 const invitesController = new InvitesController();
+const testController = new TestController();
  
+routes.get('/test', testController.test)
+
 routes.get('/teacher', teacherController.index);
 routes.post('/teacher', teacherController.create)
 routes.get('/teacher-login', teacherController.login)
@@ -20,8 +24,8 @@ routes.post('/favorite-teacher',teacherController.addFavorite)
 routes.get('/favorite-teacher',teacherController.getFavorites)
 routes.delete('/favorite-teacher',teacherController.deleteFavorite)
 
-routes.get('/user', userController.index);
 routes.post('/user', userController.create) 
+routes.get('/user', userController.index);
 routes.post('/forgot-password', userController.forgotPass)
 routes.post('/reset-pass',userController.passReset)
 routes.get('/getuser',userController.getUser)
@@ -36,8 +40,8 @@ routes.put('/class', classController.update)
 routes.delete('/class', classController.delete);
 
 routes.post('/invite', invitesController.create)
+routes.put('/invite', invitesController.accept) 
 routes.get('/invite', invitesController.index)
-routes.put('/invite', invitesController.accept)
 
 
 export default routes;

@@ -6,7 +6,7 @@ class InvitesController{
     async index(req: Request, res: Response){
         const {teacher_id} = req.params;
         const trx = await db.transaction();
-        if (teacher_id){
+        if (teacher_id){ 
             try {
                 const pendingInvites = await trx('invites').where({teacher_id: teacher_id, accepted: false}).select('*');
                 await trx.commit();
