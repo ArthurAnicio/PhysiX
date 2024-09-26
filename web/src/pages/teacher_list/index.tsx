@@ -21,7 +21,7 @@ function TeacherList() {
 
     useEffect(() => {
         getFavorites(); 
-        searchTeachers()
+        listTeachers()
     }, []);
 
     async function getFavorites(){
@@ -38,12 +38,12 @@ function TeacherList() {
             console.log(err);
         }
     }
+    
 
-    async function searchTeachers() {
-        getFavorites();
+    async function listTeachers() {
+            getFavorites()
             try {
-                const response = await api.get('/teacher', {
-                });
+                const response = await api.get('/teacher')
                 const teachersData = response.data; 
                 const updatedTeachers = await Promise.all(
                     teachersData.map(async (teacher: Teacher) => {
@@ -53,8 +53,8 @@ function TeacherList() {
                 );
  
                 setAllTeachers(updatedTeachers);
-                console.log(allTeachers)
-                setTeachers(allTeachers)
+                console.log(teachersData)
+                setTeachers(updatedTeachers)
             } catch (err) {
                 alert('Falha na busca!');
                 console.log(err);
@@ -78,7 +78,7 @@ function TeacherList() {
             return '';
         }
     }
-    
+
     return (
         <div>
             <Header state={stateId} title="Lista de Professores" />
@@ -86,8 +86,10 @@ function TeacherList() {
                 <Select
                     value={week_day}
                     label='Dia'
-                    onChange={(e) => { setWeekDay(parseInt(e.target.value)); }}
+                    onChange={(e) => { setWeekDay(parseInt(e.target.value)); 
+                    }}
                     opitions={[
+                        { value: 'none', label: 'Sem filtro'},
                         { value: '0', label: 'Domingo' },
                         { value: '1', label: 'Segunda-Feira' },
                         { value: '2', label: 'Terça-Feira' },
@@ -104,7 +106,6 @@ function TeacherList() {
                     value={time}
                     onChange={e => { setTime(e.target.value) }}
                 />
-                <input id='pesquisar' type="submit" placeholder='Pesquisar'></input>
             </form>
             <div id='teacherList-container'>
                 {teachers.map((teacher: Teacher) => (
