@@ -1,7 +1,7 @@
 import React, { useState, FormEvent, useEffect } from 'react';
 import { useNavigate,useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import './styles.css';
+import styles from './TeacherList.module.css';
 import Footer from '../../components/footer';
 import Header from '../../components/header';
 import Select from '../../components/select';
@@ -82,7 +82,7 @@ function TeacherList() {
     return (
         <div>
             <Header state={stateId} title="Lista de Professores" />
-            <form id="teacherList-filters">
+            <form id={styles.teacherListFilters}>
                 <Select
                     value={week_day}
                     label='Dia'
@@ -107,7 +107,7 @@ function TeacherList() {
                     onChange={e => { setTime(e.target.value) }}
                 />
             </form>
-            <div id='teacherList-container'>
+            <div id={styles.teacherListContainer}>
                 {teachers.map((teacher: Teacher) => (
                     <TeacherItem key={teacher.id} teacher={teacher} reload={getFavorites}/>
                 ))}

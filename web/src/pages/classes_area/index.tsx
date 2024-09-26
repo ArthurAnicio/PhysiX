@@ -4,6 +4,7 @@ import "./styles.css";
 import Header from "../../components/header";
 import Footer from "../../components/footer";
 import ClassScheduleItem, { ClassSchedule } from "../../components/classScheduleItem";
+import { Teacher } from '../../components/teacherItem';
 import api from "../../services/api";
 
 const smlIcon = require("../../assets/images/imgs/pequenoClaroPng.png");
@@ -22,10 +23,11 @@ function ClassesArea() {
 
     useEffect(() => {
         async function fetchClassSchedules() {
-            const { id } = location.state || {};
             try {
-                const response = await api.get('/class', { params: { id: teacherId } });
-                setClassSchedule(response.data);
+                const response = await api.get('/teacher');
+                const currentTeacher = response.data
+                setClassSchedule(currentTeacher);
+                console.log(classSchedule)
             } catch (error) {
                 console.error('Error fetching classes:', error);
             }

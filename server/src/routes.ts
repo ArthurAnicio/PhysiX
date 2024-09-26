@@ -10,7 +10,7 @@ const userController = new UserController();
 const teacherController = new TeacherController();
 const classController = new ClassController();
 const invitesController = new InvitesController();
-const testController = new TestController();
+const testController = new TestController(); 
  
 routes.get('/test', testController.test)
 

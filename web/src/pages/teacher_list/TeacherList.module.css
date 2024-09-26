@@ -1,4 +1,4 @@
-#teacherList-filters {
+#teacherListFilters {
     width: 50%;
     margin: 2vh auto;
     display: flex;
@@ -8,11 +8,11 @@
     padding-bottom: 20px;
 }
 
-#teacherList-filters select {
+#teacherListFilters select {
     margin-right: 20px;
 }
 
-#teacherList-container {
+#teacherListContainer {
     background: var(--cinza1);
     width: 100%;
     border: none;
