@@ -50,13 +50,6 @@ const ClassScheduleItem: React.FC<ClassScheduleItemProps> = ({ classSchedule,onD
         }
     }
 
-    function convertMinutesToHour(minutes: string): string {
-        const convertedMinutes = parseInt(minutes);
-        const hours = Math.floor(convertedMinutes / 60);
-        const mins = convertedMinutes % 60;
-        return `${String(hours).padStart(2, '0')}:${String(mins).padStart(2, '0')}`;
-    }
-
     useEffect(() => {
         function setParams() {
             const weekDayElement = document.getElementById(`week_day_${classSchedule.id}`) as HTMLSelectElement | null;
@@ -67,10 +60,10 @@ const ClassScheduleItem: React.FC<ClassScheduleItemProps> = ({ classSchedule,onD
                 weekDayElement.value = classSchedule.week_day.toString();
             }
             if (fromElement) {
-                fromElement.value = convertMinutesToHour(classSchedule.from);
+                fromElement.value = classSchedule.from;
             }
             if (toElement) {
-                toElement.value = convertMinutesToHour(classSchedule.to);
+                toElement.value = classSchedule.to;
             }
         }
 

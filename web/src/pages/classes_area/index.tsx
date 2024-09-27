@@ -81,9 +81,9 @@ function ClassesArea() {
             console.error('Error creating class schedule:', error);
         }
     };
-    const removeClassSchedule = (id: number) => {
-        setClassSchedule(classSchedule.filter(schedule => schedule.id !== id));
-        console.log(id)
+    /*const removeClassSchedule = (id: number) => {
+        setClassSchedule(classSchedule.filter(schedule => schedule.id != id));
+        console.log(classSchedule)
         if(classSchedule.length == 1) {
             classSchedule.pop()
         }
@@ -93,11 +93,37 @@ function ClassesArea() {
     async function handleDelete(id: number) {
         removeClassSchedule(id);
         
+        
+
         const response = await api.put(`/updateSchedule?id=${teacherId}`, {
             schedule: JSON.stringify(classSchedule)   
         });
+
+        console.log(response.data)
         
+    };*/
+
+
+    const removeClassSchedule = (id: number) => {
+        setClassSchedule(prevSchedule => prevSchedule.filter(schedule => schedule.id !== id));
     };
+    
+    async function handleDelete(id: number) {
+        // Atualiza o estado
+        removeClassSchedule(id);
+    
+        // Use o estado atualizado após a remoção
+        setClassSchedule((updatedSchedule) => {
+            console.log(updatedSchedule); // Log do estado atualizado
+    
+            // Faz a requisição usando o estado atualizado
+            api.put(`/updateSchedule?id=${teacherId}`, {
+                schedule: JSON.stringify(updatedSchedule),
+            });
+    
+            return updatedSchedule;
+        });
+    }
 
 
     return (

@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import db from "../database/connection";
-import convertHourToMinutes from "../utils/convertHourToMinutes";
 
 export default class ClassController{
 
@@ -42,8 +41,8 @@ export default class ClassController{
             }
 
             
-            const fromInMinutes = convertHourToMinutes(from);
-            const toInMinutes = convertHourToMinutes(to);
+            const fromInMinutes = from
+            const toInMinutes = to
  
             
             const newClassSchedule = {
@@ -85,8 +84,8 @@ export default class ClassController{
                     return res.status(400).json('A turma fornecida não existe');
                 }
 
-                const fromInMinutes = convertHourToMinutes(from);
-                const toInMinutes = convertHourToMinutes(to);
+                const fromInMinutes = from
+                const toInMinutes = to
 
                 const updateClassSchedule = {
                     week_day,
