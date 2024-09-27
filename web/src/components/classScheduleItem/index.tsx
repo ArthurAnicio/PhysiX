@@ -11,15 +11,17 @@ export interface ClassSchedule {
     from: string;
     to: string;
     id: number;
+    
 }
 
 interface ClassScheduleItemProps {
     
     classSchedule: ClassSchedule;
     onDelete: (id: number) => void;
+    teacherId: number
 }
 
-const ClassScheduleItem: React.FC<ClassScheduleItemProps> = ({ classSchedule,onDelete  }) => {
+const ClassScheduleItem: React.FC<ClassScheduleItemProps> = ({ classSchedule,onDelete,teacherId }) => {
     const [isEditable, setIsEditable] = useState(false);
     const [from, setFrom] = useState(classSchedule.from);
     const [to, setTo] = useState(classSchedule.to);
@@ -87,12 +89,15 @@ const ClassScheduleItem: React.FC<ClassScheduleItemProps> = ({ classSchedule,onD
         const to_value = to;
 
         const data = {
+            id: id,
             week_day: week_day_value,
             from: from_value,
-            to: to_value
+            to: to_value,
         };
 
-        api.put(`/class?id=${id}`, data)
+        api.put(`/updateScheduleItem?id=${id}&teacherId=${teacherId}`, {
+            schedule: data
+        })
            .then(res => {
                 console.log(res);
             })

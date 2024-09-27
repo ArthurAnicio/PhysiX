@@ -15,19 +15,21 @@ function ClassesArea() {
     const [classSchedule, setClassSchedule] = useState<ClassSchedule[]>([]);
     const [showForm, setShowForm] = useState(false); 
     const [newClassSchedule, setNewClassSchedule] = useState({
-        week_day: '',
+        week_day: 0,
         from: '',
-        to: ''
+        to: '',
+        id: 0
     });
     const [stateId, setStateId] = useState(teacherId)
 
     useEffect(() => {
         async function fetchClassSchedules() {
             try {
-                const response = await api.get('/teacher');
+                const response= await api.get('/getTeacher', { params: { id: teacherId } })
                 const currentTeacher = response.data
-                setClassSchedule(currentTeacher);
-                console.log(classSchedule)
+                console.log(currentTeacher)
+                setClassSchedule(JSON.parse(currentTeacher.schedule) || []);
+                console.log(classSchedule) 
             } catch (error) {
                 console.error('Error fetching classes:', error);
             }
@@ -46,34 +48,55 @@ function ClassesArea() {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            const { id } = location.state || {};
-            const response = await api.post('/class', {
-                ...newClassSchedule,
-                class_id: teacherId,
-            });
-            setClassSchedule([...classSchedule, response.data]);
+            
+            let currentId = 0
+            
+            if(classSchedule.length > 0) {
+            currentId = classSchedule[classSchedule.length-1].id+1
+            } else {
+            currentId = 0
+            }
+
+            const updatedSchedule = [...classSchedule, { ...newClassSchedule, id: currentId}];
+
+            console.log(updatedSchedule);
+
+            setClassSchedule(updatedSchedule);
+ 
+            console.log(classSchedule);
+
             setNewClassSchedule({
-                week_day: '',
+                week_day: 0,
                 from: '',
-                to: ''
+                to: '',
+                id: 0
             });
             setShowForm(false); // Esconde o formulário após a criação da classSchedule
+            const response = await api.put(`/updateSchedule?id=${teacherId}`, {
+                schedule: JSON.stringify(updatedSchedule)   
+            });
+
+            
         } catch (error) {
             console.error('Error creating class schedule:', error);
         }
     };
     const removeClassSchedule = (id: number) => {
         setClassSchedule(classSchedule.filter(schedule => schedule.id !== id));
+        console.log(id)
+        if(classSchedule.length == 1) {
+            classSchedule.pop()
+        }
+        
     };
 
-    const handleDelete = (id: number) => {
-        api.delete(`/class?id=${id}`)
-            .then(res => {
-                removeClassSchedule(id);
-            })
-            .catch(err => {
-                console.log(err);
-            });
+    async function handleDelete(id: number) {
+        removeClassSchedule(id);
+        
+        const response = await api.put(`/updateSchedule?id=${teacherId}`, {
+            schedule: JSON.stringify(classSchedule)   
+        });
+        
     };
 
 
@@ -81,8 +104,8 @@ function ClassesArea() {
         <div>
             <Header state={stateId} title="Suas Aulas" />
             <div id="classes-container">
-                {classSchedule.map((schedule, index) => (
-                    <ClassScheduleItem key={schedule.id} classSchedule={schedule} onDelete={handleDelete} />
+            {classSchedule.map((schedule, index) => (
+                    <ClassScheduleItem key={schedule.id} classSchedule={schedule} onDelete={handleDelete} teacherId={teacherId}/>
 
                 ))}
                 {showForm && (

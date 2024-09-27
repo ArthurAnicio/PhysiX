@@ -48,7 +48,6 @@ export default class TeacherController{
 
             try {                    
                 const teachers = await db('teacher')
-                console.log(teachers)
                 return res.json(teachers)
             }
             catch (err){
@@ -140,13 +139,64 @@ export default class TeacherController{
             if (!teacher){
                 return res.status(404).json('teacher not found')
             }
-            return res.status(200).json({teacher:teacher.name,email:teacher.email,id:teacher.id,avatar:teacher.avatar, password:teacher.password, number:teacher.number});
+            return res.status(200).json({teacher:teacher.name,email:teacher.email,id:teacher.id,avatar:teacher.avatar, password:teacher.password, number:teacher.number, schedule:teacher.schedule});
         }
         catch (err) {
 
             return res.status(400).json(`Erro ao acessar o banco: ${err}`);
         }
     }
+
+    async updateSchedule(req: Request, res: Response) {
+        const {id} = req.query;
+        const {schedule} = req.body;
+        try {
+            const teacher = await db('teacher').where({id}).first();
+            if(!teacher){
+                return res.status(400).json('Professor não encontrado');
+            }
+            console.log(schedule)
+            await db('teacher').where({id}).update({schedule});
+            return res.status(200).json('Usuário atualizado com sucesso');
+        } catch (err) {
+            return res.status(400).json(`Erro ao atualizar a agenda: ${err}`);
+        }
+    }
+
+    async updateScheduleItem(req: Request, res: Response) {
+
+        interface Schedule {
+            id: string;
+            week_day: number;
+            from: string;
+            to: string;
+        }
+
+        const {id} = req.query;
+        const {teacherId} = req.query;
+        const {schedule} = req.body;
+
+        try {
+            const teacher = await db('teacher').where({id: teacherId}).first();
+            if(!teacher){
+                return res.status(400).json('Professor não encontrado');
+            }
+            const oldArr:Schedule[] = JSON.parse(teacher.schedule)
+            
+            let newArr = oldArr.filter((schedule:Schedule) => schedule.id != id)
+            newArr.push(schedule);
+
+            console.log(newArr)
+
+            await db('teacher').where({id: teacherId}).update({schedule: JSON.stringify(newArr)});
+
+            return res.status(200).json('Usuário atualizado com sucesso');
+        } catch (err) {
+            return res.status(400).json(`Erro ao atualizar a agenda: ${err}`);
+        }
+    }
+
+    
 
     async updateTeacher(req: Request, res: Response){
         const {id} = req.query;
