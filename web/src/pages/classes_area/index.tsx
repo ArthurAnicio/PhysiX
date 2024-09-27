@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import "./styles.css";
+import styles from "./ClassesArea.module.css";
 import Header from "../../components/header";
 import Footer from "../../components/footer";
 import ClassScheduleItem, { ClassSchedule } from "../../components/classScheduleItem";
@@ -81,27 +81,6 @@ function ClassesArea() {
             console.error('Error creating class schedule:', error);
         }
     };
-    /*const removeClassSchedule = (id: number) => {
-        setClassSchedule(classSchedule.filter(schedule => schedule.id != id));
-        console.log(classSchedule)
-        if(classSchedule.length == 1) {
-            classSchedule.pop()
-        }
-        
-    };
-
-    async function handleDelete(id: number) {
-        removeClassSchedule(id);
-        
-        
-
-        const response = await api.put(`/updateSchedule?id=${teacherId}`, {
-            schedule: JSON.stringify(classSchedule)   
-        });
-
-        console.log(response.data)
-        
-    };*/
 
 
     const removeClassSchedule = (id: number) => {
@@ -129,13 +108,13 @@ function ClassesArea() {
     return (
         <div>
             <Header state={stateId} title="Suas Aulas" />
-            <div id="classes-container">
+            <div id={styles.classesContainer}>
             {classSchedule.map((schedule, index) => (
                     <ClassScheduleItem key={schedule.id} classSchedule={schedule} onDelete={handleDelete} teacherId={teacherId}/>
 
                 ))}
                 {showForm && (
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={handleSubmit} id={styles.classesForm}>
                         <section>
                             <select
                                 name="week_day"
@@ -173,7 +152,7 @@ function ClassesArea() {
                     </form>
                 )}
                 {!showForm && (
-                    <button  id="add" onClick={() => setShowForm(true)}>Novo Horário</button>
+                    <button  id={styles.add} onClick={() => setShowForm(true)}>Novo Horário</button>
                 )}
             </div>
             <Footer />

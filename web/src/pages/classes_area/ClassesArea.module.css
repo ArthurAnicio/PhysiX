@@ -1,4 +1,4 @@
-#classes-container{
+#classesContainer{
     background-color: var(--branco2);
     display: flex;
     flex-direction: column;
@@ -6,7 +6,7 @@
     justify-content: center;
 }
 
-form{
+#classesForm{
     width: 50vw;
     height: 10vh;
     margin: 2vh 0;
@@ -20,7 +20,7 @@ form{
     border-radius: 10px;
 }
 
-section {
+#classesForm section {
     width: 100%;
     height: 100%;
     display: flex;
@@ -28,11 +28,11 @@ section {
     justify-content: center;
 }
 
-section select {
+#classesForm section select {
     margin: 0;
 }
 
-form button {
+#classesForm button {
     width: 5vw;
     height: 4.5vw;
     border-radius: 50%;
@@ -47,7 +47,7 @@ form button {
     transition: 0.2s;
 }
 
-form button:hover {
+#classesForm button:hover {
     color: #c7c5c5;
     background-color: var(--verde4);
     scale: 1.05;
