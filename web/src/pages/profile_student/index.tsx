@@ -28,7 +28,7 @@ function ProfileStudent() {
 
     async function getUser() {
         try {
-            console.log(userId)
+            //console.log(userId)
             const response = await api.get('/getuser', { params: { id: userId } });
             if (response.status === 200) {
                 setUser(response.data);
@@ -51,7 +51,7 @@ function ProfileStudent() {
                 setImgsrc(response.request.responseURL);
             } else {
                 alert('Falha no avatar!');
-                console.log(response);
+                //console.log(response);
             }
         } catch (err) {
             alert('Falha no avatar!');
@@ -62,7 +62,7 @@ function ProfileStudent() {
     async function sendAvatar() {
         const formData = new FormData();
         const fileInput = document.getElementById('uploadInput') as HTMLInputElement | null;
-        console.log(fileInput)
+        //console.log(fileInput)
         if (fileInput) {
             try {
                 const file = fileInput.files?.[0];

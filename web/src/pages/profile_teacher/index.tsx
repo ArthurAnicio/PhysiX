@@ -27,7 +27,7 @@ function ProfileTeacher() {
     }, [teacher.avatar]);  
 
     async function getTeacher() {
-        console.log(teacherId);
+        //console.log(teacherId);
         try {
             
             const response = await api.get('/getTeacher', { params: { id: teacherId } });

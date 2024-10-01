@@ -29,7 +29,7 @@ function StudentArea() {
         if(asideRef.current!= undefined) {
             asideRef.current.classList.toggle(styles.asideClosed);
         }
-        console.log(asideRef.current)
+        //console.log(asideRef.current)
     }
 
     async function getUser() {

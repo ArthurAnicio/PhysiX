@@ -53,7 +53,7 @@ function TeacherList() {
                 );
  
                 setAllTeachers(updatedTeachers);
-                console.log(teachersData)
+                //console.log(teachersData)
                 setTeachers(updatedTeachers)
             } catch (err) {
                 alert('Falha na busca!');

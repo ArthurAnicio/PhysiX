@@ -20,7 +20,7 @@ function TeacherArea() {
     const asideRef = useRef<HTMLDivElement>(null)
  
     useEffect(() => {
-        console.log(teacherId)
+        //console.log(teacherId)
         getTeacher();
     }, []);
 
@@ -28,7 +28,7 @@ function TeacherArea() {
         if(asideRef.current!= undefined) {
             asideRef.current.classList.toggle(styles.asideClosed);
         }
-        console.log(asideRef.current)
+        //console.log(asideRef.current)
     }
 
     async function getTeacher() {

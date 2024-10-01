@@ -85,7 +85,7 @@ const generatePassword = function () {
 
   for (let i = 0; i < passwordLength; i = i + generators.length) {
     
-    console.log(i)
+    //console.log(i)
     
     generators.forEach(() => {
       const randomValue =
@@ -113,13 +113,13 @@ function openCloseGenerator() {
   if (generatedPasswordElement.current != undefined) {
     generatedPasswordElement.current.classList.toggle(styles.hide)
 
-    console.log(generatedPasswordElement)
+    //console.log(generatedPasswordElement)
   }
 
   if (generatePasswordContainer.current != undefined) {
     generatePasswordContainer.current.classList.toggle(styles.hide)
 
-    console.log(generatePasswordContainer)
+    //console.log(generatePasswordContainer)
   }
 
 }

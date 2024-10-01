@@ -27,9 +27,9 @@ function ClassesArea() {
             try {
                 const response= await api.get('/getTeacher', { params: { id: teacherId } })
                 const currentTeacher = response.data
-                console.log(currentTeacher)
+                //console.log(currentTeacher)
                 setClassSchedule(JSON.parse(currentTeacher.schedule) || []);
-                console.log(classSchedule) 
+                //console.log(classSchedule) 
             } catch (error) {
                 console.error('Error fetching classes:', error);
             }
@@ -59,11 +59,11 @@ function ClassesArea() {
 
             const updatedSchedule = [...classSchedule, { ...newClassSchedule, id: currentId}];
 
-            console.log(updatedSchedule);
+            //console.log(updatedSchedule);
 
             setClassSchedule(updatedSchedule);
  
-            console.log(classSchedule);
+            //console.log(classSchedule);
 
             setNewClassSchedule({
                 week_day: 0,
@@ -93,7 +93,7 @@ function ClassesArea() {
     
         // Use o estado atualizado após a remoção
         setClassSchedule((updatedSchedule) => {
-            console.log(updatedSchedule); // Log do estado atualizado
+            //console.log(updatedSchedule); // Log do estado atualizado
     
             // Faz a requisição usando o estado atualizado
             api.put(`/updateSchedule?id=${teacherId}`, {
