@@ -1,236 +1,164 @@
-import {Request, Response} from 'express';
-import db from '../database/connection';
-import nodemailer from 'nodemailer';
-import jwt from 'jsonwebtoken'
+import { Request, Response } from 'express';
+import UserDAO from '../daos/UserDao';
+import { User } from '../models/User';
+import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
-import multer, { FileFilterCallback, Multer } from 'multer';
+import nodemailer from 'nodemailer';
+import multer from 'multer';
 import path from 'path';
 import fs from 'fs';
+
 dotenv.config();
+
+const userDAO = new UserDAO();
 const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, '././uploads/useravatars')
+    destination: (req, file, cb) => {
+        cb(null, './uploads/useravatars');
     },
-    filename: function (req, file, cb) {
-        cb(null, Date.now()+path.extname(file.originalname))
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + path.extname(file.originalname));
     }
-})
-const upload = multer({
-    storage:storage,
-    fileFilter:function (req,file,cb){
-        checkFileType(file,cb)
-    }
+});
+const upload = multer({ storage });
 
-})
-function checkFileType(file:Express.Multer.File,cb:FileFilterCallback){
-    const filetypes = /jpeg|jpg|png/;
-    const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
-    const mimetype = filetypes.test(file.mimetype);
-    if(mimetype && extname){
-        return cb(null,true);
-    }
-    else{
-        cb(new Error('Error: Apenas imagens são permitidas'));
-    }
-}
+export default class UserController {
 
-
-
-export default class UserController{
-    
-    async index(req: Request, res: Response){
-        const {
-            username,
-            password
-        } = req.query;
-        try{
-            const user = await db('users')
-    .where(function() {
-    this.where('name', username)
-      .orWhere('email', username);
-  })
-  .andWhere('password', password)
-  .first();
-            if(!user){
+    async index(req: Request, res: Response) {
+        const { username, password } = req.query;
+        try {
+            const user = await userDAO.findByUsernameOrEmail(username as string, password as string);
+            if (!user) {
                 return res.status(400).json('Usuário ou senha incorretos');
             }
             return res.status(200).json(user);
-        }
-        catch(err){
+        } catch (err) {
             return res.status(400).json(`Erro ao acessar o banco: ${err}`);
         }
     }
 
-    async create(req: Request, res: Response){
-        const {
-            name,
-            email,
-            password
-        } = req.body;
-        
-        const trx = await db.transaction();
-        const quantVerify = await trx('users').select('*').where({ name, email });
-        if(quantVerify.length > 0){
-            res.status(400).json('O usuário ja existe no banco de dados');
-        }
-        else{
-        try{
-            await trx('users').insert({
-                name,
-                email,
-                password,
-                avatar: "uploads\\useravatars\\default.png"
-            });
-            await trx.commit();
+    async create(req: Request, res: Response) {
+        const { name, email, password } = req.body;
+        try {
+            const existingUser = await userDAO.findByEmail(email);
+            if (existingUser) {
+                return res.status(400).json('O usuário já existe no banco de dados');
+            }
+            const newUser: User = { name, email, password, avatar: 'uploads\\useravatars\\default.png' };
+            await userDAO.insert(newUser);
             return res.status(200).json('Usuário criado com sucesso');
-        }catch(err){
-            await trx.rollback();
-            return res.status(400).json(`Erro ao criar usuário:${err}`);
-        }}
+        } catch (err) {
+            return res.status(400).json(`Erro ao criar usuário: ${err}`);
+        }
     }
 
     async forgotPass(req: Request, res: Response) {
-        const {email} = req.body;
-        const trx = await db.transaction();
-        const quantVerify = await trx('users').select('*').where({email});
-        if (quantVerify.length = 0) {
-            return res.status(404).json('Email não cadastrado!');
-        }
-        const token = jwt.sign({ email }, 'keymtofodamtoincrivelcomctznvaiternenhumaviolacaousandoissopqelaegiganteetals', { expiresIn: '1h' });
-        const resetLink = `http://localhost:3000/reset_pass?token=${token}`;
-
-        try {const transporter = nodemailer.createTransport({
-            service: 'gmail',
-            auth: {
-                user: process.env.EMAIL_USER,
-                pass: process.env.EMAIL_PASS
+        const { email } = req.body;
+        try {
+            const user = await userDAO.findByEmail(email);
+            if (!user) {
+                return res.status(404).json('Email não cadastrado!');
             }
-            
-            })
+
+            const token = jwt.sign({ email }, process.env.JWT_SECRET || 'secret_key', { expiresIn: '1h' });
+            const resetLink = `http://localhost:3000/reset_pass?token=${token}`;
+
+            const transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS }
+            });
+
             await transporter.sendMail({
                 from: process.env.EMAIL_USER,
                 to: email,
                 subject: 'Recuperação de senha',
                 html: `<p>Clique <a href=${resetLink}>aqui</a> para recuperar sua senha</p>`
             });
-            transporter.close();
-            await trx.commit();
-            return res.status(200).json('email enviado com sucesso!')
+
+            return res.status(200).json('Email enviado com sucesso!');
+        } catch (err) {
+            return res.status(400).json('Falha ao enviar o email');
         }
-        catch (err) {
-            console.log(err);
-            await trx.rollback();
-            return res.status(404).json('Falha no email!');
-        };
-        
     }
+
     async passReset(req: Request, res: Response) {
-        const {token, password} = req.body;
+        const { token, password } = req.body;
         try {
-            const decoded = await jwt.verify(token, 'keymtofodamtoincrivelcomctznvaiternenhumaviolacaousandoissopqelaegiganteetals')
-            const user = await db('users').where({email: decoded.email}).first();
-            if(!user) {
+            const decoded = jwt.verify(token, process.env.JWT_SECRET || 'secret_key') as { email: string };
+            const user = await userDAO.findByEmail(decoded.email);
+            if (!user) {
                 return res.status(404).json('Email não cadastrado!');
             }
-            await db('users').where({id: user.id}).update({password: password})
-            res.status(200).json("Redefinição com sucesso!")
-        }
-        catch (err) {
-            return res.status(404).json('Token inválido!');
+            await userDAO.update(user.id!, { password });
+            return res.status(200).json('Redefinição com sucesso!');
+        } catch (err) {
+            return res.status(400).json('Token inválido');
         }
     }
 
-
-    async getUser(req: Request, res: Response){
-        const {id} = req.query;
+    async updateUser(req: Request, res: Response) {
+        const { id } = req.query;
+        const { name, email, password } = req.body;
         try {
-            
-            const user = await db('users').where({id}).first();
-            
+            const user = await userDAO.findById(Number(id));
             if (!user) {
-                return res.status(404).json('User not found')
-            }
-            return res.status(200).json({user:user.name,email:user.email,id:user.id,avatar:user.avatar,password:user.password});
-        }
-        catch (err) {
-
-            return res.status(400).json(`Erro ao acessar o banco: ${err}`);
-        }
-    }
-  
-    async updateUser(req: Request, res: Response){
-        const {id} = req.query;
-        const {name, email, password} = req.body;
-        
-        try{
-            const user = await db('users').where({id}).first();
-            if(!user){
                 return res.status(400).json('Usuário não encontrado');
             }
-            await db('users').where({id}).update({name, email, password});
+            await userDAO.update(user.id!, { name, email, password });
             return res.status(200).json('Usuário atualizado com sucesso');
-        }
-        catch(err){
+        } catch (err) {
             return res.status(400).json(`Erro ao atualizar o usuário: ${err}`);
         }
     }
 
-    async createAvatar(req:Request, res:Response) {
-        async function registerAvatar(avatarPath:string){
-            await db('users').where({id:parseInt(req.body.id)}).update({avatar:avatarPath})
-            
-        }
-        try{
-        
-            upload.single('avatar')(req,res,(err) =>{
-            if(err) {
-                return res.status(400).json({message: `Error: ${err}`})
-            } else if (err instanceof multer.MulterError) {
-                return res.status(400).json({message: `Multer Erro: ${err}`})
+    async createAvatar(req: Request, res: Response) {
+        upload.single('avatar')(req, res, async (err) => {
+            if (err) {
+                return res.status(400).json({ message: `Erro: ${err}` });
             }
-                if(req.file){
-                
-                registerAvatar(req.file.path)
-                return res.status(200).json({message: 'parabeinx'})
-                }
-        })
-            
-            
-        } catch(err) {
-            return res.status(400).json({message:`Erro: ${err}`})
-        }
+            const avatarPath = req.file?.path;
+            if (avatarPath) {
+                await userDAO.update(Number(req.body.id), { avatar: avatarPath });
+                return res.status(200).json({ message: 'Avatar atualizado com sucesso!' });
+            }
+        });
+    }
 
-    }
-    async getImage(req: Request,res: Response) {
-        try {
-            if(req.query.route){
-                const avatarRoute:string = req.query.route.toString()
-                const filepath = path.join(__dirname,'..','..',avatarRoute);
-                if (fs.existsSync(filepath)){
-                    res.sendFile(filepath)
-                } else{
-                    res.status(404).json('Image not found')
-                }
+    async getImage(req: Request, res: Response) {
+        const { route } = req.query;
+        if (route) {
+            const filepath = path.join(__dirname, '..', '..', route as string);
+            if (fs.existsSync(filepath)) {
+                return res.sendFile(filepath);
             }
-            
-        } catch(err) {
-            return res.status(400).json(`Erro: ${err}`)
+            return res.status(404).json('Imagem não encontrada');
         }
     }
+
     async getUserFavorites(req: Request, res: Response) {
-        const {teacher_id} = req.query;
-        
+        const { teacher_id } = req.query;
         try {
-            const users = await db('users').select('avatar','email','id','name').whereIn('id', function() {
-                this.select('user_id')
-                  .from('favorites')
-                  .where('teacher_id', teacher_id);
-            })
-            return res.status(200).json(users)
-            
-            
+            const users = await userDAO.getUserFavorites(Number(teacher_id));
+            return res.status(200).json(users);
         } catch (err) {
             return res.status(400).json(`Erro ao acessar o banco: ${err}`);
+        }
+    }
+
+    async getUser(req: Request, res: Response) {
+        const { id } = req.query;
+
+        if (!id) {
+            return res.status(400).json('O ID do usuário é obrigatório');
+        }
+
+        try {
+            const user = await userDAO.getUser(Number(id));
+            if (!user) {
+                return res.status(404).json('Usuário não encontrado');
+            }
+            return res.status(200).json(user);
+        } catch (err) {
+            return res.status(400).json(`Erro ao acessar o usuário: ${err}`);
         }
     }
 }
