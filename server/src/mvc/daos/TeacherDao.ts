@@ -1,5 +1,5 @@
-import db from '../database/connection';
-import Teacher from '../mvc/models/Teacher';
+import db from '../../database/connection';
+import Teacher from '../models/Teacher';
 
 export default class TeacherDAO {
 

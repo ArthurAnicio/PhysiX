@@ -4,13 +4,20 @@ import TeacherController from './mvc/controllers/TeacherController';
 import ClassController from './mvc/controllers/ClassController';
 import InvitesController from './mvc/controllers/InvitesController';
 import TestController from './mvc/controllers/TestController';
+import PostsController from './mvc/controllers/PostController';
 
 const routes = express.Router();
 const userController = new UserController();
 const teacherController = new TeacherController();
 const classController = new ClassController();
 const invitesController = new InvitesController();
-const testController = new TestController(); 
+const testController = new TestController();
+const postsController = new PostsController();
+
+// Post routes
+routes.get('/post', postsController.index);
+routes.get('/teacherPosts', postsController.getPosts);
+routes.post('/post', postsController.create);
 
 // Test route
 routes.get('/test', testController.test);

@@ -1,5 +1,5 @@
-import db from '../database/connection';
-import { User } from '../mvc/models/User';
+import db from '../../database/connection';
+import { User } from '../models/User';
 
 export default class UserDAO {
     

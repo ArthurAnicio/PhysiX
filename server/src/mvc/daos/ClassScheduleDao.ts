@@ -1,9 +1,8 @@
-import db from '../database/connection';
-import ClassSchedule from '../mvc/models/ClassSchedule';
+import db from '../../database/connection';
+import ClassSchedule from '../models/ClassSchedule';
 
 export default class ClassScheduleDAO {
     
-    // Busca todos os horários de um professor específico
     async findByTeacherId(teacher_id: number): Promise<ClassSchedule[]> {
         try {
             const classSchedules = await db('class_schedule')
@@ -17,7 +16,6 @@ export default class ClassScheduleDAO {
         }
     }
 
-    // Criação de um novo horário de aula
     async create(classSchedule: ClassSchedule): Promise<number> {
         try {
             const [insertedId] = await db('class_schedule').insert(classSchedule);
@@ -27,7 +25,6 @@ export default class ClassScheduleDAO {
         }
     }
 
-    // Atualização de um horário de aula existente
     async update(id: number, classSchedule: ClassSchedule): Promise<void> {
         try {
             await db('class_schedule').where('id', id).update(classSchedule);
@@ -36,7 +33,6 @@ export default class ClassScheduleDAO {
         }
     }
 
-    // Exclusão de um horário de aula
     async delete(id: number): Promise<void> {
         try {
             await db('class_schedule').where('id', id).del();

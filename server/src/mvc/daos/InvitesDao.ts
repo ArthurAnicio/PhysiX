@@ -1,5 +1,5 @@
-import db from '../database/connection';
-import Invite from '../mvc/models/Invites';
+import db from '../../database/connection';
+import Invite from '../models/Invites';
 
 export default class InviteDAO {
 
