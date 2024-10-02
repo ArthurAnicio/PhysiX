@@ -1,5 +1,5 @@
 import {Response, Request} from 'express';
-import db from '../database/connection';
+import db from '../../database/connection';
 import multer, { FileFilterCallback, Multer } from 'multer';
 import path from 'path';
 import fs from 'fs';

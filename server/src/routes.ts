@@ -1,9 +1,9 @@
 import express from 'express';
-import UserController from './controllers/UserController';
-import TeacherController from './controllers/TeacherController';
-import ClassController from './controllers/ClassController';
-import InvitesController from './controllers/InvitesController';
-import TestController from './controllers/TestController';
+import UserController from './mvc/controllers/UserController';
+import TeacherController from './mvc/controllers/TeacherController';
+import ClassController from './mvc/controllers/ClassController';
+import InvitesController from './mvc/controllers/InvitesController';
+import TestController from './mvc/controllers/TestController';
 
 const routes = express.Router();
 const userController = new UserController();

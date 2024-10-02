@@ -1,5 +1,5 @@
 import db from '../database/connection';
-import ClassSchedule from '../models/ClassSchedule';
+import ClassSchedule from '../mvc/models/ClassSchedule';
 
 export default class ClassScheduleDAO {
     
