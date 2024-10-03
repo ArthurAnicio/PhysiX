@@ -1,3 +1,4 @@
+import { String } from "aws-sdk/clients/cloudhsm";
 import db from "../../database/connection";
 import Post from "../models/Post";
 
@@ -13,7 +14,7 @@ export default class PostDAO {
                 upload: post.upload,
             });
             await trx.commit();
-        }catch(err) {
+        } catch (err) {
             await trx.rollback();
             throw new Error(`Erro ao cadastrar post: ${err}`);
         }
@@ -77,10 +78,10 @@ export default class PostDAO {
         }
     }
     
-    async updatePost(id: number, text: String, upload: String): Promise<void> {
+    async updatePost(id: number, text: String): Promise<void> {
         const trx = await db.transaction();
         try {
-            await trx("posts").where({ id }).update({ text, upload });
+            await trx("posts").where({ id }).update({ text });
             await trx.commit();
         } catch (err) {
             await trx.rollback();
