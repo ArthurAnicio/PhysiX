@@ -77,18 +77,14 @@ export default class PostDAO {
         }
     }
     
-    async updatePost(post: Post): Promise<void> {
+    async updatePost(id: number, text: String, upload: String): Promise<void> {
         const trx = await db.transaction();
         try {
-            const updatedRows = await trx("posts").where({ id: post.id }).update(post);
-            if (updatedRows === 0) {
-                throw new Error('Post não encontrado');
-            }
+            await trx("posts").where({ id }).update({ text, upload });
             await trx.commit();
         } catch (err) {
             await trx.rollback();
             throw new Error(`Erro ao atualizar post: ${err}`);
         }
     }
-    
 } 

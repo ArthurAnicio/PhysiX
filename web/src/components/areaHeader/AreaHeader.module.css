@@ -1,5 +1,5 @@
 #bars {
-  color: #fff;
+  color: var(--branco);
   font-size: 60px;
 }
 
@@ -25,7 +25,7 @@
 
 .titleHeader > h1 {
   text-align: center;
-  color: #fff;
+  color: var(--branco);
 }
 
 #atomHeader {

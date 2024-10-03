@@ -63,7 +63,7 @@ h1 {
   transition: 0.5s;
   justify-content: start;
   border: 4px solid var(--roxo2);
-  background-color: white;
+  background-color: var(--branco);
 }
 
 .switch div {

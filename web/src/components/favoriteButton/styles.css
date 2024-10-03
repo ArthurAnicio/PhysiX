@@ -1,5 +1,5 @@
 .favoriteDisable>svg {
-    fill: lightgray;
+    fill: var(--cinza3);
 }
 .favoriteDisable>svg:hover {
     fill:var(--amarelo);
@@ -10,7 +10,7 @@
     
 }
 .favoriteEnable>svg:hover {
-   fill: lightgray;
+   fill: var(--cinza3);
 }
 .favoriteButton {
     outline: none;

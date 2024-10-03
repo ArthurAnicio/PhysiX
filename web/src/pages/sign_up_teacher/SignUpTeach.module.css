@@ -1,5 +1,5 @@
 .signUpBody {
-    background-color: #b9b9b9;
+    background-color: var(--cinza1);
   }
   
   #signUpContainer {

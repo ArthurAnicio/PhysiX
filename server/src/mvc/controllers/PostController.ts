@@ -41,6 +41,25 @@ export default class PostsController {
             res.status(400).json(`Erro: ${err}`);
         } 
     }
+    async delete(req: Request, res: Response) {
+        const {post_id} = req.query;
+        try{
+            await postDAO.deletePost(Number(post_id));
+            res.status(200).json("Post deletado")
+        } catch (err) {
+            res.status(400).json(`Erro: ${err}`);
+        }
+    }
+    async update(req: Request, res: Response) {
+        const {post_id} = req.query;
+        const {text, upload} = req.body;
+        try{
+            await postDAO.updatePost(Number(post_id), text, upload);
+            res.status(200).json("Post atualizado")
+        }catch(err){
+            res.status(400).json(`Erro: ${err}`)
+        }
+    }   
     async like(req: Request, res: Response) {
         const {post_id} = req.query;
         try{

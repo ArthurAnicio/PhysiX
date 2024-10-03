@@ -7,7 +7,7 @@ footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  color: white;
+  color: var(--branco);
 }
 
 footer p {
@@ -28,11 +28,11 @@ footer a {
   gap: 10px;
   align-items: center;
   text-decoration: none;
-  color: white;
+  color: var(--branco);
 }
 
 .socialFooter {
-  fill: white;
+  fill: var(--branco);
   width: 1.5em;
 }
 

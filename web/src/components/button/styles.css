@@ -3,7 +3,7 @@
   font-size: 3em;
   min-width: 40%;
   text-align: center;
-  color: white;
+  color: var(--branco);
   font-family: Poppins;
   border-radius: 20px;
   text-decoration: none;

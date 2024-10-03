@@ -3,7 +3,7 @@
     margin: 2rem 0;
     width: 50vw;
     border-radius: 20px;
-    background-color: gray;
+    background-color: var(--cinza1);
 
 }
 
@@ -11,7 +11,7 @@
     width: 10%;
     height: 3vh;
     background-color: var(--roxo1);
-    color: #fff;
+    color: var(--branco);
     font-size: 1.2rem;
     border: none !important;
     border-radius: 10px;

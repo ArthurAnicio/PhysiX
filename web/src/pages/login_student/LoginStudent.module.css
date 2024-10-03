@@ -1,5 +1,5 @@
 .loginBody {
-  background-color: #b9b9b9;
+  background-color: var(--cinza1);
 }
 
 #loginContainer {
@@ -11,9 +11,11 @@
 }
 
 #inputsMain {
+  width: 100%;
   padding: 30px 0;
   display: flex;
   flex-flow: column;
+  align-items: center;
 }
 
 #loginWindow {
