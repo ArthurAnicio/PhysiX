@@ -11,6 +11,8 @@ interface User {
     name: string;
     email: string;
     avatar: string;
+    inviteId: number;
+    accepted: boolean;
 }
 function StudentList() {
     const location = useLocation();
@@ -21,16 +23,19 @@ function StudentList() {
         searchUsers()
     }, [teacherId, users])
     async function searchUsers(){
-        const response = await api.get('/favorite-user', {params:{teacher_id:teacherId}})
-        const usersData = response.data
+        const response = await api.get('/invite', {params:{teacher_id:teacherId}})
+        const invitesData = response.data
         const updatedUsers = await Promise.all(
-            usersData.map(async (userData: any) => {
-                const avatarUrl = await getAvatar(userData.avatar);
+            invitesData.map(async (inviteData: any) => {
+                const newUser: User = (await api.get('/getuser',{params:{id:inviteData.user_id}})).data;
+                const avatarUrl = await getAvatar(newUser.avatar);
                 return {
-                    id: userData.id,
-                    name: userData.name,
-                    email: userData.email,
-                    avatar: avatarUrl
+                    id: newUser.id,
+                    name: newUser.name,
+                    email: newUser.email,
+                    avatar: avatarUrl,
+                    inviteId: inviteData.id,
+                    accepted: inviteData.accepted,
                 }
             })
         )
@@ -52,13 +57,34 @@ function StudentList() {
             return '';
         }
     }
+    async function acceptInvite(inviteId:number){
+
+        try{
+            await api.put('/invite', { invite_id:inviteId }  ).then(()=>
+                alert('Aceito com sucesso!')
+            )
+        } catch (err) {
+            alert('Erro em aceitar o convite!')
+            console.log(err);
+        }
+    }
+    async function declineInvite(inviteId:number){
+        try{
+            await api.delete('/invite',{params:{id:inviteId}}).then(()=>
+                alert('Deletado com sucesso!')
+            )
+        } catch (err) {
+            alert('Erro em rejeitar o convite!')
+            console.log(err);
+        }
+    }
     return(
         <>
         <Header title="Lista de Estudantes" state={stateId}/>
             
             <div id="studentList">
-                {users.map((user:User) => (
-                    <UserCard userName={user.name} avatarUrl={user.avatar} email={user.email}/>
+                {users.map((user: User) => (
+                    <UserCard userName={user.name} avatarUrl={user.avatar} email={user.email} accepted={user.accepted} acceptFunction={acceptInvite} rejectFunction={declineInvite} invite_id={user.inviteId}/>
                 ))}
             </div>
            

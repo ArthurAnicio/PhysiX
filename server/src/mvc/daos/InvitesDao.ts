@@ -43,4 +43,15 @@ export default class InviteDAO {
             throw new Error(`Erro ao aceitar convite: ${err}`);
         }
     }
+
+    async delete(invite_id: number): Promise<void> {
+        const trx = await db.transaction();
+        try {
+            await trx('invites').where({ id: invite_id }).del();
+            await trx.commit();
+        } catch (err) {
+            await trx.rollback();
+            throw new Error(`Erro ao excluir convite: ${err}`);
+        }
+    }
 }

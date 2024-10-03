@@ -7,7 +7,7 @@ const inviteDAO = new InviteDAO();
 export default class InvitesController {
 
     async index(req: Request, res: Response) {
-        const { teacher_id } = req.params;
+        const {teacher_id} = req.query;
 
         if (!teacher_id) {
             return res.status(400).json('Informe o id do professor');
@@ -39,7 +39,7 @@ export default class InvitesController {
     }
 
     async accept(req: Request, res: Response) {
-        const { invite_id } = req.params;
+        const { invite_id } = req.body;
 
         if (!invite_id) {
             return res.status(400).json('Informe o id do convite');
@@ -50,6 +50,20 @@ export default class InvitesController {
             return res.status(200).json('Convite aceito com sucesso');
         } catch (err) {
             return res.status(400).json({ error: `Erro ao aceitar convite: ${err}` });
+        }
+    }
+
+    async delete(req: Request, res: Response) {
+        const { id } = req.query;
+        
+        if (!id) {
+            return res.status(400).json('ID do convite é obrigatório');
+        }
+        try {
+            await inviteDAO.delete(Number(id));
+            return res.status(200).json('Convite excluído com sucesso');
+        } catch (err) {
+            return res.status(400).json({error:`Erro ao excluir convite: ${err}`});
         }
     }
 }

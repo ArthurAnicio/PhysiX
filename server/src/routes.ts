@@ -56,5 +56,6 @@ routes.delete('/class', classController.delete);
 routes.post('/invite', invitesController.create);
 routes.put('/invite', invitesController.accept); 
 routes.get('/invite', invitesController.index);
+routes.delete('/invite', invitesController.delete);
 
 export default routes;

@@ -126,10 +126,12 @@ export default class UserController {
     async getImage(req: Request, res: Response) {
         const { route } = req.query;
         if (route) {
-            const filepath = path.join(__dirname, '..', '..', route as string);
+            const filepath = path.join(__dirname,'..', '..', '..', route as string);
             if (fs.existsSync(filepath)) {
                 return res.sendFile(filepath);
             }
+
+            console.log(filepath)
             return res.status(404).json('Imagem não encontrada');
         }
     }
