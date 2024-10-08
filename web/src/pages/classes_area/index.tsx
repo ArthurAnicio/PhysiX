@@ -29,7 +29,7 @@ function ClassesArea() {
                 const currentTeacher = response.data
                 //console.log(currentTeacher)
                 setClassSchedule(JSON.parse(currentTeacher.schedule) || []);
-                //console.log(classSchedule) 
+                console.log(classSchedule) 
             } catch (error) {
                 console.error('Error fetching classes:', error);
             }
@@ -109,10 +109,7 @@ function ClassesArea() {
         <div>
             <Header state={stateId} title="Suas Aulas" />
             <div id={styles.classesContainer}>
-            {classSchedule.map((schedule, index) => (
-                    <ClassScheduleItem key={schedule.id} classSchedule={schedule} onDelete={handleDelete} teacherId={teacherId}/>
-
-                ))}
+            
                 {showForm && (
                     <form onSubmit={handleSubmit} id={styles.classesForm}>
                         <section>
@@ -154,6 +151,10 @@ function ClassesArea() {
                 {!showForm && (
                     <button  id={styles.add} onClick={() => setShowForm(true)}>Novo Horário</button>
                 )}
+                {classSchedule.map((schedule, index) => (
+                    <ClassScheduleItem key={schedule.id} classSchedule={schedule} onDelete={handleDelete} teacherId={teacherId}/>
+
+                ))}
             </div>
             <Footer />
         </div>

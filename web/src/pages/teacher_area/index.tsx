@@ -76,6 +76,7 @@ function TeacherArea() {
                 <i className='fa-solid fa-user' onClick={() => navigate("/profile_teacher", {state: { teacherId }})}></i>
                 <i className="fa-solid fa-chalkboard-user" onClick={() => navigate("/student_list", { state: { teacherId } })}></i>
                 <i className="fa-solid fa-chalkboard-user" onClick={() => navigate("/classes_area", { state: { teacherId } })}></i>
+                <i className="fa-solid fa-envelope" onClick={() => navigate("/invites", { state: { teacherId } })}></i>
                 <i className="fa-solid fa-right-from-bracket" onClick={() => navigate("/")}></i>
                 </aside>
             </main>

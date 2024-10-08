@@ -87,8 +87,8 @@ export default class TeacherDAO {
         return await db('teachers').where('id', teacherId).update({ avatar });
     }
 
-    async updateScheduleItem(id: number, weekDay: number, from: number, to: number) {
-        return await db('class_schedule').where('id', id).update({ week_day: weekDay, from, to });
+    async updateScheduleItem(schedule: JSON, id: number) {
+        return await db('teacher').where('id', id).update({ schedule });
     }
 
     async classSchedule(teacherId: number) {
