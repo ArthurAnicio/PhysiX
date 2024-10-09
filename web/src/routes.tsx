@@ -14,6 +14,7 @@ import ClassesArea from "./pages/classes_area";
 import StudentList from "./pages/student_list";
 import ProfileStudent from "./pages/profile_student";
 import ProfileTeacher from "./pages/profile_teacher";
+import Invites from "./pages/invites";
 import TestPage from "./pages/tests"
 
 function RoutesWeb() {
@@ -34,6 +35,7 @@ function RoutesWeb() {
         <Route path="/student_list" Component={StudentList} />
         <Route path="/profile_student"  Component={ProfileStudent} />
         <Route path="/profile_teacher" Component={ProfileTeacher} />
+        <Route path="/invites" Component={Invites} />
         <Route path="/tests" Component={TestPage} />
       </Routes>
     </BrowserRouter>

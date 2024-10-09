@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react';
 function ProfileStudent() {
     const location = useLocation();
     const navigate = useNavigate();
-    const [user, setUser] = useState({ user: '', email: '', id: 0, avatar: '', password: '' });
+    const [user, setUser] = useState({ name: '', email: '', id: 0, avatar: '', password: '' });
     const [imgsrc, setImgsrc] = useState('');
     const [isEditable, setIsEditable] = useState(false);
     const [showPassword, setShowPassword] = useState(false); 
@@ -95,7 +95,7 @@ function ProfileStudent() {
     async function updateProfile() {
         try {
             const response = await api.put(`/updateuser?id=${user.id}`, {
-                name: user.user,
+                name: user.name,
                 email: user.email,
                 password: user.password,
             });
@@ -144,7 +144,7 @@ function ProfileStudent() {
                         <section id={styles.inputsContainer}>
                             <div className={styles.campoInfo}>
                                 <label>Nome:</label>
-                                <TextBox type="text" disabled={!isEditable} value={user.user} onChange={(e) => setUser({ ...user, user: e.target.value })}/>
+                                <TextBox type="text" disabled={!isEditable} value={user.name} onChange={(e) => setUser({ ...user, name: e.target.value })}/>
                             </div>
                             <div className={styles.campoInfo}>
                                 <label>Email:</label>

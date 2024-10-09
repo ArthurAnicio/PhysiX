@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import './styles.css'
+import styles from './CSItem.module.css'
 import Submit from "../submit";
 import api from "../../services/api";
 
@@ -27,28 +27,12 @@ const ClassScheduleItem: React.FC<ClassScheduleItemProps> = ({ classSchedule,onD
     const [to, setTo] = useState(classSchedule.to);
     const [week_day, setWeek_Day] = useState(classSchedule.week_day);
     const location = useLocation();
+    const [fullSchedule, setFullSchedule] = useState<ClassSchedule[]>([]);
 
-    function setWeekDay() {
-        const week_day_number = classSchedule.week_day;
-        switch (week_day_number) {
-            case 0:
-                return 'Domingo';
-            case 1:
-                return 'Segunda';
-            case 2:
-                return 'Terça';
-            case 3:
-                return 'Quarta';
-            case 4:
-                return 'Quinta';
-            case 5:
-                return 'Sexta';
-            case 6:
-                return 'Sábado';
-            default:
-                return 'Domingo';
-        }
-    }
+    useEffect(()=>{
+        
+    loadClassSchedules()
+    },[])
 
     useEffect(() => {
         function setParams() {
@@ -71,44 +55,59 @@ const ClassScheduleItem: React.FC<ClassScheduleItemProps> = ({ classSchedule,onD
         setParams();
     }, [classSchedule]);
 
+
+    async function loadClassSchedules() {
+        try {
+            const response= await api.get('/getTeacher', { params: { id: teacherId } })
+            const currentTeacher = response.data;
+            setFullSchedule(JSON.parse(currentTeacher.schedule) || []);
+        } catch (error) {
+            console.error('Error fetching classes:', error);
+        }
+        
+    }
+
     function handleEditClick() {
         setIsEditable(!isEditable);
     }
 
     function updateSchedule(){
+        
+        const workingSchedule = fullSchedule.filter((schedule)=> schedule.id != classSchedule.id);
+
+        console.log(workingSchedule)
+
         const id = classSchedule.id;
         const week_day_value = week_day;
         const from_value = from;
         const to_value = to;
 
-        const data = {
+        const editedSchedule = {
             id: id,
             week_day: week_day_value,
             from: from_value,
             to: to_value,
         };
-
-        api.put(`/updateScheduleItem?id=${id}&teacherId=${teacherId}`, {
-            schedule: data
-        })
-           .then(res => {
-                console.log(res);
-            })
-           .catch(err => {
-                console.log(err);
+        
+        workingSchedule.push(editedSchedule);
+        
+        api.put(`/updateScheduleItem?id=${teacherId}`, {
+                schedule: JSON.stringify(workingSchedule)   
             })
 
             setIsEditable(!isEditable);
             {}
         }
+
+
         function deleteSchedule() {
             onDelete(classSchedule.id);
         }
     
 
     return (
-        <div id="class-schedule-item">
-            <div id="week-day-item">
+        <div id={styles.classScheduleItem}>
+            <div id={styles.weekDayItem}>
                 <p>Dia da semana:</p>
                 <select id={`week_day_${classSchedule.id}`} onChange={(e) => setWeek_Day(parseInt(e.target.value))} disabled={!isEditable}>
                     <option value="0">Domingo</option>
@@ -120,21 +119,26 @@ const ClassScheduleItem: React.FC<ClassScheduleItemProps> = ({ classSchedule,onD
                     <option value="6">Sábado</option>
                 </select>
             </div>
-            <div id="from-item">
+            <div id={styles.timeContainer}>
+            <div id={styles.fromItem}>
                 <p>De:</p>
                 <input id={`from_${classSchedule.id}`} type="time" onChange={(e) => setFrom(e.target.value)} disabled={!isEditable} />
             </div>
-            <div id="to-item">
+            <div id={styles.toItem}>
                 <p>Até:</p>
                 <input id={`to_${classSchedule.id}`} type="time" onChange={(e) => setTo(e.target.value)} disabled={!isEditable} />
             </div>
-            <button id="edit" onClick={handleEditClick}>
-                Editar
+            </div>
+
+            <div id={styles.btnContainer}>
+            <button id={styles.edit} onClick={isEditable ? updateSchedule : handleEditClick}>
+                {isEditable ? 'Concluir' : 'Editar'}
             </button>
-            {isEditable && <Submit onClick={updateSchedule} label="Atualizar" />}
-            <button id="delete" onClick={deleteSchedule}>
-                Excluir
+            <button id={styles.delete} onClick={isEditable ? handleEditClick : deleteSchedule}>
+                {isEditable ? 'Cancelar' : 'Excluir'}
             </button>
+            </div>
+            
         </div>
     );
 }

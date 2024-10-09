@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react';
 function ProfileTeacher() {
     const location = useLocation();
     const navigate = useNavigate();
-    const [teacher, setTeacher] = useState({ teacher: '', email: '', id: 0, avatar: '',number:'', password: '' });
+    const [teacher, setTeacher] = useState({ name: '', email: '', id: 0, avatar: '',number:'', password: '', schedule: null });
     const [imgsrc, setImgsrc] = useState('');
     const [isEditable, setIsEditable] = useState(false);
     const [showPassword, setShowPassword] = useState(false); 
@@ -18,6 +18,7 @@ function ProfileTeacher() {
 
     useEffect(() => {
         getTeacher();
+        
     }, []);
 
     useEffect(() => {
@@ -32,6 +33,7 @@ function ProfileTeacher() {
             
             const response = await api.get('/getTeacher', { params: { id: teacherId } });
             if (response.status === 200) {
+                console.log(response.data)
                 setTeacher(response.data);
                 setStateId(response.data.id)
             } else {
@@ -95,7 +97,7 @@ function ProfileTeacher() {
     async function updateProfile() {
         try {
             const response = await api.put(`/updateteacher?id=${teacher.id}`, {
-                name: teacher.teacher,
+                name: teacher.name,
                 email: teacher.email,
                 number: teacher.number,
                 password: teacher.password,
@@ -144,7 +146,7 @@ function ProfileTeacher() {
                         <section id={styles.inputsContainer}>
                         <div className={styles.campoInfo}>
                                 <label>Nome:</label>
-                                <TextBox type="text" disabled={!isEditable} value={teacher.teacher} onChange={(e) => setTeacher({ ...teacher, teacher: e.target.value })}/>
+                                <TextBox type="text" disabled={!isEditable} value={teacher.name} onChange={(e) => setTeacher({ ...teacher, name: e.target.value })}/>
                             </div>
                             <div className={styles.campoInfo}>
                                 <label>Email:</label>

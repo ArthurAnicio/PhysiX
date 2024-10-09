@@ -2,12 +2,20 @@
     background-color: var(--branco2);
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    align-items: center;    
+    min-height: 70vh;
+}
+
+#schedulesDiv {
+    margin: 50px;
+    display: grid;
+    width: 60%;
+    grid-template-columns: repeat(auto-fill, 250px);
+    gap: 50px;
 }
 
 #classesForm{
-    width: 50vw;
+    width: 500px;
     height: 10vh;
     margin: 2vh 0;
     padding: 1.2rem;
@@ -33,8 +41,9 @@
 }
 
 #classesForm button {
-    width: 5vw;
-    height: 4.5vw;
+    padding: 0;
+    min-width: 80px;
+    min-height: 80px;
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -54,7 +63,7 @@
 }
 
 #add{
-    width: 30vw;
+    width: 300px;
     height: 10vh;
     border: none;
     border-radius: 10px;
@@ -64,6 +73,7 @@
     font-family: Poppins;
     font-size: 2rem;
     transition: 0.2s;
+    margin-top: 2vh;
 }
 
 #add:hover {
