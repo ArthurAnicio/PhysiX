@@ -15,7 +15,7 @@ function TeacherArea() {
     const asideRef = useRef<HTMLDivElement>(null)
     const [newPostFormVisible, setNewPostFormVisible] = useState(false);
     const [text, setText] = useState('');
-    const [file, setFile] = useState<File | null>(null); // Estado para armazenar o arquivo
+    const [file, setFile] = useState<File | null>(null);
 
     useEffect(() => {
         setNewPostFormVisible(false);
@@ -56,12 +56,12 @@ function TeacherArea() {
             return;
         }
 
-        // Usando FormData para enviar texto e arquivo
+        
         const formData = new FormData();
         formData.append("teacher_id", String(teacherId));
         formData.append("text", text);
         if (file) {
-            formData.append("upload", file); // Adiciona o arquivo de upload
+            formData.append("upload", file); 
         }
 
         try {
@@ -101,7 +101,10 @@ function TeacherArea() {
             <AreaHeader title="Área do Professor" state={teacherId} asideOpen={asideOpen}/>
             <main id={styles.areaContainer}>
                 <aside id={styles.areaAside} ref={asideRef} className={styles.asideClosed}>
-                    {/* Navegação do professor */}
+                    <i className='fa-solid fa-user' id={styles.iconAside} onClick={() => navigate("/profile_teacher", {state: { teacherId }})}></i>
+                    <i className="fa-solid fa-chalkboard-user" id={styles.iconAside} onClick={() => navigate("/student_list", { state: { teacherId } })}></i>
+                    <i className="fa-solid fa-chalkboard-user" id={styles.iconAside} onClick={() => navigate("/classes_area", { state: { teacherId } })}></i>
+                    <i className="fa-solid fa-right-from-bracket" id={styles.iconAside} onClick={() => navigate("/")}></i>
                 </aside>
                 <nav className={styles.content}>
                     {!newPostFormVisible && (
@@ -130,7 +133,7 @@ function TeacherArea() {
                                             id="uploadInput"
                                             onChange={(e) => {
                                                 if (e.target.files) {
-                                                    setFile(e.target.files[0]); // Atualiza o estado do arquivo
+                                                    setFile(e.target.files[0]);
                                                 }
                                             }}
                                         />
