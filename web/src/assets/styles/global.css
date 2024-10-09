@@ -3,6 +3,7 @@
   --roxo1: #8a5ac9;
   --roxo2: #593c7e;
   --roxo3: #41005a;
+  --roxo4: #b309f7;
   --branco: #faf7fc;
   --preto: #0b0024;
   --preto2: #000000bf;
@@ -16,9 +17,13 @@
   --verde2: #0b7a1e;
   --verde3: #1ee94a;
   --verde4: #127728;
+  --vermelho: #bd1d32;
+  --vermelho2: #ee0d2b;
   --amarelo: #FCCE6D ;
-  --branco2: #ffffff ;
-
+  --branco2: #f0eded ;
+  --azul: #2295d8;
+  --azul2: #0895f3;
+  --azul3: #065685;
 }
 
 body {

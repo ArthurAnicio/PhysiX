@@ -34,10 +34,10 @@ export default class PostsController {
             if (err) {
                 return res.status(400).json(`Erro no upload: ${err}`);
             }
-            
+    
             const { teacher_id, text } = req.body;
             const uploadPath = req.file ? req.file.path : null;
-
+    
             const post = new Post(
                 Number(teacher_id),
                 text,
@@ -46,7 +46,7 @@ export default class PostsController {
                 undefined, // created_at
                 uploadPath // caminho do arquivo carregado
             );
-            
+    
             try {
                 await postDAO.create(post);
                 res.status(201).json(post);
@@ -55,6 +55,7 @@ export default class PostsController {
             }
         });
     }
+    
 
     async getPosts(req: Request, res: Response) {
         const { teacher_id } = req.query;

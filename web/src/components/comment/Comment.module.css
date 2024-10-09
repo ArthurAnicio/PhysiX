@@ -1,0 +1,51 @@
+.comment{
+    margin: 1vh auto;
+    padding: 2vh 0.5vw;
+    border-radius: 10px;
+    background-color: var(--branco1);
+    box-shadow: 0 0 10px var(--roxo1);
+    display: flex;
+    flex-direction: column;
+}
+
+.commentInfo{
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.commentInfoIMG{
+    width: 2.3rem;
+    height: 2.3rem;
+    margin-right: 0.3vw;
+    border: solid 3px var(--roxo1);
+    border-radius: 50%;
+    background: var(--preto);
+}
+
+.commentInfoPerfil{
+    font-size: 1.4rem;
+}
+
+.like {
+    padding: 0 2rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+}
+
+.like p{
+    color: var(--roxo1);
+    margin: 0;
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-left: 0.2vw;
+}
+
+.like i{
+    color: var(--roxo1);
+    font-size: 1.4rem;
+    cursor: pointer;
+}

@@ -5,6 +5,7 @@ import ClassController from './mvc/controllers/ClassController';
 import InvitesController from './mvc/controllers/InvitesController';
 import TestController from './mvc/controllers/TestController';
 import PostsController from './mvc/controllers/PostController';
+import ReplyController from './mvc/controllers/ReplyController';
 
 const routes = express.Router();
 const userController = new UserController();
@@ -13,6 +14,14 @@ const classController = new ClassController();
 const invitesController = new InvitesController();
 const testController = new TestController();
 const postsController = new PostsController();
+const replyController = new ReplyController();
+
+//Reply Routes
+
+routes.get('/replies', replyController.index);
+routes.post('/reply', replyController.create);
+routes.put('/likeReply', replyController.like)
+
 
 // Post routes
 routes.get('/post', postsController.index);
