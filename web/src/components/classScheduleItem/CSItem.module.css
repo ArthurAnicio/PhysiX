@@ -2,7 +2,6 @@
     display: flex;
     align-items: center;
     flex-flow: column;
-    margin: 2rem 0;
     padding: 20px;
     border-radius: 20px;
     background-color: var(--cinza1);

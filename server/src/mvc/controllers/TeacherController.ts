@@ -83,19 +83,11 @@ export default class TeacherController {
     }
 
     async updateScheduleItem(req: Request, res: Response) {
-
+        const {id} = req.query;
         const {schedule} = req.body
-        const { id, week_day, from, to } = schedule;
-
-        console.log(id, week_day, from, to)
-
-        if (!id || week_day == undefined || !from || !to) {
-            console.log(!id, !week_day, !from, !to)
-            return res.status(400).json('Preencha os campos: id, week_day, from, to');
-        }
 
         try {
-            await teacherDAO.updateScheduleItem(id, schedule);
+            await teacherDAO.updateScheduleItem(Number(id), schedule);
             return res.status(200).json('Horário atualizado com sucesso');
         } catch (err) {
             return res.status(400).json(`Erro ao atualizar horário: ${err}`);

@@ -27,8 +27,12 @@ const ClassScheduleItem: React.FC<ClassScheduleItemProps> = ({ classSchedule,onD
     const [to, setTo] = useState(classSchedule.to);
     const [week_day, setWeek_Day] = useState(classSchedule.week_day);
     const location = useLocation();
+    const [fullSchedule, setFullSchedule] = useState<ClassSchedule[]>([]);
 
-    
+    useEffect(()=>{
+        
+    loadClassSchedules()
+    },[])
 
     useEffect(() => {
         function setParams() {
@@ -51,38 +55,51 @@ const ClassScheduleItem: React.FC<ClassScheduleItemProps> = ({ classSchedule,onD
         setParams();
     }, [classSchedule]);
 
+
+    async function loadClassSchedules() {
+        try {
+            const response= await api.get('/getTeacher', { params: { id: teacherId } })
+            const currentTeacher = response.data;
+            setFullSchedule(JSON.parse(currentTeacher.schedule) || []);
+        } catch (error) {
+            console.error('Error fetching classes:', error);
+        }
+        
+    }
+
     function handleEditClick() {
         setIsEditable(!isEditable);
     }
 
     function updateSchedule(){
         
+        const workingSchedule = fullSchedule.filter((schedule)=> schedule.id != classSchedule.id);
+
+        console.log(workingSchedule)
+
         const id = classSchedule.id;
         const week_day_value = week_day;
         const from_value = from;
         const to_value = to;
 
-        const data = {
+        const editedSchedule = {
             id: id,
             week_day: week_day_value,
             from: from_value,
             to: to_value,
         };
-
-
-        api.put(`/updateScheduleItem?id=${id}&teacherId=${teacherId}`, {
-            schedule: data
-        })
-           .then(res => {
-                console.log(res);
-            })
-           .catch(err => {
-                console.log(err);
+        
+        workingSchedule.push(editedSchedule);
+        
+        api.put(`/updateScheduleItem?id=${teacherId}`, {
+                schedule: JSON.stringify(workingSchedule)   
             })
 
             setIsEditable(!isEditable);
             {}
         }
+
+
         function deleteSchedule() {
             onDelete(classSchedule.id);
         }
