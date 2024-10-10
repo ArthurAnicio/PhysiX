@@ -4,6 +4,7 @@ import styles from "./TeacherArea.module.css";
 import AreaHeader from "../../components/areaHeader";
 import Footer from "../../components/footer";
 import api from "../../services/api";
+import Post from "../../components/post";
 
 function TeacherArea() {
     const navigate = useNavigate();
@@ -12,6 +13,7 @@ function TeacherArea() {
     const history = useNavigate();
     const [teacherName, setTeacherName] = useState('');
     const [imgsrc, setImgsrc] = useState('');
+    const [posts, setPosts] = useState([]); 
     const asideRef = useRef<HTMLDivElement>(null)
     const [newPostFormVisible, setNewPostFormVisible] = useState(false);
     const [text, setText] = useState('');
@@ -19,6 +21,7 @@ function TeacherArea() {
 
     useEffect(() => {
         setNewPostFormVisible(false);
+        getPosts();
         getTeacher();
     }, []);
 
@@ -76,6 +79,20 @@ function TeacherArea() {
         } catch (error) {
             console.error('Erro ao postar:', error);
             alert('Falha ao postar!');
+        }
+    }
+
+    async function getPosts() {
+        try {
+            const response = await api.get('/posts');
+            if (response.status === 200) {
+                console.log(response.data);
+                setPosts(response.data);
+            } else {
+                alert('Falha ao buscar os posts!');
+            }
+        } catch (error) {
+            console.error('Erro ao obter posts:', error);
         }
     }
 
@@ -145,6 +162,9 @@ function TeacherArea() {
                             </button>
                         </div>
                     )}
+                    {posts.map(post => (
+                        <Post post={post} />
+                    ))}
                 </nav>
             </main>
             <Footer />

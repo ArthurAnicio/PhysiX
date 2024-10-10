@@ -16,7 +16,7 @@ function TestPage() {
     return (
         <div id='teste'>
             <button onClick={testingFun}>Testar</button>
-            <Post/>
+            
         </div>
     )
 }
