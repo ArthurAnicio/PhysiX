@@ -45,10 +45,12 @@ const Post: React.FC<PostProps> = ({ post }) => {
 
     useEffect(() => {
         getTeacher()
-    }, [])
+    }, [teacher])
 
     useEffect(() => {
-        getAvatar(teacher.avatar);
+        if (teacher.avatar){
+        getAvatar(teacher.avatar)
+        };
     }, [teacher.avatar])
 
     useEffect(() => {

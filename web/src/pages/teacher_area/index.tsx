@@ -30,9 +30,12 @@ function TeacherArea() {
 
     useEffect(() => {
         setNewPostFormVisible(false);
-        getPosts();
         getTeacher();
     }, []);
+
+    useEffect(()=>{
+        getPosts();
+    },[]);
 
     // Função para abrir/fechar o menu lateral
     function asideOpen() {
