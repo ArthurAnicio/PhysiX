@@ -6,7 +6,7 @@ const replyDAO = new ReplyDAO();
 
 export default class ReplyController {
     async index(req: Request, res: Response): Promise<Response> {
-        const { post_id } = req.params;
+        const { post_id } = req.query;
 
         try {
             const replies = await replyDAO.getAllByPostId(Number(post_id));
@@ -25,8 +25,7 @@ export default class ReplyController {
         const reply = new Reply(
             Number(post_id),
             text,
-            0,  
-            new Date(),
+            0,
             undefined, 
             teacher_id ? Number(teacher_id) : undefined,  
             user_id ? Number(user_id) : undefined  
@@ -41,7 +40,7 @@ export default class ReplyController {
     }
 
     async like(req: Request, res: Response): Promise<Response> {
-        const { id } = req.params;
+        const { id } = req.query;
 
         try {
             await replyDAO.liked(Number(id));
@@ -52,7 +51,7 @@ export default class ReplyController {
     }
 
     async update(req: Request, res: Response): Promise<Response> {
-        const { id } = req.params;
+        const { id } = req.query;
         const { text, teacher_id, user_id } = req.body;
     
         try {

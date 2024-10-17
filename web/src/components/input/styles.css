@@ -20,6 +20,7 @@
   margin-top: 0.8rem;
   border-radius: 0.8rem;
   border: 1px solid var(--roxo1);
+  background: var(--branco);
   outline: 0;
   padding: 0 1.6rem;
   font: 1.6rem Poppins;

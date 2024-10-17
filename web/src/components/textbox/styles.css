@@ -1,6 +1,7 @@
 input {
     border-radius: 20px;
     border: 2px solid var(--roxo1);
+    background: var(--branco);
     height: 3rem;
     font-size: 1.2em;
     font-family: inherit;

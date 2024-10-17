@@ -5,13 +5,11 @@ export default class Reply {
     post_id: number;
     text: string;
     likes: number;
-    created_at: Date;
 
     constructor(
         post_id: number,
         text: string,
         likes: number = 0,
-        created_at: Date = new Date(),
         id?: number,
         teacher_id?: number,  
         user_id?: number      
@@ -22,6 +20,5 @@ export default class Reply {
         this.post_id = post_id;
         this.text = text;
         this.likes = likes;
-        this.created_at = created_at;
     }
 }

@@ -1,24 +1,59 @@
 import React, { useState } from "react";
 import styles from './Comment.module.css';
+import api from "../../services/api";
 
-function Comment(){
+interface CommentProps {
+    comment: {
+        id: number;
+        text: string;
+        likes: number;
+        teacherId?: number;
+        userId?: number;
+    };
+}
 
-    return(
+const Comment: React.FC<CommentProps> = ({ comment }) => {
+    const [likes, setLikes] = useState(comment.likes);
+
+    const formatDate = (dateString: string | undefined) => {
+        if (!dateString) return ""; 
+        const isoDateString = dateString.replace(' ', 'T'); 
+        const date = new Date(isoDateString);
+        
+        if (isNaN(date.getTime())) {
+            console.error("Data inválida:", dateString); 
+            return "";         
+        }
+        
+        return date.toLocaleDateString(); 
+    };
+
+    async function like() {
+        try {
+            await api.put(`likeReply?id=${comment.id}`);
+            setLikes((prevLikes) => prevLikes + 1); 
+        } catch (error) {
+            console.error(error);
+        }
+    } 
+
+    return (
         <div className={styles.comment}>
             <section className={styles.commentInfo}>
                 <div className={styles.commentInfoIMG}></div>
-                <div className={styles.commentInfoText}> Teste </div>
+                <div className={styles.commentInfoPerfil}></div>
             </section>
             <section className={styles.commentText}>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer consectetur, metus vel pellentesque fermentum, velit justo sollicitudin nunc, id viverra neque nunc vel est. Nulla facilisi. Sed viverra, velit id viverra bibendum, justo arcu consectetur quam, vel pharetra felis tellus ac velit. Sed vel metus id neque sagittis fringilla. Donec at enim vel eros fermentum </p>
+                <p>{comment.text}</p>
             </section>
-            <section className={styles.like}>
-                <i className="fa-solid fa-thumbs-up"></i>
-                <p>0</p>
+            <section className={styles.reaction}>
+                <div className={styles.like}>
+                    <i className="fa-solid fa-thumbs-up" onClick={like}></i>
+                    <p>{likes}</p>
+                </div>
             </section>
         </div>
-    )
-
-}
+    );
+};
 
 export default Comment;

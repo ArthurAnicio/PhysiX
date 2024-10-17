@@ -6,15 +6,24 @@ import Footer from "../../components/footer";
 import api from "../../services/api";
 import Post from "../../components/post";
 
+// Definição da interface para os posts
+interface PostData {
+    id: number;
+    teacher_id: number;
+    text: string;
+    created_at: string;
+    uploadPath?: string;
+}
+
 function TeacherArea() {
     const navigate = useNavigate();
     const location = useLocation();
     const { teacherId } = location.state || { teacherId: 0 };
-    const history = useNavigate();
+    const asideRef = useRef<HTMLDivElement>(null);
+
     const [teacherName, setTeacherName] = useState('');
     const [imgsrc, setImgsrc] = useState('');
-    const [posts, setPosts] = useState([]); 
-    const asideRef = useRef<HTMLDivElement>(null)
+    const [posts, setPosts] = useState<PostData[]>([]); // Tipagem para o estado de posts
     const [newPostFormVisible, setNewPostFormVisible] = useState(false);
     const [text, setText] = useState('');
     const [file, setFile] = useState<File | null>(null);
@@ -25,12 +34,14 @@ function TeacherArea() {
         getTeacher();
     }, []);
 
+    // Função para abrir/fechar o menu lateral
     function asideOpen() {
-        if (asideRef.current != undefined) {
+        if (asideRef.current) {
             asideRef.current.classList.toggle(styles.asideClosed);
         }
     }
 
+    // Função para buscar informações do professor
     async function getTeacher() {
         try {
             const response = await api.get('/getTeacher', { params: { id: teacherId } });
@@ -40,31 +51,27 @@ function TeacherArea() {
                 setImgsrc(await getAvatar(avatar));
             } else {
                 alert('Falha no login! Por favor tente novamente.');
-                history('/log_in_teacher');
+                navigate('/log_in_teacher');
             }
         } catch (error) {
             alert('Falha no login!');
-            history('/log_in_teacher');
+            navigate('/log_in_teacher');
             console.error('Erro ao obter dados do professor:', error);
         }
     }
 
-    function handleNewPostFormVisibility() {
-        setNewPostFormVisible(!newPostFormVisible);
-    }
-
+    // Função para criar uma nova postagem
     async function newPost() {
         if (text === '') {
             alert('Por favor, escreva algo para o post!');
             return;
         }
 
-        
         const formData = new FormData();
         formData.append("teacher_id", String(teacherId));
         formData.append("text", text);
         if (file) {
-            formData.append("upload", file); 
+            formData.append("upload", file);
         }
 
         try {
@@ -73,20 +80,21 @@ function TeacherArea() {
                     'Content-Type': 'multipart/form-data',
                 },
             });
+            setNewPostFormVisible(false);
             setText('');
-            setFile(null); // Limpa o estado do arquivo
-            alert('Post criado com sucesso!');
+            setFile(null);
+            getPosts(); // Atualiza os posts após a criação
         } catch (error) {
             console.error('Erro ao postar:', error);
             alert('Falha ao postar!');
         }
     }
 
+    // Função para obter a lista de posts
     async function getPosts() {
         try {
-            const response = await api.get('/posts');
+            const response = await api.get(`/post`);
             if (response.status === 200) {
-                console.log(response.data);
                 setPosts(response.data);
             } else {
                 alert('Falha ao buscar os posts!');
@@ -96,51 +104,58 @@ function TeacherArea() {
         }
     }
 
+    // Função para buscar o avatar do professor
     async function getAvatar(avatarPath: string) {
         try {
             const response = await api.get('/avatar', { params: { route: avatarPath } });
             if (response.status === 200) {
                 return response.request.responseURL;
             } else {
-                alert('Falha no avatar!');
+                alert('Falha ao buscar avatar!');
                 console.log(response);
                 return '';
             }
-        } catch (err) {
-            alert('Falha no avatar!');
-            console.log(err);
+        } catch (error) {
+            alert('Falha ao buscar avatar!');
+            console.error('Erro ao obter avatar:', error);
             return '';
         }
     }
 
     return (
         <div>
-            <AreaHeader title="Área do Professor" state={teacherId} asideOpen={asideOpen}/>
+            <AreaHeader title="Área do Professor" state={teacherId} asideOpen={asideOpen} />
             <main id={styles.areaContainer}>
                 <aside id={styles.areaAside} ref={asideRef} className={styles.asideClosed}>
-                    <i className='fa-solid fa-user' id={styles.iconAside} onClick={() => navigate("/profile_teacher", {state: { teacherId }})}></i>
+                    <i className="fa-solid fa-user" id={styles.iconAside} onClick={() => navigate("/profile_teacher", { state: { teacherId } })}></i>
                     <i className="fa-solid fa-chalkboard-user" id={styles.iconAside} onClick={() => navigate("/student_list", { state: { teacherId } })}></i>
                     <i className="fa-solid fa-chalkboard-user" id={styles.iconAside} onClick={() => navigate("/classes_area", { state: { teacherId } })}></i>
                     <i className="fa-solid fa-right-from-bracket" id={styles.iconAside} onClick={() => navigate("/")}></i>
                 </aside>
+
                 <nav className={styles.content}>
                     {!newPostFormVisible && (
-                        <div className={styles.newPost} hidden={!newPostFormVisible} onClick={handleNewPostFormVisibility}>
+                        <div className={styles.newPost} onClick={() => setNewPostFormVisible(true)}>
                             Nova publicação
                             <i className="fa-solid fa-plus"></i>
                         </div>
                     )}
+
                     {newPostFormVisible && (
                         <div className={styles.newPostForm}>
                             <div className={styles.cancel}>
-                                <i className="fa-solid fa-xmark" onClick={handleNewPostFormVisibility}></i>
+                                <i className="fa-solid fa-xmark" onClick={() => setNewPostFormVisible(false)}></i>
                             </div>
                             <div className={styles.textPost}>
                                 <label> O texto da sua publicação: </label>
-                                <textarea placeholder="Escreva algo..." value={text} onChange={(e) => { setText(e.target.value)}}/>
+                                <textarea
+                                    placeholder="Escreva algo..."
+                                    value={text}
+                                    onChange={(e) => setText(e.target.value)}
+                                />
                             </div>
                             <div className={styles.imagePost}>
-                                <label> O arquivo da sua publicação (opcional) : </label>
+                                <label> O arquivo da sua publicação (opcional): </label>
                                 <div className={styles.uploadContainer}>
                                     <div className={styles.sendContainer}>
                                         <div className={styles.upload}>ESCOLHER ARQUIVO</div>
@@ -148,22 +163,17 @@ function TeacherArea() {
                                             type="file"
                                             className={styles.uploadInput}
                                             id="uploadInput"
-                                            onChange={(e) => {
-                                                if (e.target.files) {
-                                                    setFile(e.target.files[0]);
-                                                }
-                                            }}
+                                            onChange={(e) => e.target.files && setFile(e.target.files[0])}
                                         />
                                     </div>
                                 </div>
                             </div>
-                            <button onClick={newPost}>
-                                PUBLICAR
-                            </button>
+                            <button onClick={newPost}>PUBLICAR</button>
                         </div>
                     )}
-                    {posts.map(post => (
-                        <Post post={post} />
+
+                    {posts.map((post) => (
+                        <Post key={post.id} post={post} />
                     ))}
                 </nav>
             </main>

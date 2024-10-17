@@ -10,8 +10,7 @@ export default class ReplyDAO {
                 user_id: reply.user_id,
                 post_id: reply.post_id,
                 text: reply.text,
-                likes: reply.likes,
-                created_at: reply.created_at,
+                likes: reply.likes
             });
             await trx.commit();
         } catch (err) {
