@@ -34,6 +34,7 @@ const Post: React.FC<PostProps> = ({ post }) => {
     const [likes, setLikes] = useState(post.likes || 0); 
     const hasUpload = !!post.upload;
     const [avatar, setAvatar] = useState('');
+    const [postUpload, setUpload] = useState('');
     const [teacher, setTeacher] = useState({name: '', email: '', id: 0, avatar:'', number:'', password: '', schedule: null})
 
     useEffect(() => {
@@ -49,6 +50,10 @@ const Post: React.FC<PostProps> = ({ post }) => {
     useEffect(() => {
         getAvatar(teacher.avatar);
     }, [teacher.avatar])
+
+    useEffect(() => {
+        getUpload(post.upload);
+    }, [post.upload])
 
     async function getTeacher() {
         try{    
@@ -77,6 +82,22 @@ const Post: React.FC<PostProps> = ({ post }) => {
             alert('Falha no avatar!');
             console.log(err);
         }
+    }
+
+    async function getUpload(uploadPath: string | undefined) {
+        if (uploadPath) {
+        try {
+            const response = await api.get('/getUploads', { params: { route: uploadPath } });
+            if (response.status === 200) {
+               setUpload(response.request.responseURL);
+            } else {
+                alert('Falha no upload do post!');
+                console.log(response);
+            }
+        } catch (err) {
+            alert('Falha no upload do post!');
+            console.log(err);
+        }}
     }
 
     const fetchComments = async () => {
@@ -141,7 +162,7 @@ const Post: React.FC<PostProps> = ({ post }) => {
             </section>
             {hasUpload && (
                 <section className={styles.upload}>
-                    <img src={post.upload} alt="Post upload" />
+                    <img src={postUpload} alt="Post upload" />
                 </section>
             )}
             <section className={styles.reactions}>

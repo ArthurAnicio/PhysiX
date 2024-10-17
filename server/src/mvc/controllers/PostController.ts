@@ -122,7 +122,6 @@ export default class PostsController {
             if (fs.existsSync(filepath)) {
                 return res.sendFile(filepath);
             }
-
             return res.status(404).json('Upload não encontrado');
         }
     }
