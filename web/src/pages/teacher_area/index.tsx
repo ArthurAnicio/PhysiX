@@ -28,6 +28,8 @@ function TeacherArea() {
     const [text, setText] = useState('');
     const [file, setFile] = useState<File | null>(null);
 
+    const id = {teacher_id: teacherId, user_id: undefined}
+
     useEffect(() => {
         setNewPostFormVisible(false);
         getTeacher();
@@ -176,7 +178,7 @@ function TeacherArea() {
                     )}
 
                     {posts.map((post) => (
-                        <Post key={post.id} post={post} />
+                        <Post key={post.id} post={post} id={id}/>
                     ))}
                 </nav>
             </main>

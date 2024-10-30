@@ -13,6 +13,11 @@ interface Post {
     replies?: number;
 }
 
+interface Id {
+    teacher_id?: number;
+    user_id?: number| null;
+}
+
 interface CommentData {
     id: number;
     postId: number;
@@ -24,9 +29,10 @@ interface CommentData {
 
 interface PostProps {
     post: Post;
+    id: Id;
 }
 
-const Post: React.FC<PostProps> = ({ post }) => {
+const Post: React.FC<PostProps> = ({ post, id }) => {
     console.log(post);
     const [showComments, setShowComments] = useState(false);
     const [comments, setComments] = useState<CommentData[]>([]);
@@ -130,7 +136,7 @@ const Post: React.FC<PostProps> = ({ post }) => {
 
     const like = async () => {
         try {
-            await api.put(`/likePost?post_id=${post.id}`);
+            await api.put(`/likePost?post_id=${post.id}&teacher_id=${id.teacher_id}&user_id=${id.user_id}`);
             setLikes((prevLikes) => prevLikes + 1);
         } catch (error) {
             console.error("Erro ao curtir post:", error);

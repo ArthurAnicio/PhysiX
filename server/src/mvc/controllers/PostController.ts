@@ -1,11 +1,13 @@
 import { Request, Response } from 'express';
 import Post from '../models/Post';
 import PostDAO from '../daos/PostDao';
+import LikedPostDAO, {Id} from '../daos/LikedPostDao';
 import multer from 'multer';
 import path from 'path';
 import fs from 'fs';
 
 const postDAO = new PostDAO();
+const likedPostDAO = new LikedPostDAO();
 
 // Configuração de multer para uploads
 const storage = multer.diskStorage({
@@ -97,10 +99,17 @@ export default class PostsController {
     }
 
     async like(req: Request, res: Response) {
-        const { post_id } = req.query;
+        const { post_id,  teacher_id, user_id } = req.query;
+        const id: Id = { teacher_id: Number(teacher_id), user_id: Number(user_id) };
         try {
-            await postDAO.liked(Number(post_id));
-            res.status(200).json('Deu like');
+            const verifyLiked = await likedPostDAO.verify(Number(post_id), id)
+            if (!verifyLiked){
+                await likedPostDAO.create(Number(post_id), id);
+                await postDAO.liked(Number(post_id));
+                res.status(200).json('Deu like');
+            }else(
+                res.status(400).json('Você já deu like nesse post')
+            )   
         } catch (err) {
             res.status(400).json(`Erro: ${err}`);
         }
