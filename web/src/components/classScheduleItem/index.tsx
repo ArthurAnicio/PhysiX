@@ -77,6 +77,9 @@ const ClassScheduleItem: React.FC<ClassScheduleItemProps> = ({ classSchedule,onD
 
         console.log(workingSchedule)
 
+        
+
+
         const id = classSchedule.id;
         const week_day_value = week_day;
         const from_value = from;
@@ -89,6 +92,21 @@ const ClassScheduleItem: React.FC<ClassScheduleItemProps> = ({ classSchedule,onD
             to: to_value,
         };
         
+
+        if(editedSchedule.from>editedSchedule.to) {
+            alert("O horário de início não pode ser superior ao horario de fim!")
+            return
+        }
+
+        const conflictClasses = fullSchedule.filter((classSchedule) => classSchedule.from < editedSchedule.from && classSchedule.to > editedSchedule.from ||
+         classSchedule.from < editedSchedule.to && classSchedule.to > editedSchedule.to ||
+         editedSchedule.from < classSchedule.to && editedSchedule.to > classSchedule.to ||
+         editedSchedule.from < classSchedule.from && editedSchedule.to > classSchedule.from)
+        if (conflictClasses.length>0) {
+            alert("Você não pode ter duas aulas no mesmo horário!")
+            return
+        }
+
         workingSchedule.push(editedSchedule);
         
         api.put(`/updateScheduleItem?id=${teacherId}`, {

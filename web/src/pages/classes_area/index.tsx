@@ -92,7 +92,6 @@ function ClassesArea() {
                 alert("O horário de início não pode ser superior ao horario de fim!")
                 return
             }
-            console.log(updatedSchedule);
 
             const conflictClasses = classSchedule.filter((classSchedule) => classSchedule.from < newClassSchedule.from && classSchedule.to > newClassSchedule.from ||
              classSchedule.from < newClassSchedule.to && classSchedule.to > newClassSchedule.to ||
