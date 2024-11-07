@@ -112,7 +112,7 @@ function ClassesArea() {
                 to: '',
                 id: 0
             });
-            setShowForm(false); // Esconde o formulário após a criação da classSchedule
+            setShowForm(false); 
             const response = await api.put(`/updateSchedule?id=${teacherId}`, {
                 schedule: JSON.stringify(updatedSchedule)   
             });
@@ -130,14 +130,9 @@ function ClassesArea() {
     };
     
     async function handleDelete(id: number) {
-        // Atualiza o estado
         removeClassSchedule(id);
     
-        // Use o estado atualizado após a remoção
         setClassSchedule((updatedSchedule) => {
-            //console.log(updatedSchedule); // Log do estado atualizado
-    
-            // Faz a requisição usando o estado atualizado
             api.put(`/updateSchedule?id=${teacherId}`, {
                 schedule: JSON.stringify(updatedSchedule),
             });
