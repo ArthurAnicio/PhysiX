@@ -106,4 +106,8 @@ export default class TeacherDAO {
     async deleteClassSchedule(id: number) {
         return await db('class_schedule').where('id', id).del();
     }
+
+    async addALikedPost(id: number, teacher_id: number) {
+        
+    }
 }

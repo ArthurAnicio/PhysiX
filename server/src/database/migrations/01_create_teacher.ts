@@ -9,6 +9,8 @@ export async function up(knex: Knex){
         table.string('password').notNullable();
         table.string('avatar').notNullable();
         table.json('schedule').nullable()
+        table.json('likedPosts').nullable()
+        table.json('likedReplies').nullable();
     })
 }
 
