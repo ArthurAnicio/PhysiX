@@ -11,7 +11,7 @@ export async function up(knex: Knex){
             .onUpdate("CASCADE")
             .onDelete("CASCADE");
             table.string("text").notNullable();
-            table.integer("likes").notNullable();
+            table.json("likes").nullable();
             table.integer("replies").notNullable();
             table.timestamp("created_at").defaultTo(knex.fn.now());
             table.string("upload").nullable();

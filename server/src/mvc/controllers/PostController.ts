@@ -41,7 +41,7 @@ export default class PostsController {
             const post = new Post(
                 Number(teacher_id),
                 text,
-                0, // likes
+                '', // likes
                 0, // replies
                 undefined, // created_at
                 uploadPath // caminho do arquivo carregado
@@ -98,9 +98,20 @@ export default class PostsController {
 
     async like(req: Request, res: Response) {
         const { post_id } = req.query;
+        const{ likes } = req.body;
         try {
-            await postDAO.liked(Number(post_id));
+            await postDAO.updateLikes(Number(post_id),likes);
             res.status(200).json('Deu like');
+        } catch (err) {
+            res.status(400).json(`Erro: ${err}`);
+        }
+    }
+
+    async getLikes(req: Request, res: Response) {
+        const { post_id } = req.query;
+        try {
+            const likes = await postDAO.getLikes(Number(post_id));
+            res.json(likes)
         } catch (err) {
             res.status(400).json(`Erro: ${err}`);
         }

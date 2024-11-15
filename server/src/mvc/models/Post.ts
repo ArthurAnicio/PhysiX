@@ -2,14 +2,14 @@ export default class Post {
     id?: number;
     teacher_id: number;
     text: string;
-    likes: number;
+    likes: string;
     replies: number;
     upload?: string | null;
 
     constructor(
         teacher_id: number,
         text: string,
-        likes: number,
+        likes: string,
         replies: number,
         id?: number,
         upload?: string | null 

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styles from './Post.module.css';
 import Comment from "../comment";
 import api from "../../services/api"; 
+import { json } from "stream/consumers";
 
 interface Post {
     id: number;
@@ -15,7 +16,7 @@ interface Post {
 
 interface Id {
     teacher_id?: number;
-    user_id?: number| null;
+    user_id?: number| 0;
 }
 
 interface CommentData {
@@ -32,12 +33,17 @@ interface PostProps {
     id: Id;
 }
 
+interface LikeData {
+    post_id: number;
+    user_id?: number| 0;
+    teacher_id?: number | 0;
+}
+
 const Post: React.FC<PostProps> = ({ post, id }) => {
-    console.log(post);
     const [showComments, setShowComments] = useState(false);
     const [comments, setComments] = useState<CommentData[]>([]);
     const [newComment, setNewComment] = useState("");
-    const [likes, setLikes] = useState(post.likes || 0); 
+    const [likes, setLikes] = useState<LikeData[]>([]); 
     const hasUpload = !!post.upload;
     const [avatar, setAvatar] = useState('');
     const [postUpload, setUpload] = useState('');
@@ -63,11 +69,15 @@ const Post: React.FC<PostProps> = ({ post, id }) => {
         getUpload(post.upload);
     }, [post.upload])
 
+    useEffect(()=>{
+        fetchLikes();
+    }, [likes])
+
+
     async function getTeacher() {
         try{    
             const response = await api.get('/getTeacher', { params: { id: post.teacher_id} });
             if (response.status === 200) {
-                console.log(response.data)
                 setTeacher(response.data)
             } else {
                 alert('Falha.');
@@ -134,15 +144,49 @@ const Post: React.FC<PostProps> = ({ post, id }) => {
         }
     };
 
-    const like = async () => {
-        try {
-            await api.put(`/likePost?post_id=${post.id}&teacher_id=${id.teacher_id}&user_id=${id.user_id}`);
-            setLikes((prevLikes) => prevLikes + 1);
-        } catch (error) {
-            console.error("Erro ao curtir post:", error);
-        }
-    };
+    const fetchLikes = async() =>{
+        try{
+            const response = await api.get('/likePost', {params:{post_id: post.id}})
+            if (response.status === 200) {
+                
+                const like = JSON.parse(response.data);
+                setLikes(like);
 
+            } else {
+                alert('Falha ao buscar likes!');
+                console.log(response);
+            }
+        } catch (error) {
+            console.error('Not server error fetching likes:', error);
+        }
+    }
+
+    const handleLike = async () => {
+        let updatedLikes;
+        if (likes.filter(like => (like.post_id == post.id, like.user_id == id.user_id, like.teacher_id == id.teacher_id)).length > 0) {
+            updatedLikes = likes.filter(like => (like.post_id!= post.id, like.user_id!= id.user_id, like.teacher_id!= id.teacher_id))
+            setLikes(updatedLikes)
+        } else {
+            const newLike: LikeData = {
+                post_id: post.id,
+                user_id: id.user_id,
+                teacher_id: id.teacher_id
+            }
+            updatedLikes = [...likes, newLike]
+            setLikes(updatedLikes)
+        }
+        try{
+
+            await api.put(`/likePost?post_id=${post.id}`, {likes: JSON.stringify(updatedLikes)})
+            
+
+        }catch(e){
+            console.error('Error handling like:', e);
+        }
+       
+    }
+
+    
     function handleShowComments() {
         setShowComments(!showComments);
     }
@@ -175,8 +219,8 @@ const Post: React.FC<PostProps> = ({ post, id }) => {
             )}
             <section className={styles.reactions}>
                 <nav className={styles.reaction}>
-                    <i className="fa-solid fa-thumbs-up" onClick={like}></i>
-                    <p>{likes}</p>
+                    <i className="fa-solid fa-thumbs-up" onClick={handleLike}></i>
+                    <p>{likes.length}</p>
                 </nav>
                 <div className={styles.reaction} onClick={handleShowComments}>
                     <i className="fa-solid fa-comment"></i>

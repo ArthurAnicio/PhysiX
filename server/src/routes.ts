@@ -30,8 +30,9 @@ routes.get('/getUploads', postsController.getUpload);
 routes.post('/post', postsController.create);
 routes.put('/post', postsController.update);
 routes.delete('/post', postsController.delete);
+routes.get('/likePost', postsController.getLikes);
 routes.put('/likePost', postsController.like);
-routes.put('/replyPost', postsController.reply)
+routes.put('/replyPost', postsController.reply);
 
 // Test route
 routes.get('/test', testController.test);
