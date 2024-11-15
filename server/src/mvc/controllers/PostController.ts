@@ -41,7 +41,7 @@ export default class PostsController {
             const post = new Post(
                 Number(teacher_id),
                 text,
-                '', // likes
+                '[]', // likes
                 0, // replies
                 undefined, // created_at
                 uploadPath // caminho do arquivo carregado

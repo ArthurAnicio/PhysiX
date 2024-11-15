@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from './Comment.module.css';
 import api from "../../services/api";
 
@@ -8,34 +8,68 @@ interface CommentProps {
         text: string;
         likes: number;
         teacherId?: number;
-        userId?: number;
+    };
+    id: {
+        teacher_id?: number;
+        user_id?: number;
     };
 }
 
-const Comment: React.FC<CommentProps> = ({ comment }) => {
-    const [likes, setLikes] = useState(comment.likes);
+interface LikeData {
+    teacherId?: number;
+    userId?: number;
+    replyId: number;
+}
 
-    const formatDate = (dateString: string | undefined) => {
-        if (!dateString) return ""; 
-        const isoDateString = dateString.replace(' ', 'T'); 
-        const date = new Date(isoDateString);
-        
-        if (isNaN(date.getTime())) {
-            console.error("Data inválida:", dateString); 
-            return "";         
+const Comment: React.FC<CommentProps> = ({ comment, id }) => {
+    const [likes, setLikes] = useState<LikeData[]>([]);
+
+    // pega o número de likes imediatamente
+    useEffect(() => {
+        getLikes();
+    }, []); 
+
+    const getLikes = async () => {
+        try {
+            const response = await api.get(`/likeReply?id=${comment.id}`);
+            if (response.status === 200) {
+                setLikes(JSON.parse(response.data)); 
+            }
+        } catch (error) {
+            console.error('Error fetching likes:', error);
         }
-        
-        return date.toLocaleDateString(); 
     };
 
-    async function like() {
-        try {
-            await api.put(`likeReply?id=${comment.id}`);
-            setLikes((prevLikes) => prevLikes + 1); 
-        } catch (error) {
-            console.error(error);
+    const like = async () => {
+        let updatedLikes;
+        // se já tiver dado like, remove o like, senão adiciona o like
+        if (likes.filter(like => 
+            like.replyId == comment.id && 
+            like.userId == id.user_id && 
+            like.teacherId == id.teacher_id
+        ).length > 0) {
+            updatedLikes = likes.filter(like => 
+                like.replyId != comment.id && 
+                like.userId != id.user_id &&
+                like.teacherId != id.teacher_id
+            );
+        } else {
+            const newLike: LikeData = {
+                userId: id.user_id,
+                teacherId: id.teacher_id,
+                replyId: comment.id
+            };
+            updatedLikes = [...likes, newLike];
         }
-    } 
+
+        setLikes(updatedLikes); 
+
+        try {
+            await api.put(`/likeReply?id=${comment.id}`, { likes: JSON.stringify(updatedLikes) });
+        } catch (error) {
+            console.error('Error handling like:', error);
+        }
+    };
 
     return (
         <div className={styles.comment}>
@@ -49,7 +83,7 @@ const Comment: React.FC<CommentProps> = ({ comment }) => {
             <section className={styles.reaction}>
                 <div className={styles.like}>
                     <i className="fa-solid fa-thumbs-up" onClick={like}></i>
-                    <p>{likes}</p>
+                    <p>{likes.length}</p>
                 </div>
             </section>
         </div>

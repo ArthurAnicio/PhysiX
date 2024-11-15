@@ -4,12 +4,12 @@ export default class Reply {
     user_id?: number;     
     post_id: number;
     text: string;
-    likes: number;
+    likes: string;
 
     constructor(
         post_id: number,
         text: string,
-        likes: number = 0,
+        likes: string,
         id?: number,
         teacher_id?: number,  
         user_id?: number      

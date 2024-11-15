@@ -30,15 +30,19 @@ export default class ReplyDAO {
             throw new Error(`Erro ao buscar replies: ${err}`);
         }
     }
+    async getLikes(id:Number):Promise<string>{
+        const likes = await db('replies').select("likes").where({ id }).first();
+        if (!likes) {
+            throw new Error('Nenhum like encontrado');
+        }
+        return likes.likes;
+    }
 
-    async liked(id: number): Promise<void> {
-        const trx = await db.transaction();
+    async updateLikes(id: number, likes: string): Promise<void> {
         try {
-            await trx("replies").where({ id }).increment("likes", 1);
-            await trx.commit();
+            await db('replies').where({ id }).update({ likes });
         } catch (err) {
-            await trx.rollback();
-            throw new Error(`Erro ao curtir reply: ${err}`);
+            throw new Error(`Erro ao atualizar likes: ${err}`);
         }
     }
 

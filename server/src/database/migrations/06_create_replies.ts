@@ -21,7 +21,7 @@ export async function up(knex: Knex){
             .onUpdate("CASCADE")
             .onDelete("CASCADE");
             table.string("text").notNullable();
-            table.integer("likes").notNullable();
+            table.json("likes").nullable();
         })  
     )
 }

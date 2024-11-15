@@ -25,7 +25,7 @@ export default class ReplyController {
         const reply = new Reply(
             Number(post_id),
             text,
-            0,
+            '[]',
             undefined, 
             teacher_id ? Number(teacher_id) : undefined,  
             user_id ? Number(user_id) : undefined  
@@ -38,12 +38,21 @@ export default class ReplyController {
             return res.status(500).json(`Erro${err}`);
         }
     }
+    async getLikes(req: Request, res: Response): Promise<Response>{
+        const { id } = req.query;
+        try {
+            const likes = await replyDAO.getLikes(Number(id));
+            return res.status(200).json(likes);
+        } catch (err) {
+            return res.status(400).json(`Erro: ${err}`);
+        }
+    }
 
     async like(req: Request, res: Response): Promise<Response> {
         const { id } = req.query;
-
+        const { likes } = req.body;
         try {
-            await replyDAO.liked(Number(id));
+            await replyDAO.updateLikes(Number(id),likes);
             return res.status(200).json({ message: "Reply curtida com sucesso" });
         } catch (err) {
             return res.status(400).json(`Erro${err}`);

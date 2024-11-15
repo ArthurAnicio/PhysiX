@@ -20,7 +20,8 @@ const replyController = new ReplyController();
 
 routes.get('/replies', replyController.index);
 routes.post('/reply', replyController.create);
-routes.put('/likeReply', replyController.like)
+routes.put('/likeReply', replyController.like);
+routes.get('/likeReply', replyController.getLikes)
 
 
 // Post routes

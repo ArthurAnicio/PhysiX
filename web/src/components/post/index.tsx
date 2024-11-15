@@ -11,11 +11,10 @@ interface Post {
     created_at: string; 
     upload?: string;
     likes?: number;
-    replies?: number;
 }
 
 interface Id {
-    teacher_id?: number;
+    teacher_id?: number | 0;
     user_id?: number| 0;
 }
 
@@ -55,6 +54,12 @@ const Post: React.FC<PostProps> = ({ post, id }) => {
         }
     }, [showComments]);
 
+    // pega os comentários e o os likes assim que o componente terminar de montar pra já aparecer o número
+    useEffect(() => {
+        fetchComments();
+        fetchLikes();
+    }, [])
+
     useEffect(() => {
         getTeacher()
     }, [teacher])
@@ -69,9 +74,7 @@ const Post: React.FC<PostProps> = ({ post, id }) => {
         getUpload(post.upload);
     }, [post.upload])
 
-    useEffect(()=>{
-        fetchLikes();
-    }, [likes])
+   
 
 
     async function getTeacher() {
@@ -163,8 +166,14 @@ const Post: React.FC<PostProps> = ({ post, id }) => {
 
     const handleLike = async () => {
         let updatedLikes;
-        if (likes.filter(like => (like.post_id == post.id, like.user_id == id.user_id, like.teacher_id == id.teacher_id)).length > 0) {
-            updatedLikes = likes.filter(like => (like.post_id!= post.id, like.user_id!= id.user_id, like.teacher_id!= id.teacher_id))
+
+        // se o usuário já tiver dado like, ele simplesmente remove o like, caso o contrário, adiciona o like
+        if (likes.filter(like => (like.post_id == post.id, 
+                                  like.user_id == id.user_id, 
+                                  like.teacher_id == id.teacher_id)).length > 0) {
+            updatedLikes = likes.filter(like => (like.post_id!= post.id, 
+                                                 like.user_id!= id.user_id, 
+                                                 like.teacher_id!= id.teacher_id))
             setLikes(updatedLikes)
         } else {
             const newLike: LikeData = {
@@ -224,7 +233,7 @@ const Post: React.FC<PostProps> = ({ post, id }) => {
                 </nav>
                 <div className={styles.reaction} onClick={handleShowComments}>
                     <i className="fa-solid fa-comment"></i>
-                    <p>{post.replies}</p>
+                    <p>{comments.length}</p>
                 </div>
             </section>
 
@@ -244,7 +253,7 @@ const Post: React.FC<PostProps> = ({ post, id }) => {
 
                     <div className={styles.comments}>
                         {comments.map((comment) => (
-                            <Comment key={comment.id} comment={comment} />
+                            <Comment key={comment.id} comment={comment} id={id}/>
                         ))}
                     </div>
                 </div>
