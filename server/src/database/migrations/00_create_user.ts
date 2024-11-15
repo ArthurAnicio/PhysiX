@@ -9,7 +9,7 @@ export async function up(knex: Knex){
             table.string('password').notNullable();
             table.string('avatar').notNullable();
             table.json('likedPosts').nullable()
-            table.json('likedReplies').notNullable();
+            table.json('likedReplies').nullable();
         })  
     )
 }

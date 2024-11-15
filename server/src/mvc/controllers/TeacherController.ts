@@ -2,6 +2,7 @@
 import { Request, Response } from 'express';
 import TeacherDAO from '../daos/TeacherDao';
 import Teacher from '../models/Teacher';
+const bcrypt = require('bcryptjs');
 
 const teacherDAO = new TeacherDAO();
 
@@ -23,9 +24,13 @@ export default class TeacherController {
         }
 
         try {
-            const teacher = await teacherDAO.findByEmailOrName(username as string, password as string);
+            const teacher = await teacherDAO.findByEmailOrName(username as string);
             if (!teacher) {
-                return res.status(400).json('Usuário ou senha incorretos');
+                return res.status(400).json('Usuário não encontrado!');
+            }
+            const isMatch = bcrypt.compareSync(password as string, teacher.password);
+            if (!isMatch) {
+                return res.status(401).json('Senha incorreta!');
             }
             return res.status(200).json(teacher);
         } catch (err) {
@@ -36,7 +41,9 @@ export default class TeacherController {
     async create(req: Request, res: Response) {
         const { name, email, password, number } = req.body;
 
-        const teacher = new Teacher(name, email, password, number);
+        const salt = bcrypt.genSaltSync(10) // salt aleatório para dificultar ainda mais a quebra
+        const hashedPassword = bcrypt.hashSync(password, salt); 
+        const teacher = new Teacher(name, email, hashedPassword, number);
 
         try {
             await teacherDAO.create(teacher);
@@ -61,13 +68,33 @@ export default class TeacherController {
 
     async updateTeacher(req: Request, res: Response) {
         const { id } = req.query;
-        const { name, email, number, password } = req.body;
+        const { name, email, number} = req.body;
 
         try {
-            await teacherDAO.updateTeacher(Number(id), { name, email, number, password });
+            await teacherDAO.updateTeacher(Number(id), { name, email, number});
             return res.status(200).json('Professor atualizado com sucesso');
         } catch (err) {
             return res.status(400).json({ error: `Erro ao atualizar professor: ${err}` });
+        }
+    }
+    async updateTeacherPassword(req:Request, res:Response){
+        const {id} = req.query;
+        const { oldPassword, newPassword } = req.body;
+        try{
+            const teacher = await teacherDAO.findById(Number(id));
+            if (!teacher) {
+                return res.status(400).json('Professor não encontrado');
+            }
+            const match = bcrypt.compareSync(oldPassword, teacher.password);
+            if (!match) {
+                return res.status(401).json('Senha antiga incorreta');
+            }
+            const salt = bcrypt.genSaltSync(10) // salt aleatório para dificultar ainda mais a quebra
+            const hashedPassword = bcrypt.hashSync(newPassword, salt);
+            await teacherDAO.updateTeacher(teacher.id!, { password: hashedPassword });
+            return res.status(200).json('Senha atualizada com sucesso');
+        } catch (err) {
+            return res.status(400).json(`Erro ao atualizar a senha: ${err}`);
         }
     }
 

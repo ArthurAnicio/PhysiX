@@ -23,13 +23,12 @@ export default class TeacherDAO {
         }
     }
 
-    async findByEmailOrName(username: string, password: string) {
+    async findByEmailOrName(username: string) {
         try {
             const teacher = await db('teacher')
                 .where(function () {
                     this.where('name', username).orWhere('email', username);
                 })
-                .andWhere('password', password)
                 .first();
             return teacher;
         } catch (err) {
