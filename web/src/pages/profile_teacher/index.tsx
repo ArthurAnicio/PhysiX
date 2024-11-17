@@ -5,12 +5,13 @@ import TextBox from "../../components/textbox";
 import api from "../../services/api";
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import AvatarCropper from '../../components/cropper';
 
 function ProfileTeacher() {
     const location = useLocation();
     const navigate = useNavigate();
     const [teacher, setTeacher] = useState({ name: '', email: '', id: 0, avatar: '',number:'', password: '', schedule: null });
-    const [imgsrc, setImgsrc] = useState('');
+
     const [isEditable, setIsEditable] = useState(false);
     const [newUsername, setNewUsername] = useState('');
     const [newEmail, setNewEmail] = useState('');
@@ -21,6 +22,10 @@ function ProfileTeacher() {
     const [showNewPassword, setShowNewPassword] = useState(false); 
     const { teacherId } = location.state || { teacherId: 0 };
     const [stateId, setStateId] = useState(teacherId)
+
+    const [isCropping, setIsCropping] = useState(false);
+    const [imageToCrop, setImageToCrop] = useState<File | null>(null);
+    const [imgsrc, setImgsrc] = useState('');
 
     useEffect(() => {
         getTeacher();
@@ -71,29 +76,40 @@ function ProfileTeacher() {
         }
     }
 
-    async function sendAvatar() {
-        const formData = new FormData();
-        const fileInput = document.getElementById('uploadInput') as HTMLInputElement | null;
-        if (fileInput) {
-            try {
-                const file = fileInput.files?.[0];
-                formData.append('id', teacher.id.toString());
-                formData.append('avatar', file || '');
-                const response = await api.post('/teacher-avatar', formData);
-
-                if (response.status === 200) {
-                    alert('Avatar enviado com sucesso!');
-                    getTeacher();
-                } else {
-                    alert('Falha no envio do avatar!');
-                    console.log(response);
-                }
-            } catch (err) {
-                alert('Erro ao enviar avatar!');
-                console.log(err);
-            }
+    const handleAvatar = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0];
+        if (file && file.type.startsWith('image/')) {
+            setImageToCrop(file);
+            setIsCropping(true); 
+        } else {
+            alert('Por favor, escolha somente imagens!');
         }
-    }
+    };
+
+    const handleCroppedImage = (croppedImage: Blob) => {
+        setIsCropping(false);
+        sendAvatar(croppedImage); 
+    };
+
+    
+
+    const sendAvatar = async (blob: Blob) => {
+        const formData = new FormData();
+        formData.append("id", teacher.id.toString());
+        formData.append("avatar", blob, 'avatar.png');
+        try {
+            const response = await api.post("/teacher-avatar", formData);
+            if (response.status === 200) {
+                alert("Avatar atualizado com sucesso!");
+                getTeacher(); 
+            } else {
+                alert("Falha no envio do avatar!");
+            }
+        } catch (err) {
+            alert("Erro ao enviar avatar!");
+            console.log(err);
+        }
+    };
 
     function handleEditClick() {
         setIsEditable(!isEditable);
@@ -159,24 +175,28 @@ function ProfileTeacher() {
                     <header id={styles.profileBoxHeader}><h2>Informações pessoais</h2></header>
 
                     <main id={styles.cardMain}>
-                        <div className={styles.imgContainer}>
-                            <div id={styles.imgBox}>
-                            <img src={imgsrc} alt="Avatar do estudante" />
-                            {isEditable && (
-                                <div className={styles.sendContainer}>
-                                    {/* <input type="file" id={styles.avatarSend}/> */} 
-                                    <div className={styles.upload}><i className="fa-solid fa-file-arrow-up"></i></div>
-                                    <input type="file" className={styles.uploadInput} id="uploadInput"/>
-                                    
+                            {isCropping && (
+                                <div>
+                                    <AvatarCropper image={imageToCrop} setImage={handleCroppedImage} cancelFunction={() => {setIsCropping(false)}}/>
                                 </div>
-                           )} 
-                            
-                            </div>
-                            {isEditable && (
-                            <button className={styles.profileBtn} onClick={sendAvatar}>Enviar</button>
-                        )} 
-                        </div>    
-                            
+                            )}  
+                            <div className={styles.imgContainer}>
+                                <div id={styles.imgBox}> 
+                                     <img src={imgsrc} alt="Avatar do estudante" />
+                                     {isEditable && !isCropping && (
+                                        <div className={styles.sendContainer}>
+                                        <div className={styles.upload}><i className="fa-solid fa-file-arrow-up"></i></div>
+                                        <input
+                                        type="file"
+                                        className={styles.uploadInput}
+                                        id="uploadInput"
+                                        onChange={handleAvatar}
+                                        />
+                                    </div>
+                                )}
+                                </div>
+                                
+                            </div> 
                         <section id={styles.inputsContainer}>
                         <div className={styles.campoInfo}>
                                 <label>Nome:</label>

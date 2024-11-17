@@ -179,7 +179,8 @@ function ProfileStudent() {
                                 <div id={styles.imgBox}> 
                                      <img src={imgsrc} alt="Avatar do estudante" />
                                      {isEditable && !isCropping && (
-                                    <div className={styles.sendContainer}>
+                                        <div className={styles.sendContainer}>
+                                        <div className={styles.upload}><i className="fa-solid fa-file-arrow-up"></i></div>
                                         <input
                                         type="file"
                                         className={styles.uploadInput}

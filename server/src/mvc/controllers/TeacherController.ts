@@ -2,9 +2,21 @@
 import { Request, Response } from 'express';
 import TeacherDAO from '../daos/TeacherDao';
 import Teacher from '../models/Teacher';
+import multer from 'multer';
+import path from 'path';
+import fs from 'fs';
 const bcrypt = require('bcryptjs');
 
 const teacherDAO = new TeacherDAO();
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, './uploads/useravatars');
+    },
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + path.extname(file.originalname));
+    }
+});
+const upload = multer({ storage });
 
 export default class TeacherController {
 
@@ -122,18 +134,16 @@ export default class TeacherController {
     }
 
     async createAvatar(req: Request, res: Response) {
-        const { teacher_id, avatar } = req.body;
-
-        if (!teacher_id || !avatar) {
-            return res.status(400).json('Todos os campos são obrigatórios: teacher_id, avatar');
-        }
-
-        try {
-            await teacherDAO.updateAvatar(teacher_id, avatar);
-            return res.status(200).json('Avatar atualizado com sucesso');
-        } catch (err) {
-            return res.status(400).json(`Erro ao atualizar avatar: ${err}`);
-        }
+        upload.single('avatar')(req, res, async (err) => {
+            if (err) {
+                return res.status(400).json({ message: `Erro: ${err}` });
+            }
+            const avatarPath = req.file?.path;
+            if (avatarPath) {
+                await teacherDAO.updateAvatar(Number(req.body.id), avatarPath );
+                return res.status(200).json({ message: 'Avatar atualizado com sucesso!' });
+            }
+        });
     }
 
     async addFavorite(req: Request, res: Response) {
