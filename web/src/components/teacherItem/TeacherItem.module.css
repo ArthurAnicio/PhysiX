@@ -26,7 +26,6 @@
     justify-content: flex-end;
     align-items: center;
     padding: 20px;
-<<<<<<< HEAD
     height: 70px;
 }
 #extraData p {
@@ -35,10 +34,9 @@
 
 #teacherCardName>h1 {
     margin: 0;
-=======
     height: 70px;   
->>>>>>> 88894af4168eab3d40a69363af4f2c53200d181b
 }
+
 #teacherListAvatar {
     border-radius: 50%;
     width: 200px;
