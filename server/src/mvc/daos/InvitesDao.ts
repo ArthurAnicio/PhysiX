@@ -2,7 +2,6 @@ import db from '../../database/connection';
 import Invite from '../models/Invites';
 
 export default class InviteDAO {
-
     async create(invite: Invite): Promise<void> {
         const trx = await db.transaction();
         try {

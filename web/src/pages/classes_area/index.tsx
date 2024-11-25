@@ -34,61 +34,41 @@ function ClassesArea() {
         }));
     };
 
-    // async function fetchClassSchedules() {
-    //     try {
-    //         const response= await api.get('/getTeacher', { params: { id: teacherId } })
-    //         const currentTeacher = response.data
-
-
-    //         setClassSchedule(JSON.parse(currentTeacher.schedule) || [])
-
-    //         console.log(JSON.parse(currentTeacher.schedule))
-            
-    //         const orderedSchedule = classSchedule.sort((a, b) =>{
-    //             const dayComparison = a.week_day - b.week_day;
-    
-    //             if (dayComparison === 0) {
-    //                 return a.from.localeCompare(b.from);
-    //             }
-    
-    
-    //             return dayComparison;
-    //         })
-    //         console.log(classSchedule) 
-
-    //         setClassSchedule(orderedSchedule)
-    //     } catch (error) {
-    //         console.error('Error fetching classes:', error);
-    //     }
-    // }
-
     async function fetchClassSchedules() {
         try {
             const response = await api.get('/getTeacher', { params: { id: teacherId } });
             const currentTeacher = response.data;
     
-            // Já faz o parse e usa diretamente
             const schedule = JSON.parse(currentTeacher.schedule) || [];
     
-            // Ordena os dados antes de chamar o setState
             const orderedSchedule = schedule.sort((a:ClassSchedule, b:ClassSchedule) => {
                 const dayComparison = a.week_day - b.week_day;
     
                 if (dayComparison === 0) {
-                    return a.from.localeCompare(b.from); // Ordena pelo horário se o dia for igual
+                    return a.from.localeCompare(b.from); 
                 }
     
-                return dayComparison; // Ordena pelos dias da semana
+                return dayComparison; 
             });
-    
-            // Agora atualiza o estado com a lista já ordenada
+
             setClassSchedule(orderedSchedule);
-    
-            // Console log para verificar os dados ordenados
-            console.log(orderedSchedule);
         } catch (error) {
             console.error('Error fetching classes:', error);
         }
+    }
+
+    function setNextId(array:ClassSchedule[]) {
+        const ids = array.map(item => item.id);
+
+        ids.sort((a, b) => a - b);
+        
+        for (let i = 0; i <= ids.length; i++) {
+            if (ids[i] !== i) {
+            return i;
+            }
+        }
+        
+        return ids.length;
     }
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -98,18 +78,33 @@ function ClassesArea() {
             let currentId = 0
             
             if(classSchedule.length > 0) {
-            currentId = classSchedule[classSchedule.length-1].id+1
+            currentId = setNextId(classSchedule)  
             } else {
             currentId = 0
             }
 
+            
+
             const updatedSchedule = [...classSchedule, { ...newClassSchedule, id: currentId}];
 
-            //console.log(updatedSchedule);
+
+            if(newClassSchedule.from>newClassSchedule.to) {
+                alert("O horário de início não pode ser superior ao horario de fim!")
+                return
+            }
+
+            const conflictClasses = classSchedule.filter((classSchedule) => classSchedule.from < newClassSchedule.from && classSchedule.to > newClassSchedule.from ||
+             classSchedule.from < newClassSchedule.to && classSchedule.to > newClassSchedule.to ||
+             newClassSchedule.from < classSchedule.to && newClassSchedule.to > classSchedule.to ||
+             newClassSchedule.from < classSchedule.from && newClassSchedule.to > classSchedule.from)
+            if (conflictClasses.length>0) {
+                alert("Você não pode ter duas aulas no mesmo horário!")
+                return
+            }
 
             setClassSchedule(updatedSchedule);
- 
-            //console.log(classSchedule);
+
+            
 
             setNewClassSchedule({
                 week_day: 0,
@@ -117,7 +112,7 @@ function ClassesArea() {
                 to: '',
                 id: 0
             });
-            setShowForm(false); // Esconde o formulário após a criação da classSchedule
+            setShowForm(false); 
             const response = await api.put(`/updateSchedule?id=${teacherId}`, {
                 schedule: JSON.stringify(updatedSchedule)   
             });
@@ -135,14 +130,9 @@ function ClassesArea() {
     };
     
     async function handleDelete(id: number) {
-        // Atualiza o estado
         removeClassSchedule(id);
     
-        // Use o estado atualizado após a remoção
         setClassSchedule((updatedSchedule) => {
-            //console.log(updatedSchedule); // Log do estado atualizado
-    
-            // Faz a requisição usando o estado atualizado
             api.put(`/updateSchedule?id=${teacherId}`, {
                 schedule: JSON.stringify(updatedSchedule),
             });

@@ -1,5 +1,7 @@
 import api from '../../services/api';
 import {Response, Request} from 'express';
+import Post from '../../components/post';
+
 
 
 function TestPage() {
@@ -12,8 +14,9 @@ function TestPage() {
     
 
     return (
-        <div>
+        <div id='teste'>
             <button onClick={testingFun}>Testar</button>
+            
         </div>
     )
 }

@@ -1,0 +1,135 @@
+.post{
+    margin: 2rem auto;
+    padding: 2rem 1rem;
+    width: 500px;
+    border-radius: 10px;
+    background-color: var(--branco);
+    box-shadow: 0 0 10px var(--roxo1);
+    display: flex;
+    flex-direction: column;
+}
+
+.postInfo{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.teachersInfo{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.postInfoIMG{
+    width: 2.3rem;
+    height: 2.3rem;
+    margin-right: 0.2vw;
+    border: solid 3px var(--roxo1);
+    border-radius: 50%;
+    background: var(--preto);
+}
+
+.postInfoPerfil{
+    font-size: 1.4rem;
+}
+
+.upload{
+    max-width: 100%;
+    height: 30vh;
+    border-radius: 10px;
+    margin-top: 0.5vh;
+    background: var(--roxo1);
+    overflow: hidden;
+}
+
+.reactions{
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    margin-top: 1.5vh;
+}
+
+.reaction {
+    margin-left: 1vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.reaction p{
+    color: var(--roxo1);
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.reaction i{
+    color: var(--roxo1);
+    margin-left: 0.2vw;
+    font-size: 1.8rem;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.reaction i:hover{
+    color: var(--roxo4);
+}
+
+.comments {
+    display: flex;
+    padding: 1vh 1rem;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.commentsSection {
+    margin: 1rem 0;
+    padding: 1rem;
+    border-top: solid 1px var(--roxo1);
+}
+
+.commenting{
+    margin: 1rem 0;
+    height: 5vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    box-shadow: 0 0 10px var(--roxo1);
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.commenting input{
+    width: 80%;
+    padding: 0.5vh 1vw;
+    border: none;
+    border-radius: 5px;
+}
+
+.commenting input:focus{
+    outline: none;
+}
+
+.commenting button{
+    width: 15%;
+    height: 100%;
+    padding: 0.5vh 1vw;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--roxo1);
+    color: var(--branco1);
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.commenting button:hover{
+    background-color: var(--roxo4);
+}
+
+.commenting button i {
+    color: var(--branco);
+    font-size: 1.8rem;
+}

@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import UserDAO from '../daos/UserDao';
-import { User } from '../models/User';
+import User from '../models/User';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import nodemailer from 'nodemailer';
@@ -20,15 +20,19 @@ const storage = multer.diskStorage({
     }
 });
 const upload = multer({ storage });
+const bcrypt = require('bcryptjs');
 
 export default class UserController {
-
     async index(req: Request, res: Response) {
         const { username, password } = req.query;
         try {
-            const user = await userDAO.findByUsernameOrEmail(username as string, password as string);
+            const user = await userDAO.findByUsernameOrEmail(username as string);
             if (!user) {
-                return res.status(400).json('Usuário ou senha incorretos');
+                return res.status(400).json('Usuário não encontrado!');
+            }
+            const isPasswordValid = bcrypt.compareSync(password as string, user.password);
+            if (!isPasswordValid) {
+                return res.status(401).json('Senha incorreta!');
             }
             return res.status(200).json(user);
         } catch (err) {
@@ -43,7 +47,9 @@ export default class UserController {
             if (existingUser) {
                 return res.status(400).json('O usuário já existe no banco de dados');
             }
-            const newUser: User = { name, email, password, avatar: 'uploads\\useravatars\\default.png' };
+            const salt = bcrypt.genSaltSync(10) // salt aleatório para dificultar ainda mais a quebra
+            const hashedPassword = bcrypt.hashSync(password, salt);
+            const newUser= new User(name, email, hashedPassword);
             await userDAO.insert(newUser);
             return res.status(200).json('Usuário criado com sucesso');
         } catch (err) {
@@ -88,7 +94,9 @@ export default class UserController {
             if (!user) {
                 return res.status(404).json('Email não cadastrado!');
             }
-            await userDAO.update(user.id!, { password });
+            const salt = bcrypt.genSaltSync(10) // salt aleatório para dificultar ainda mais a quebra
+            const hashedPassword = bcrypt.hashSync(password, salt);
+            await userDAO.update(user.id!, { password:hashedPassword });
             return res.status(200).json('Redefinição com sucesso!');
         } catch (err) {
             return res.status(400).json('Token inválido');
@@ -97,16 +105,36 @@ export default class UserController {
 
     async updateUser(req: Request, res: Response) {
         const { id } = req.query;
-        const { name, email, password } = req.body;
+        const { name, email} = req.body;
         try {
             const user = await userDAO.findById(Number(id));
             if (!user) {
                 return res.status(400).json('Usuário não encontrado');
             }
-            await userDAO.update(user.id!, { name, email, password });
+            await userDAO.update(user.id!, { name, email });
             return res.status(200).json('Usuário atualizado com sucesso');
         } catch (err) {
             return res.status(400).json(`Erro ao atualizar o usuário: ${err}`);
+        }
+    }
+    async updateUserPassword(req:Request, res:Response){
+        const {id} = req.query;
+        const { oldPassword, newPassword } = req.body;
+        try{
+            const user = await userDAO.findById(Number(id));
+            if (!user) {
+                return res.status(400).json('Usuário não encontrado');
+            }
+            const match = bcrypt.compareSync(oldPassword, user.password);
+            if (!match) {
+                return res.status(401).json('Senha antiga incorreta');
+            }
+            const salt = bcrypt.genSaltSync(10) // salt aleatório para dificultar ainda mais a quebra
+            const hashedPassword = bcrypt.hashSync(newPassword, salt);
+            await userDAO.update(user.id!, { password: hashedPassword });
+            return res.status(200).json('Senha atualizada com sucesso');
+        } catch (err) {
+            return res.status(400).json(`Erro ao atualizar a senha: ${err}`);
         }
     }
 

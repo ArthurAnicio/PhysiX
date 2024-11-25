@@ -1,15 +1,32 @@
 #teacherCard{
     border-radius: 20px;
-    background-color: var(--branco);
-    width: 80%;
-    padding: 20px;
+    background-color: var(--branco);    
+    width: 500px;
     margin-bottom: 200px;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    padding-bottom: 30px;
+}
+#teacherCard h1 {
+    text-align: center;
+}
+#avatarSection {
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+    width: 100%;
+    background-color: var(--roxo1);
+    height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 #extraData {
     display: flex;
     justify-content: flex-end;
     align-items: center;
     padding: 20px;
+<<<<<<< HEAD
     height: 70px;
 }
 #extraData p {
@@ -18,49 +35,17 @@
 
 #teacherCardName>h1 {
     margin: 0;
+=======
+    height: 70px;   
+>>>>>>> 88894af4168eab3d40a69363af4f2c53200d181b
 }
 #teacherListAvatar {
-    border-radius: 20px;
+    border-radius: 50%;
     width: 200px;
     height: 200px;
     object-fit: cover;
 }
-#teacherCardName {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-}
-.favoriteDisable>svg {
-    fill: var(--cinza3);
-}
-.favoriteDisable>svg:hover {
-    fill: var(--amarelo);
-  
-}
-.favoriteEnable>svg{
-    fill: var(--amarelo);
-    
-}
-.favoriteEnable>svg:hover {
-   fill: var(--cinza4);
-}
-.favoriteButton {
-    outline: none;
-    background:none;
-    border: none;
-}
-.favoriteButton:hover {
-    cursor: pointer;
-}
-.favoriteButton>svg {
-    width: 30px;
-    height: 30px;
-    transition: 0.5s;
-}
-
 .sendInvite{
-    width: 2vw;
-    height: 2vw;
     background-color: var(--verde);
     border: none;
     border-radius: 20px;
@@ -69,6 +54,9 @@
     align-items: center;
     cursor: pointer;
     transition: 0.2s;
+    color: white;
+    font-size: 1.5em;
+    padding: 20px;
 }
 
 .sendInvite svg {

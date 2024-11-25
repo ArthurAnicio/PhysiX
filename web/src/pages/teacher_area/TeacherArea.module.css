@@ -1,6 +1,7 @@
 #areaContainer {
     display: flex;
     width: 100%;
+    background: var(--cinza1);
   }
   
   #areaAside {
@@ -11,9 +12,10 @@
     flex-flow: column;
     align-items: center;
     transition: .5s;
+    overflow: hidden;
   }
   
-  #areaAside i {
+  #iconAside {
     margin-top: 30px;
     font-size: 50px;
     color: var(--branco2);
@@ -23,55 +25,186 @@
     width: 0% !important;
   }
 
-  #areaAside i:hover {
+  #iconAside:hover {
     scale: 1.1;
     cursor: pointer;
   }
-  
-  .sendToProfile {
-    margin: 3vh 0;
-    width: 20vw;
-    height: 10vh;
-    border: none;
-    border-radius: 20px;
-    padding: 1vh 1vw;
-    background-color: var(--cinza2);
-    cursor: pointer;
+
+  .content{
     display: flex;
+    width: 100%;
+    flex-direction: column !important;
+  }
+  
+  .newPost{
+    max-height: 50px;
+    display: flex;
+    flex-direction: row;
+    margin: 20px auto;
+    padding: 5px 1rem;
     align-items: center;
-    color: var(--cinza1);
-    font-size: 1.5rem;
+    border-radius: 10px;
+    background: var(--azul);
+    color: var(--branco);
+    font-size: 1.4rem ;
     font-weight: 600;
+    cursor: pointer;
     transition: 0.2s;
   }
-  
-  .sendToProfile:hover {
-    scale: 1.01;
-    box-shadow: 0 0 10px var(--preto4);
+
+  .newPost:hover{
+    background: var(--azul2);
+    scale: 1.05;
+    box-shadow: 0 0 10px var(--branco);
+  }
+
+  .newPost i {
+    font-size: 2rem;
+    margin-left: 8px;
   }
   
-  .sendToProfile span {
-    margin-left: 1vw;
+  .newPostForm {
+    background: var(--branco);
+    margin: 20px auto;
+    min-width: 500px;
+    padding: 2rem;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
   }
-  
-  #teacherList {
+
+  .textPost{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+  }
+
+  .textPost label{
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--preto);
+  }
+
+  .textPost textarea{
+    resize: none;
+    border: none;
+    overflow: hidden;
+    width: 100%;
     height: 10vh;
-    margin: 2vh 0;
-    padding: 20px;
-    text-decoration: none;
-    background-color: var(--roxo1);
+    background: var(--branco);
+    margin: 1vh 0;
+    padding: 0.5rem;
+    font-size: 1.2rem;
+    box-shadow: 0 0 10px var(--roxo1);
+    border-radius: 20px;
+  }
+
+  .textPost textarea:focus{
+    outline: none;
+  }
+
+  .newPostForm button{
+    margin: 0 auto;
+    margin-top: 20px;
+    width: 200px;
+    background: var(--roxo1);
     color: var(--branco2);
     border: none;
+    font-size: 1.4rem;
+    font-weight: 600;
+    padding: 1rem 2rem;
     border-radius: 20px;
-    font-size: 2em;
-    transition: 0.2s;
     cursor: pointer;
+    transition: 0.2s;
+  }
+
+  .newPostForm button:hover{
+    background: var(--roxo2);
+    scale: 1.05;
+  }
+
+  .imagePost{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+  }
+
+  .imagePost label{
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--preto);
+  }
+
+  .upload i {
+    color: var(--branco);
+    font-size: 7rem;
+    z-index: 999;
+  }
+
+  .uploadInput {
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+  }
+  
+  .upload {
     display: flex;
     align-items: center;
+    justify-content: center;
+    top: 0;
+    left: 0;
+    position: absolute;
+    color: var(--branco);
+    font-size: 1.2rem;
+    font-weight: 700;
+    width: 100%;
+    height: 100%;
+    transition: 0.3s;
   }
   
-  #teacherList:hover {
-    background-color: var(--roxo2);
-    scale: 1.01;
+  .sendContainer {
+    margin-top: 0.5vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
-  
+
+  .uploadContainer{
+    position: relative;
+    min-width: 170px;
+    min-height: 40px;
+    margin: 1vh auto;
+    padding: 1rem;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: var(--azul);
+    transition: 0.2s;
+  }
+
+  .uploadContainer:hover{
+    background: var(--azul2);
+    scale: 1.05;
+  }
+
+  .cancel{
+    display: flex;
+    justify-content: end;
+  }
+
+  .cancel i{
+    font-size: 3rem;
+    color: var(--vermelho);
+    cursor: pointer;
+    transition: 0.2s;
+  }
+
+  .cancel i:hover{
+    color: var(--vermelho2);
+    scale: 1.05;
+  }

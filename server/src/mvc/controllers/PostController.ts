@@ -34,19 +34,19 @@ export default class PostsController {
             if (err) {
                 return res.status(400).json(`Erro no upload: ${err}`);
             }
-            
+    
             const { teacher_id, text } = req.body;
             const uploadPath = req.file ? req.file.path : null;
-
+    
             const post = new Post(
                 Number(teacher_id),
                 text,
-                0, // likes
+                '[]', // likes
                 0, // replies
                 undefined, // created_at
                 uploadPath // caminho do arquivo carregado
             );
-            
+    
             try {
                 await postDAO.create(post);
                 res.status(201).json(post);
@@ -55,7 +55,7 @@ export default class PostsController {
             }
         });
     }
-
+    
     async getPosts(req: Request, res: Response) {
         const { teacher_id } = req.query;
         try {
@@ -97,9 +97,20 @@ export default class PostsController {
 
     async like(req: Request, res: Response) {
         const { post_id } = req.query;
+        const{ likes } = req.body;
         try {
-            await postDAO.liked(Number(post_id));
+            await postDAO.updateLikes(Number(post_id),likes);
             res.status(200).json('Deu like');
+        } catch (err) {
+            res.status(400).json(`Erro: ${err}`);
+        }
+    }
+
+    async getLikes(req: Request, res: Response) {
+        const { post_id } = req.query;
+        try {
+            const likes = await postDAO.getLikes(Number(post_id));
+            res.json(likes)
         } catch (err) {
             res.status(400).json(`Erro: ${err}`);
         }
@@ -114,6 +125,7 @@ export default class PostsController {
             res.status(400).json(`Erro: ${err}`);
         }
     }
+    
     async getUpload(req: Request, res: Response) {
         const { route } = req.query;
         if (route) {
@@ -121,7 +133,6 @@ export default class PostsController {
             if (fs.existsSync(filepath)) {
                 return res.sendFile(filepath);
             }
-
             return res.status(404).json('Upload não encontrado');
         }
     }

@@ -1,0 +1,42 @@
+#cropperwindow {
+    width: 20vw;
+    height: 50vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+}
+
+#fullwindow {
+    position: absolute;
+    z-index: 2;
+    transform: translate(-50%,-10%);
+    background-color: var(--branco);
+    outline: 3px solid var(--roxo1);
+    border-radius: 20px;
+}
+#cropperbuttoncontainer {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+#cropperbutton{
+    background-color: var(--roxo1);
+    color: var(--branco2);
+    border: none;
+    font-size: 2em;
+    font-family: Poppins;
+    border-radius: 20px;
+    font-weight: 600;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    transition: 0.2s;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+#cropperbutton:hover{
+    background-color: var(--roxo2);
+    cursor: pointer;
+    scale: 1.1;
+}

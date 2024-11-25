@@ -8,7 +8,8 @@ export async function up(knex: Knex){
         table.string('number').notNullable();
         table.string('password').notNullable();
         table.string('avatar').notNullable();
-        table.json('schedule').nullable()
+        table.json('schedule').nullable();
+        table.boolean('verified').nullable();
     })
 }
 

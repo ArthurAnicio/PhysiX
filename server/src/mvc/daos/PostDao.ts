@@ -19,6 +19,7 @@ export default class PostDAO {
             throw new Error(`Erro ao cadastrar post: ${err}`);
         }
     }
+    
     async getAll(): Promise<Post[]> {
         try {
             const posts = await db("posts").select("*");
@@ -30,6 +31,7 @@ export default class PostDAO {
             throw new Error(`Erro ao buscar posts: ${err}`);
         }
     }
+
     async getAllByTeacherId(teacher_id: number): Promise<Post[]> {
         try {
             const posts = await db("posts")
@@ -43,16 +45,23 @@ export default class PostDAO {
             throw new Error(`Erro ao buscar posts do professor: ${err}`);
         }
     }
-    async liked(id: number): Promise<void> {
-        const trx = await db.transaction();
+
+    async getLikes(id:number): Promise<string>{
+        const likes = await db("posts").select("likes").where({ id }).first();
+        if (!likes) {
+            throw new Error('Nenhum like encontrado');
+        }
+        return likes.likes;
+    }
+
+    async updateLikes(id: number, likes: string): Promise<void> {
         try {
-            await trx("posts").where({ id }).increment("likes", 1);
-            await trx.commit();
+            await db('posts').where({ id }).update({ likes });
         } catch (err) {
-            await trx.rollback();
-            throw new Error(`Erro ao curtir post: ${err}`);
+            throw new Error(`Erro ao atualizar likes: ${err}`);
         }
     }
+
     async replied(id: number): Promise<void> {
         const trx = await db.transaction();
         try {
@@ -63,6 +72,7 @@ export default class PostDAO {
             throw new Error(`Erro ao responder ao post: ${err}`);
         }
     }
+
     async deletePost(id: number): Promise<void> {
         const trx = await db.transaction();
         try {
@@ -77,7 +87,7 @@ export default class PostDAO {
             throw new Error(`Erro ao excluir post: ${err}`);
         }
     }
-    
+
     async updatePost(id: number, text: String): Promise<void> {
         const trx = await db.transaction();
         try {

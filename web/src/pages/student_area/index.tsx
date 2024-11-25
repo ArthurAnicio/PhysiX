@@ -5,31 +5,36 @@ import AreaHeader from "../../components/areaHeader";
 import Footer from "../../components/footer";
 import api from "../../services/api";
 import Avatar from "../../components/avatar";
+import Post from "../../components/post";
+
+// Definição da interface para os posts
+interface PostData {
+    id: number;
+    teacher_id: number;
+    text: string;
+    created_at: string;
+    uploadPath?: string;
+}
 
 function StudentArea() {
     const location = useLocation();
     const navigate = useNavigate();
     const [user, setUser] = useState({ user: '', email: '', id: 0, avatar: '' });
-    const [imgsrc, setImgsrc] = useState('');
     const { userId } = location.state || { userId: 0 };
     const [stateId, setStateId] = useState(userId)
     const asideRef = useRef<HTMLDivElement>(null)
- 
-    useEffect(() => {
-        getUser();
-    }, []);
- 
-    useEffect(() => {
-        if (user.avatar) {
-            getAvatar(user.avatar);
-        }
-    }, [user.avatar]);
+    const [posts, setPosts] = useState<PostData[]>([]);
+    const id = {teacher_id: undefined, user_id: userId}
 
+    useEffect(() => {
+        getUser()
+        getPosts()
+    }, []);
+    
     function asideOpen() {
         if(asideRef.current!= undefined) {
             asideRef.current.classList.toggle(styles.asideClosed);
         }
-        //console.log(asideRef.current)
     }
 
     async function getUser() {
@@ -49,32 +54,49 @@ function StudentArea() {
         }
     }
 
-    async function getAvatar(avatarPath: string) {
+    async function getPosts() {
         try {
-            const response = await api.get('/avatar', { params: { route: avatarPath } });
+            const response = await api.get(`/post`);
             if (response.status === 200) {
-                setImgsrc(response.request.responseURL);
+                setPosts(response.data);
             } else {
-                alert('Falha no avatar!');
-                console.log(response);
+                alert('Falha ao buscar os posts!');
             }
-        } catch (err) {
-            alert('Falha no avatar!');
-            console.log(err);
+        } catch (error) {
+            console.error('Erro ao obter posts:', error);
         }
     }
-
-    
 
     return (
         <div>
             <AreaHeader title="Área do Aluno" state={ stateId } asideOpen={asideOpen}  />
             <main id={styles.areaContainer}>
-                <aside id={styles.areaAside} ref={asideRef} className={styles.asideClosed}>
-                <i className='fa-solid fa-user' onClick={() => navigate("/profile_student", {state: { userId }})}></i>
-                <i className="fa-solid fa-chalkboard-user" onClick={() => navigate("/teacher_list", { state: { userId } })}></i>
-                <i className="fa-solid fa-right-from-bracket" onClick={() => navigate("/")}></i>
+                <aside 
+                    id={styles.areaAside} 
+                    ref={asideRef} 
+                    className={styles.asideClosed}
+                >
+                    <i 
+                        className='fa-solid fa-user'
+                        id={styles.iconAside} 
+                        onClick={() => navigate("/profile_student", {state: { userId }})}
+                    ></i>
+                    <i 
+                        className="fa-solid fa-chalkboard-user"
+                        id={styles.iconAside} 
+                        onClick={() => navigate("/teacher_list", { state: { userId } })}
+                    ></i>
+                    <i 
+                        className="fa-solid fa-right-from-bracket"
+                        id={styles.iconAside} 
+                        onClick={() => navigate("/")}
+                    ></i>
                 </aside>
+                <nav className={styles.content}>
+                    {posts.map((post) => (
+                        <Post key={post.id} post={post} id={id}/>
+                    ))}
+                </nav>
             </main>
             <Footer />
         </div>

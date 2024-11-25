@@ -1,15 +1,13 @@
 import db from '../../database/connection';
-import { User } from '../models/User';
+import User from '../models/User';
 
 export default class UserDAO {
-    
-    async findByUsernameOrEmail(username: string, password: string): Promise<User | null> {
+    async findByUsernameOrEmail(username: string): Promise<User | null> {
         const user = await db('users')
             .where(function() {
                 this.where('name', username)
                     .orWhere('email', username);
             })
-            .andWhere('password', password)
             .first();
         return user || null;
     }

@@ -2,7 +2,6 @@ import db from '../../database/connection';
 import Teacher from '../models/Teacher';
 
 export default class TeacherDAO {
-
     async create(teacher: Teacher): Promise<number[]> {
         const trx = await db.transaction();
         try {
@@ -23,13 +22,12 @@ export default class TeacherDAO {
         }
     }
 
-    async findByEmailOrName(username: string, password: string) {
+    async findByEmailOrName(username: string) {
         try {
             const teacher = await db('teacher')
                 .where(function () {
                     this.where('name', username).orWhere('email', username);
                 })
-                .andWhere('password', password)
                 .first();
             return teacher;
         } catch (err) {
@@ -71,20 +69,8 @@ export default class TeacherDAO {
         }
     }
 
-    async addFavorite(userId: number, teacherId: number) {
-        return await db('favorites').insert({ user_id: userId, teacher_id: teacherId });
-    }
-
-    async getFavorites(userId: number) {
-        return await db('favorites').where('user_id', userId);
-    }
-
-    async deleteFavorite(userId: number, teacherId: number) {
-        return await db('favorites').where({ user_id: userId, teacher_id: teacherId }).del();
-    }
-
     async updateAvatar(teacherId: number, avatar: string) {
-        return await db('teachers').where('id', teacherId).update({ avatar });
+        return await db('teacher').where('id', teacherId).update({ avatar });
     }
 
     async updateScheduleItem(id: number, schedule: JSON ) {

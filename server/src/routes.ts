@@ -5,6 +5,7 @@ import ClassController from './mvc/controllers/ClassController';
 import InvitesController from './mvc/controllers/InvitesController';
 import TestController from './mvc/controllers/TestController';
 import PostsController from './mvc/controllers/PostController';
+import ReplyController from './mvc/controllers/ReplyController';
 
 const routes = express.Router();
 const userController = new UserController();
@@ -13,6 +14,15 @@ const classController = new ClassController();
 const invitesController = new InvitesController();
 const testController = new TestController();
 const postsController = new PostsController();
+const replyController = new ReplyController();
+
+//Reply Routes
+
+routes.get('/replies', replyController.index);
+routes.post('/reply', replyController.create);
+routes.put('/likeReply', replyController.like);
+routes.get('/likeReply', replyController.getLikes)
+
 
 // Post routes
 routes.get('/post', postsController.index);
@@ -21,8 +31,9 @@ routes.get('/getUploads', postsController.getUpload);
 routes.post('/post', postsController.create);
 routes.put('/post', postsController.update);
 routes.delete('/post', postsController.delete);
+routes.get('/likePost', postsController.getLikes);
 routes.put('/likePost', postsController.like);
-routes.put('/replyPost', postsController.reply)
+routes.put('/replyPost', postsController.reply);
 
 // Test route
 routes.get('/test', testController.test);
@@ -33,12 +44,10 @@ routes.post('/teacher', teacherController.create);
 routes.get('/teacher-login', teacherController.login);
 routes.get('/getTeacher', teacherController.getTeacher);
 routes.put('/updateTeacher', teacherController.updateTeacher);
+routes.put('/updateTeacherPassword', teacherController.updateTeacherPassword);
 routes.put('/updateSchedule', teacherController.updateSchedule);
 routes.put('/updateScheduleItem', teacherController.updateScheduleItem);
 routes.post('/teacher-avatar', teacherController.createAvatar);
-routes.post('/favorite-teacher', teacherController.addFavorite);
-routes.get('/favorite-teacher', teacherController.getFavorites);
-routes.delete('/favorite-teacher', teacherController.deleteFavorite);
 
 // User routes
 routes.post('/user', userController.create);
@@ -47,15 +56,13 @@ routes.post('/forgot-password', userController.forgotPass);
 routes.post('/reset-pass', userController.passReset);
 routes.get('/getuser', userController.getUser);
 routes.put('/updateuser', userController.updateUser);
+routes.put('/updateuserpassword', userController.updateUserPassword);
 routes.post('/avatar', userController.createAvatar);
 routes.get('/avatar', userController.getImage);
 routes.get('/favorite-user', userController.getUserFavorites);
 
 // Class routes
-routes.get('/class', classController.index);
-routes.post('/class', classController.create);
-routes.put('/class', classController.update);
-routes.delete('/class', classController.delete);
+
 
 // Invite routes
 routes.post('/invite', invitesController.create);

@@ -5,14 +5,23 @@ export async function up(knex: Knex){
         knex.schema.createTable('replies', (table) => {
             table.increments('id').primary();
             table.integer("teacher_id")
-            .notNullable()
             .references("id")
             .inTable("teacher")
             .onUpdate("CASCADE")
             .onDelete("CASCADE");
-            table.integer("likes").notNullable();
+            table.integer("user_id")
+            .references("id")
+            .inTable("users")
+            .onUpdate("CASCADE")
+            .onDelete("CASCADE");
+            table.integer("post_id")
+            .notNullable()
+            .references("id")
+            .inTable("posts")
+            .onUpdate("CASCADE")
+            .onDelete("CASCADE");
             table.string("text").notNullable();
-            table.timestamp("created_at").defaultTo(knex.fn.now());
+            table.json("likes").nullable();
         })  
     )
 }

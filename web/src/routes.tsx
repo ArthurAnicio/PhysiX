@@ -16,6 +16,7 @@ import ProfileStudent from "./pages/profile_student";
 import ProfileTeacher from "./pages/profile_teacher";
 import Invites from "./pages/invites";
 import TestPage from "./pages/tests"
+import SeeSchedules from "./pages/see_schedules"
 
 function RoutesWeb() {
   return (
@@ -37,6 +38,7 @@ function RoutesWeb() {
         <Route path="/profile_teacher" Component={ProfileTeacher} />
         <Route path="/invites" Component={Invites} />
         <Route path="/tests" Component={TestPage} />
+        <Route path="/see_schedules" Component={SeeSchedules} />
       </Routes>
     </BrowserRouter>
   );
