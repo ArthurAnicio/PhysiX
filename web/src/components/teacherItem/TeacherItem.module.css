@@ -15,7 +15,8 @@
 #extraData p {
     margin-right: 20px;
 }
-h1 {
+
+#teacherCardName>h1 {
     margin: 0;
 }
 #teacherListAvatar {

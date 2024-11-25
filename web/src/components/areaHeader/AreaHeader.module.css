@@ -39,3 +39,11 @@
   justify-self: end;
   text-align: end;
 }
+
+@media (max-width: 700px) {
+  #atomContainer {
+    display: none;
+  }
+  .titleHeader {
+    margin-right: 100px;
+  }}

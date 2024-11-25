@@ -50,6 +50,8 @@ h1 {
 }
 
 #landingMain {
+  gap: 20px;
+  padding: 20px 0;
   height: 40vh;
   display: flex;
   flex-flow: column;
@@ -122,6 +124,9 @@ h1 {
   #landingMain {
     height: 30vh;
   }
+  #landingHeader {
+    height: 55vh;
+  }
   footer {
     min-height: 150px !important;
   }
@@ -144,8 +149,11 @@ h1 {
   }
   #headerContainer img {
     height: 7em;
+  } 
+  #landingMain a {
+    font-size: 1.5em;
   }
-  #headerContainer {
-    min-height: 65vh;
-  }
+  #landingMain a>*:first-child {
+    display: none;
+  } 
 }

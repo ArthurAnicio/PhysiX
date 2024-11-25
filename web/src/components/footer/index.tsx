@@ -7,26 +7,6 @@ function Footer() {
   return (
     <footer>
       <p>PhysiX</p>
-      <ul>
-        <li>
-          <a href="/">
-            <Insta />
-            <span>Instagram</span>
-          </a>
-        </li>
-        <li>
-          <a href="/">
-            <Xtt />
-            <span>X (Twitter)</span>
-          </a>
-        </li>
-        <li>
-          <a href="/">
-            <Face />
-            <span>Facebook</span>
-          </a>
-        </li>
-      </ul>
     </footer>
   );
 }

@@ -16,6 +16,7 @@
   color: var(--branco2);
 }
 #headerLogo {
+  display: flex;
   margin-left: 40px;
   width: 400px;
   text-align: start;
@@ -38,4 +39,17 @@
 #atomContainer {
   /* width: 400px; */
   text-align: end;
+}
+
+@media (max-width: 700px) {
+  #headerDefault {
+    background: linear-gradient(90deg, var(--roxo1), var(--roxo1));
+  }
+  #titleSection, #atomContainer {
+    display: none;
+  }
+  #headerLogo {
+    margin: 0;
+    justify-content: center;
+  }
 }

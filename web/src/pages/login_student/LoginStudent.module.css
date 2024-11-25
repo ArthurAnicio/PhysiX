@@ -85,7 +85,12 @@
 }
 
 @media (max-width: 700px) {
+  
+  #loginContainer {
+    margin: 100px auto;
+  }
   #loginWindow {
+    margin: 0;
     width: 90%;
     min-width: 1px;
   }
@@ -100,11 +105,11 @@
     margin-right: 5%;
     font-size: 1em;
   }
-  #loginWindow input {
-    width: 100%;
-  }
   .btn {
     width: 80%;
     margin: 0.5rem;
+  }
+  #inputsMain {
+    padding: 20px;
   }
 }

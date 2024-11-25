@@ -59,7 +59,7 @@ function handleRedirect(loginType: number) {
       <h1>{title}</h1>
       </div>
       <div id={styles.atomContainer}>
-        <AtomSVG id={styles.atomHeader} />
+        <AtomSVG id={styles.atomHeader}/>
       </div>
     </div>
   );
