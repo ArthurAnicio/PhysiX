@@ -56,7 +56,6 @@ export default class PostsController {
         });
     }
     
-
     async getPosts(req: Request, res: Response) {
         const { teacher_id } = req.query;
         try {
@@ -126,6 +125,7 @@ export default class PostsController {
             res.status(400).json(`Erro: ${err}`);
         }
     }
+    
     async getUpload(req: Request, res: Response) {
         const { route } = req.query;
         if (route) {

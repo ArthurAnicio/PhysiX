@@ -5,7 +5,6 @@ import Invite from '../models/Invites';
 const inviteDAO = new InviteDAO();
 
 export default class InvitesController {
-
     async index(req: Request, res: Response) {
         const {teacher_id} = req.query;
 

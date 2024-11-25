@@ -48,9 +48,6 @@ routes.put('/updateTeacherPassword', teacherController.updateTeacherPassword);
 routes.put('/updateSchedule', teacherController.updateSchedule);
 routes.put('/updateScheduleItem', teacherController.updateScheduleItem);
 routes.post('/teacher-avatar', teacherController.createAvatar);
-routes.post('/favorite-teacher', teacherController.addFavorite);
-routes.get('/favorite-teacher', teacherController.getFavorites);
-routes.delete('/favorite-teacher', teacherController.deleteFavorite);
 
 // User routes
 routes.post('/user', userController.create);
@@ -65,10 +62,7 @@ routes.get('/avatar', userController.getImage);
 routes.get('/favorite-user', userController.getUserFavorites);
 
 // Class routes
-routes.get('/class', classController.index);
-routes.post('/class', classController.create);
-routes.put('/class', classController.update);
-routes.delete('/class', classController.delete);
+
 
 // Invite routes
 routes.post('/invite', invitesController.create);

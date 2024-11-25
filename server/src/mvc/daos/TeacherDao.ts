@@ -2,7 +2,6 @@ import db from '../../database/connection';
 import Teacher from '../models/Teacher';
 
 export default class TeacherDAO {
-
     async create(teacher: Teacher): Promise<number[]> {
         const trx = await db.transaction();
         try {
@@ -70,18 +69,6 @@ export default class TeacherDAO {
         }
     }
 
-    async addFavorite(userId: number, teacherId: number) {
-        return await db('favorites').insert({ user_id: userId, teacher_id: teacherId });
-    }
-
-    async getFavorites(userId: number) {
-        return await db('favorites').where('user_id', userId);
-    }
-
-    async deleteFavorite(userId: number, teacherId: number) {
-        return await db('favorites').where({ user_id: userId, teacher_id: teacherId }).del();
-    }
-
     async updateAvatar(teacherId: number, avatar: string) {
         return await db('teacher').where('id', teacherId).update({ avatar });
     }
@@ -104,9 +91,5 @@ export default class TeacherDAO {
 
     async deleteClassSchedule(id: number) {
         return await db('class_schedule').where('id', id).del();
-    }
-
-    async addALikedPost(id: number, teacher_id: number) {
-        
     }
 }

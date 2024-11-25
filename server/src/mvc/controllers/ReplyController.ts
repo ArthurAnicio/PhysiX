@@ -15,6 +15,7 @@ export default class ReplyController {
             return res.status(400).json(`Erro${err}`);
         }
     }
+    
     async create(req: Request, res: Response): Promise<Response> {
         const { post_id, text, teacher_id, user_id } = req.body;
 
@@ -38,6 +39,7 @@ export default class ReplyController {
             return res.status(500).json(`Erro${err}`);
         }
     }
+
     async getLikes(req: Request, res: Response): Promise<Response>{
         const { id } = req.query;
         try {
@@ -76,6 +78,7 @@ export default class ReplyController {
             return res.status(400).json(`Erro: ${err}`);
         }
     }
+
     async delete(req: Request, res: Response): Promise<Response> {
         const { id } = req.params;
 

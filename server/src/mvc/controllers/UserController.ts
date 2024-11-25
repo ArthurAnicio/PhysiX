@@ -1,12 +1,13 @@
 import { Request, Response } from 'express';
 import UserDAO from '../daos/UserDao';
-import { User } from '../models/User';
+import User from '../models/User';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import nodemailer from 'nodemailer';
 import multer from 'multer';
 import path from 'path';
 import fs from 'fs';
+
 dotenv.config();
 
 const userDAO = new UserDAO();
@@ -22,7 +23,6 @@ const upload = multer({ storage });
 const bcrypt = require('bcryptjs');
 
 export default class UserController {
-
     async index(req: Request, res: Response) {
         const { username, password } = req.query;
         try {
@@ -49,7 +49,7 @@ export default class UserController {
             }
             const salt = bcrypt.genSaltSync(10) // salt aleatório para dificultar ainda mais a quebra
             const hashedPassword = bcrypt.hashSync(password, salt);
-            const newUser: User = { name, email, password:hashedPassword, avatar: 'uploads\\useravatars\\default.png' };
+            const newUser= new User(name, email, hashedPassword);
             await userDAO.insert(newUser);
             return res.status(200).json('Usuário criado com sucesso');
         } catch (err) {

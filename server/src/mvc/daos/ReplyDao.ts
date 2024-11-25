@@ -30,6 +30,7 @@ export default class ReplyDAO {
             throw new Error(`Erro ao buscar replies: ${err}`);
         }
     }
+    
     async getLikes(id:Number):Promise<string>{
         const likes = await db('replies').select("likes").where({ id }).first();
         if (!likes) {

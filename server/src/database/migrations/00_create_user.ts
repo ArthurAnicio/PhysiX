@@ -8,8 +8,7 @@ export async function up(knex: Knex){
             table.string('email').notNullable().unique();
             table.string('password').notNullable();
             table.string('avatar').notNullable();
-            table.json('likedPosts').nullable()
-            table.json('likedReplies').nullable();
+            table.boolean('verified').nullable();
         })  
     )
 }

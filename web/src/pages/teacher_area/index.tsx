@@ -33,11 +33,8 @@ function TeacherArea() {
     useEffect(() => {
         setNewPostFormVisible(false);
         getTeacher();
-    }, []);
-
-    useEffect(()=>{
         getPosts();
-    },[]);
+    }, []);
 
     // Função para abrir/fechar o menu lateral
     function asideOpen() {
@@ -131,11 +128,31 @@ function TeacherArea() {
         <div>
             <AreaHeader title="Área do Professor" state={teacherId} asideOpen={asideOpen} />
             <main id={styles.areaContainer}>
-                <aside id={styles.areaAside} ref={asideRef} className={styles.asideClosed}>
-                    <i className="fa-solid fa-user" id={styles.iconAside} onClick={() => navigate("/profile_teacher", { state: { teacherId } })}></i>
-                    <i className="fa-solid fa-chalkboard-user" id={styles.iconAside} onClick={() => navigate("/student_list", { state: { teacherId } })}></i>
-                    <i className="fa-solid fa-chalkboard-user" id={styles.iconAside} onClick={() => navigate("/classes_area", { state: { teacherId } })}></i>
-                    <i className="fa-solid fa-right-from-bracket" id={styles.iconAside} onClick={() => navigate("/")}></i>
+                <aside 
+                    id={styles.areaAside} 
+                    ref={asideRef} 
+                    className={styles.asideClosed}
+                >
+                    <i 
+                        className="fa-solid fa-user" 
+                        id={styles.iconAside} 
+                        onClick={() => navigate("/profile_teacher", { state: { teacherId } })}
+                    ></i>
+                    <i 
+                        className="fa-solid fa-chalkboard-user" 
+                        id={styles.iconAside} 
+                        onClick={() => navigate("/student_list", { state: { teacherId } })}
+                    ></i>
+                    <i 
+                        className="fa-solid fa-chalkboard-user" 
+                        id={styles.iconAside} 
+                        onClick={() => navigate("/classes_area", { state: { teacherId } })}
+                    ></i>
+                    <i 
+                        className="fa-solid fa-right-from-bracket" 
+                        id={styles.iconAside} 
+                        onClick={() => navigate("/")}
+                    ></i>
                 </aside>
 
                 <nav className={styles.content}>
