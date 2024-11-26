@@ -133,26 +133,42 @@ function TeacherArea() {
                     ref={asideRef} 
                     className={styles.asideClosed}
                 >
-                    <i 
-                        className="fa-solid fa-user" 
-                        id={styles.iconAside} 
+                    <div 
+                        className={styles.asideCampo}
                         onClick={() => navigate("/profile_teacher", { state: { teacherId } })}
-                    ></i>
-                    <i 
-                        className="fa-solid fa-chalkboard-user" 
-                        id={styles.iconAside} 
+                    >
+                        <i
+                            className="fa-solid fa-user"
+                        ></i>
+                        <label>Perfil</label>
+                    </div>
+                    <div 
+                        className={styles.asideCampo}
                         onClick={() => navigate("/student_list", { state: { teacherId } })}
-                    ></i>
-                    <i 
-                        className="fa-solid fa-chalkboard-user" 
-                        id={styles.iconAside} 
+                    >   
+                        <i 
+                            className="fa-solid fa-book-open"
+                        ></i>
+                        <label>Aulas</label>
+                    </div>
+                    <div 
+                        className={styles.asideCampo}
                         onClick={() => navigate("/classes_area", { state: { teacherId } })}
-                    ></i>
-                    <i 
-                        className="fa-solid fa-right-from-bracket" 
-                        id={styles.iconAside} 
+                    >   
+                        <i 
+                            className="fa-solid fa-chalkboard-user"
+                        ></i>
+                        <label>Agenda</label>
+                    </div>
+                    <div 
+                        className={styles.asideCampo}
                         onClick={() => navigate("/")}
-                    ></i>
+                    >   
+                        <i 
+                            className="fa-solid fa-right-from-bracket"
+                        ></i>
+                        <label>Sair</label>
+                    </div>
                 </aside>
 
                 <nav className={styles.content}>
