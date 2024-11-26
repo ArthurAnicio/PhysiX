@@ -67,9 +67,9 @@ export default class PostsController {
     }
 
     async delete(req: Request, res: Response) {
-        const { post_id } = req.query;
+        const { id } = req.query;
         try {
-            await postDAO.deletePost(Number(post_id));
+            await postDAO.deletePost(Number(id));
             res.status(200).json('Post deletado');
         } catch (err) {
             res.status(400).json(`Erro: ${err}`);

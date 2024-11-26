@@ -1,6 +1,7 @@
 .comment{
     margin: 1vh auto;
-    padding: 2vh 0.5vw;
+    padding: 2vh;
+    box-sizing: border-box;
     width: 100%;
     border-radius: 10px;
     background-color: var(--branco1);

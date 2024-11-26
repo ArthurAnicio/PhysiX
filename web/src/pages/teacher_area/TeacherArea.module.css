@@ -2,11 +2,13 @@
     display: flex;
     width: 100%;
     background: var(--cinza1);
+    min-height: 100vh;
   }
   
   #areaAside {
     background-color: var(--roxo1);
-    width: 150px;
+    position: absolute;
+    width: 120px;
     height: 1000px;
     display: flex;
     flex-flow: column;
@@ -223,4 +225,10 @@
   .cancel i:hover{
     color: var(--vermelho2);
     scale: 1.05;
+  }
+
+  @media (max-width: 700px) {
+    .newPostForm {
+      min-width: 0;
+    }
   }

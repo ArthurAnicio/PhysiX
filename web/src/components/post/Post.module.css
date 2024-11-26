@@ -86,7 +86,6 @@
 
 .comments {
     display: flex;
-    padding: 1vh 1rem;
     flex-direction: column;
     justify-content: center;
 }
@@ -138,4 +137,14 @@
 .commenting button i {
     color: var(--branco);
     font-size: 1.8rem;
+}
+
+@media (max-width: 700px) {
+    .post {
+        width: 80vw;
+    }
+    .date {
+        display: none;
+    }
+    
 }

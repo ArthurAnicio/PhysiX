@@ -16,7 +16,6 @@
 
 #classesForm{
     width: 500px;
-    height: 10vh;
     margin: 2vh 0;
     padding: 1.2rem;
     text-decoration: none;
@@ -79,4 +78,17 @@
 #add:hover {
     background-color: var(--roxo2);
     scale: 1.05;
+}
+
+@media (max-width: 700px) {
+    #schedulesDiv {
+        width: 80%;
+        margin: 30px 0;
+        grid-template-columns: 1fr;
+    }
+    #classesForm {
+        width: 70vw;
+        flex-flow: column;
+        gap: 20px;
+    }
 }
