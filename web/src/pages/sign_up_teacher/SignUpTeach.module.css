@@ -13,6 +13,7 @@
     padding: 30px 0;
     display: flex;
     flex-flow: column;
+    align-items: center;
   }
   
   #signUpWindow {
@@ -82,9 +83,9 @@
   }
   
   @media (max-width: 700px) {
-    #signUpWindow {
-      width: 90%;
-      min-width: 1px;
+    #inputsMain {
+      padding: 0 20px;
+      width: 300px;
     }
     #signUpWindow header {
       height: 10vh;

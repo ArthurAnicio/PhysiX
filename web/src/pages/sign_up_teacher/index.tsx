@@ -79,7 +79,7 @@ function SignUpTeacher() {
                         <TextBox
                             type="text"
                             value={number}
-                            onChange={handlePhoneInput} // Aplica a máscara
+                            onChange={handlePhoneInput}
                         />
                         <Submit className={styles.btn} label="Cadastrar" onClick={signUp} />
                     </section>
