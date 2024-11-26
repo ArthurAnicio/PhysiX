@@ -23,6 +23,13 @@
     border: solid 3px var(--roxo1);
     border-radius: 50%;
     background: var(--preto);
+    overflow: hidden;
+}
+
+.commentInfoIMG img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .commentInfoPerfil{

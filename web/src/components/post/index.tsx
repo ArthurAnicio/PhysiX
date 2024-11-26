@@ -48,16 +48,11 @@ const Post: React.FC<PostProps> = ({ post, id }) => {
     const [postUpload, setUpload] = useState('');
     const [teacher, setTeacher] = useState({name: '', email: '', id: 0, avatar:'', number:'', password: '', schedule: null})
 
-    useEffect(() => {
-        if (showComments) {
-            fetchComments();
-        }
-    }, [showComments]);
 
-    // pega os comentários e o os likes assim que o componente terminar de montar pra já aparecer o número
+    // pega os comentarios e os likes assim que o componente terminar de montar pra já aparecer o número
     useEffect(() => {
-        fetchComments();
         fetchLikes();
+        fetchComments();
     }, [])
 
     useEffect(() => {
@@ -66,7 +61,7 @@ const Post: React.FC<PostProps> = ({ post, id }) => {
 
     useEffect(() => {
         if (teacher.avatar){
-        getAvatar(teacher.avatar)
+            getAvatar(teacher.avatar)
         };
     }, [teacher.avatar])
 
