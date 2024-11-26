@@ -219,3 +219,16 @@
 #sendAvatarBtn:hover {
   scale: 1.02;
 }
+
+@media (max-width: 700px) {
+  .infoArea {
+    width: 300px;
+    padding: 0 20px;
+  }
+  #profileBoxHeader {
+    background-color: var(--branco2);
+  }
+  #profileBoxHeader h2 {
+    color: var(--roxo1);
+  }
+}

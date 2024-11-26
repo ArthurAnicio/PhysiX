@@ -11,4 +11,7 @@ input {
     input::placeholder {
         color: transparent;
     }
+    input {
+        font-size: 1rem;
+    }
 }

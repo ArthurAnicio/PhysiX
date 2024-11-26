@@ -149,7 +149,7 @@ function TeacherArea() {
             }
           ></i>
           <i
-            className="fa-solid fa-chalkboard-user"
+            className="fa-solid fa-book-open"
             id={styles.iconAside}
             onClick={() => navigate("/student_list", { state: { teacherId } })}
           ></i>

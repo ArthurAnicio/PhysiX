@@ -45,16 +45,14 @@
 }
 
 @media (max-width: 700px) {
-    #teacherList-filters {
-        grid-template-columns: 1fr; 
-        padding: 20px; 
+    #teacherListFilters {
+        flex-direction: column;
     }
-    #pesquisar {
-        grid-column: span 1; 
-        font-size: 1.5em;
+    #teacherListFilters label {
+        width: 100px;
     }
-    #teacherList-filters select {
-        margin-right: 0; 
-        margin-bottom: 10px; 
+    #teacherListFilters select,
+    #teacherListFilters input{
+        width: 150px;
     }
 }
