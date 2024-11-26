@@ -94,7 +94,13 @@ function StudentArea() {
         </aside>
         <nav className={styles.content}>
           {posts.map((post) => (
-            <Post key={post.id} post={post} id={id} isMine={false} sync={getPosts}/>
+            <Post
+              key={post.id}
+              post={post}
+              id={id}
+              isMine={false}
+              sync={getPosts}
+            />
           ))}
         </nav>
       </main>
