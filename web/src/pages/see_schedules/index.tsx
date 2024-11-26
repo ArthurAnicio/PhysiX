@@ -7,6 +7,7 @@ import ClassScheduleItem, {
 } from "../../components/classScheduleItem";
 
 import Header from "../../components/header";
+import Footer from "../../components/footer";
 
 const SeeSchedules = () => {
   const location = useLocation();
@@ -38,6 +39,7 @@ const SeeSchedules = () => {
           teacherId={teacherId}
         />
       ))}
+      <Footer/>
     </div>
   );
 };

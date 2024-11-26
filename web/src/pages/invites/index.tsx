@@ -20,7 +20,6 @@ function Invites() {
     }, []);
 
     async function getTeacher() {
-        //console.log(teacherId);
         try {
             
             const response = await api.get('/getTeacher', { params: { id: teacherId } });
@@ -42,6 +41,7 @@ function Invites() {
     return (
         <div>
             <Header state={stateId} title='Pedidos de aula'/>
+            <Footer/>
         </div>
     )
 }

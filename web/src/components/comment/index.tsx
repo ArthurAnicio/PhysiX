@@ -21,13 +21,41 @@ interface LikeData {
     replyId: number;
 }
 
+
+
 const Comment: React.FC<CommentProps> = ({ comment, id }) => {
     const [likes, setLikes] = useState<LikeData[]>([]);
+    const [teacher, setTeacher] = useState({name: '', email: '', id: 0, avatar:'', number:'', password: '', schedule: null});
+    const [user, setUser] = useState({name: '', email: '', id: 0, avatar:'', password: ''});
+    const [name, setName] = useState('');
+    const [avatar, setAvatar] = useState('')
+
 
     // pega o número de likes imediatamente
     useEffect(() => {
+        getOwner();
         getLikes();
-    }, []); 
+        if(teacher.avatar || user.avatar){
+            getAvatar(avatar);
+        }
+    }, [user, teacher, avatar]); 
+
+    async function getOwner(){
+        if(id.teacher_id === undefined) {
+            const response = await api.get(`/getuser?id=${id.user_id}`);
+            if (response.status === 200) {
+                setUser(response.data);
+                setName(user.name);
+            }
+        }
+        else {
+            const response = await api.get(`/getTeacher?id=${id.teacher_id}`);
+            if (response.status === 200) {
+                setTeacher(response.data);
+                setName(teacher.name);
+            }
+        }
+    }
 
     const getLikes = async () => {
         try {
@@ -71,11 +99,26 @@ const Comment: React.FC<CommentProps> = ({ comment, id }) => {
         }
     };
 
+    async function getAvatar(avatarPath: string) {
+        try {
+            const response = await api.get('/avatar', { params: { route: avatarPath } });
+            if (response.status === 200) {
+                setAvatar(response.request.responseURL);
+            } else {
+                alert('Falha no avatar!');
+                console.log(response);
+            }
+        } catch (err) {
+            alert('Falha no avatar!');
+            console.log(err);
+        }
+    }
+
     return (
         <div className={styles.comment}>
             <section className={styles.commentInfo}>
-                <div className={styles.commentInfoIMG}></div>
-                <div className={styles.commentInfoPerfil}></div>
+                <div className={styles.commentInfoIMG}> <img src={avatar} alt="" /></div>
+                <div className={styles.commentInfoPerfil}>{name}</div>
             </section>
             <section className={styles.commentText}>
                 <p>{comment.text}</p>
