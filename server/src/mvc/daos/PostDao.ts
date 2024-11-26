@@ -23,9 +23,9 @@ export default class PostDAO {
     async getAll(): Promise<Post[]> {
         try {
             const posts = await db("posts").select("*");
-            if (!posts.length) {
-                throw new Error('Nenhum post encontrado');
-            }
+            // if (!posts.length) {
+            //     throw new Error('Nenhum post encontrado');
+            // }
             return posts;
         } catch (err) {
             throw new Error(`Erro ao buscar posts: ${err}`);
@@ -37,9 +37,9 @@ export default class PostDAO {
             const posts = await db("posts")
                 .select("*")
                 .where({ teacher_id });
-            if (!posts.length) {
-                throw new Error('Nenhum post encontrado');
-            }
+            // if (!posts.length) {
+            //     throw new Error('Nenhum post encontrado');
+            // }
             return posts;
         } catch (err) {
             throw new Error(`Erro ao buscar posts do professor: ${err}`);

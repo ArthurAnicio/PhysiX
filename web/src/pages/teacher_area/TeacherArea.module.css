@@ -210,3 +210,9 @@
     color: var(--vermelho2);
     scale: 1.05;
   }
+
+  @media (max-width: 700px) {
+    .newPostForm {
+      min-width: 0;
+    }
+  }
