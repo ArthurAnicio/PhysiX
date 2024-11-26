@@ -1,6 +1,7 @@
 import styles from "./Invites.module.css"
 import Header from '../../components/header';
 import Footer from "../../components/footer";
+import Invite from "../../components/invite";
 import React, { useState, useEffect, FormEvent } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import api from "../../services/api";
@@ -18,6 +19,8 @@ function Invites() {
         getTeacher();
         
     }, []);
+
+    function teste(){}
 
     async function getTeacher() {
         try {
@@ -41,6 +44,9 @@ function Invites() {
     return (
         <div>
             <Header state={stateId} title='Pedidos de aula'/>
+            <main className={styles.content}>
+                <Invite invite_id={0} teacher_id={0} user_id={0} sync={teste} />
+            </main>
             <Footer/>
         </div>
     )

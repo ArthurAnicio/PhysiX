@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import InviteDAO from '../daos/InvitesDao';
 import Invite from '../models/Invites';
+import { stringify } from 'querystring';
 
 const inviteDAO = new InviteDAO();
 
@@ -21,13 +22,13 @@ export default class InvitesController {
     }
 
     async create(req: Request, res: Response) {
-        const { user_id, teacher_id } = req.body;
+        const { user_id, teacher_id, schedule } = req.body;
 
         if (!user_id || !teacher_id) {
             return res.status(400).json('Todos os campos são obrigatórios: user_id, teacher_id');
         }
 
-        const invite = new Invite(user_id, teacher_id);
+        const invite = new Invite(user_id, teacher_id, false, stringify(schedule));
 
         try {
             await inviteDAO.create(invite);

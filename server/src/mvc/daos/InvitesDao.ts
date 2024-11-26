@@ -9,6 +9,7 @@ export default class InviteDAO {
                 user_id: invite.user_id,
                 teacher_id: invite.teacher_id,
                 accepted: invite.accepted,
+                schedule: invite.schedule,
             });
             await trx.commit();
         } catch (err) {

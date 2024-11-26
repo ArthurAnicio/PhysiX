@@ -158,6 +158,10 @@ function TeacherArea() {
             id={styles.iconAside}
             onClick={() => navigate("/classes_area", { state: { teacherId } })}
           ></i>
+          <i 
+            className="fa-solid fa-envelope"
+            onClick={() => navigate("/invites", { state: { teacherId } })}
+          ></i>
           <i
             className="fa-solid fa-right-from-bracket"
             id={styles.iconAside}

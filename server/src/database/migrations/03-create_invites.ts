@@ -16,7 +16,8 @@ export async function up(knex: Knex){
             .inTable("teacher")
             .onUpdate("CASCADE")
             .onDelete("CASCADE");
-            table.boolean("accepted").notNullable()
+            table.boolean("accepted").notNullable();
+            table.json('schedule').notNullable();
         })  
     )
 }

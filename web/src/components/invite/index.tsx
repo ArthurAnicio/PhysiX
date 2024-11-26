@@ -3,8 +3,19 @@ import api from '../../services/api';
 import { InputHTMLAttributes } from 'react';
 
 interface InviteProps extends InputHTMLAttributes<HTMLInputElement>{
-    id: string;
-    label: string;
-    value: string;
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    invite_id: number;
+    user_id: number;
+    teacher_id: number;
+    sync: () => void;
 }
+
+const Invite: React.FC<InviteProps> = ({ invite_id, teacher_id, user_id, onChange }) => {
+    
+    return (
+        <div className={styles.invite}>
+            
+        </div>
+    );
+}
+
+export default Invite;
