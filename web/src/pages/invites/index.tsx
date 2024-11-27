@@ -39,7 +39,7 @@ function Invites() {
 
     useEffect(()=>{
         fetchInvites();
-    },[invite]);
+    },[]);
 
     function teste(){}
 
@@ -64,15 +64,17 @@ function Invites() {
 
     async function fetchInvites(){
         try {
-            const response = await api.get(`/invite?teacher_id=${teacherId}`);
-            if (response.status === 200) {
-                console.log(response.data)
-                setInvites(response.data);
-                setInvitesFiltred(invites.filter((invite: InviteItem) => invite.accepted === false));
-            } else {
-                alert('Falha no login! Por favor tente novamente.');
-                navigate('/log_in_teacher');
-            }
+            api.get(`/invite?teacher_id=${teacherId}`).then((response)=> {
+               if (response.status === 200) {
+                    console.log(response.data)
+                    setInvites(response.data);
+                    setInvitesFiltred(invites.filter((invite: InviteItem) => invite.accepted === false));
+                } else {
+                    alert('Falha no login! Por favor tente novamente.');
+                    navigate('/log_in_teacher');
+                } 
+            });
+            
         } catch (error) {
             alert('Falha no login!');
             navigate('/log_in_teacher');
