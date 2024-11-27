@@ -5,6 +5,7 @@ import { Teacher } from "../../components/teacherItem";
 import ClassScheduleItem, {
   ClassSchedule,
 } from "../../components/classScheduleItem";
+import ClassScheduleItemView from "../../components/classScheduleItemView";
 import styles from "./SeeSchedules.module.css";
 import Header from "../../components/header";
 import Footer from "../../components/footer";
@@ -18,7 +19,7 @@ const SeeSchedules = () => {
 
   useEffect(() => {
     api
-      .get(`/getTeacher/?id=${teacherId}`)
+      .get(`/getTeacher?id=${teacherId}`)
       .then((response) => {
         setTeacher(response.data);
         setClassSchedule(JSON.parse(response.data.schedule));
@@ -33,12 +34,12 @@ const SeeSchedules = () => {
       <Header state={userId} title="Horários do Professor" />
       <div id={styles.classesContainer}>
         <div id={styles.schedulesDiv}>
-          {classSchedule.map((schedule, index) => (
-            <ClassScheduleItem
+          {classSchedule.map((schedule,index)=>(
+            <ClassScheduleItemView
               key={schedule.id}
               classSchedule={schedule}
-              onDelete={handleDelete}
-              teacherId={teacherId}
+              teacherId={teacherId} 
+              userId={userId}            
             />
           ))}
         </div>

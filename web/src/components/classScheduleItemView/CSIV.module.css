@@ -1,0 +1,78 @@
+#classScheduleItem{
+    display: flex;
+    align-items: center;
+    flex-flow: column;
+    padding: 20px;
+    border-radius: 20px;
+    background-color: var(--branco2);
+
+}
+
+#classScheduleItem>div>div,
+#weekDayItem {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+
+#classScheduleItem p {
+    margin: 0;
+    margin-bottom: 10px;
+}   
+
+#time{
+    gap: 20px;
+    display: flex;
+}
+
+span{
+    margin-bottom: 10px;
+    text-align: center;
+    width: 150px;
+    padding: 0.2rem 1rem ;
+    height: 2.6rem;
+    border-radius: 0.8rem;
+    border: 3px solid var(--roxo1);
+    background: var(--branco);
+    outline: 0;
+    font: Poppins;
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+label {
+    margin-bottom: 10px;
+    text-align: center;
+    width: 50px;
+    padding: 0.2rem 1rem ;
+    height: 2.6rem;
+    border-radius: 0.8rem;
+    border: 3px solid var(--roxo1);
+    background: var(--branco);
+    outline: 0;
+    font: Poppins;
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.solicitar{
+    width: 80%;
+    margin-top: 20px;
+    background-color: var(--verde);
+    color: var(--branco);
+    font-size: 1.5rem;
+    font-weight: 700;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.solicitar:hover{
+    background-color: var(--verde2);
+}
