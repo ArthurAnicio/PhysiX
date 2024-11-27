@@ -173,6 +173,51 @@ export default class UserController {
             return res.status(400).json(`Erro ao acessar o banco: ${err}`);
         }
     }
+    
+    async sendEmail(req:Request, res:Response) {
+        const { email } = req.body;
+        try {
+            const user = await userDAO.findByEmail(email);
+            if (!user) {
+                return res.status(404).json('Email não cadastrado!');
+            }
+
+            const token = jwt.sign({ email }, process.env.JWT_SECRET || 'secret_key', { expiresIn: '1h' });
+            const resetLink = `http://localhost:3000/verify_email?token=${token}`;
+
+            const transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS }
+            });
+
+            await transporter.sendMail({
+                from: process.env.EMAIL_USER,
+                to: email,
+                subject: 'Verificação de Email',
+                html: `<p>Clique <a href=${resetLink}>aqui</a> para verificar seu email</p>`
+            });
+            return res.status(200).json('Email enviado com sucesso')
+        } catch (err) { 
+            console.log(err);
+            return res.status(400).json('Falha ao enviar o email');
+        }
+    }
+    
+    async verifyEmail(req: Request, res: Response) {
+        const { token } = req.query;
+        console.log(token);
+        try {
+            const decoded = jwt.verify(token as string, process.env.JWT_SECRET ||'secret_key') as { email: string };
+            const user = await userDAO.findByEmail(decoded.email);
+            if (!user) {
+                return res.status(404).json('Email não cadastrado!');
+            }
+            await userDAO.update(user.id!, { verified: true });
+            return res.status(200).json('Email verificado com sucesso!');
+        } catch (err) {
+            return res.status(400).json('Token inválido');
+        }
+    }
 
     async getUser(req: Request, res: Response) {
         const { id } = req.query;
@@ -191,4 +236,5 @@ export default class UserController {
             return res.status(400).json(`Erro ao acessar o usuário: ${err}`);
         }
     }
+
 }

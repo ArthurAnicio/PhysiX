@@ -62,6 +62,8 @@ routes.put('/updateuserpassword', userController.updateUserPassword);
 routes.post('/avatar', userController.createAvatar);
 routes.get('/avatar', userController.getImage);
 routes.get('/favorite-user', userController.getUserFavorites);
+routes.post('/verify-email', userController.sendEmail)
+routes.put('/verify-email', userController.verifyEmail)
 
 // Class routes
 routes.get('/classes', classController.index);
