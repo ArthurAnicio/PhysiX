@@ -56,8 +56,6 @@ function Invites() {
     );
   }, [invites]);
 
-  function teste() {}
-
   async function getTeacher() {
     try {
       const response = await api.get("/getTeacher", {
