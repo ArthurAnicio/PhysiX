@@ -31,7 +31,7 @@ const SeeSchedules = () => {
   return (
     <div>
       <Header state={userId} title="Horários do Professor" />
-      <main>
+      <main className=''>
         {classSchedule.map((schedule, index) => (
           <ClassScheduleItem
             key={schedule.id}
