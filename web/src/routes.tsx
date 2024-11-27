@@ -17,7 +17,8 @@ import ProfileTeacher from "./pages/profile_teacher";
 import Invites from "./pages/invites";
 import TestPage from "./pages/tests"
 import SeeSchedules from "./pages/see_schedules"
-import TeacherPosts from "./pages/teacher_posts";
+import TeacherPosts from "./pages/teacher_posts"
+import VerifyEmail from "./pages/verify_email";
 
 function RoutesWeb() {
   return (
@@ -41,6 +42,7 @@ function RoutesWeb() {
         <Route path="/tests" Component={TestPage} />
         <Route path="/see_schedules" Component={SeeSchedules} />
         <Route path="/teacher_posts" Component={TeacherPosts} />
+        <Route path="/verify_email" Component={VerifyEmail} />
       </Routes>
     </BrowserRouter>
   );

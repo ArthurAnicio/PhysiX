@@ -20,7 +20,7 @@ function SignUpStudent() {
   const [passwordCorrect, setPasswordCorrect] = useState(false);
   const [email, setEmail] = useState('')
   
-  function signUp() {
+  async function signUp() {
     if(passwordCorrect === false){
       alert('Por favor complete todos os requisitos!');
       return;
@@ -29,13 +29,18 @@ function SignUpStudent() {
       alert('Preencha todos os campos!');
       return;
     }else{
-      api.post('/user',{
+      await api.post('/user',{
         name,
         email,
         password,
-      }).then(() => {
-        alert('Cadastro realizado com sucesso!');
-        history('/log_in_student')
+      }).then(async () => {
+        try {
+        await api.post('/verify-email', {email}).then(() => {
+          alert('Usuário cadastrado, por favor verifique o seu email.');
+        })} catch (err) {
+          alert('Erro ao enviar email!');
+          console.log(err);
+        }
       }).catch((err) => {
         alert('Erro no cadastro!');
         console.log(err);
