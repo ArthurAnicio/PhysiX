@@ -12,7 +12,7 @@ const smlIcon = require("../../assets/images/imgs/pequenoClaroPng.png")
 
 
 function SignUpStudent() {
-
+  
   const [stateId, setStateId] = useState(0);
   const history = useNavigate();
   const [name, setName] = useState('');

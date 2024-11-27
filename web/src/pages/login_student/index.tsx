@@ -20,9 +20,13 @@ function LogInStudent() {
         try {
         const response = await api.get('/user', {params : { username, password}})
         if(response.status === 200){
-          localStorage.setItem("loginType", "1");
-          setStateId(response.data.id)
-          history('/student_area', {state:{userId: response.data.id}})
+            if (response.data.verified == 1) {
+                localStorage.setItem("loginType", "1");
+                setStateId(response.data.id)
+                history('/student_area', {state:{userId: response.data.id}})
+            } else {
+                history('/unverified_student', {state:{email: response.data.email}})
+            }
         }
         else{
             alert('Usuário não encontrado')

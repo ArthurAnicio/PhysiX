@@ -1,8 +1,7 @@
-import styles from "./VerifyEmail.module.css";
-import Header from "../../components/header";
-import { useLocation, useNavigate } from "react-router-dom";
-import api from "../../services/api";
-import { response } from "express";
+import styles from './VerifyEmail.module.css'
+import Header from '../../components/header'
+import { useLocation, useNavigate } from 'react-router-dom';
+import api from '../../services/api';
 
 function VerifyEmail() {
   const location = useLocation();

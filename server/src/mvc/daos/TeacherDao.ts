@@ -44,6 +44,15 @@ export default class TeacherDAO {
         }
     }
 
+    async findByEmail(email: string) {
+        try {
+            const teacher = await db('teacher').where({ email }).first();
+            return teacher;
+        } catch (err) {
+            throw new Error(`Erro ao buscar professor: ${err}`);
+        }
+    }
+
     async updateSchedule(id: number, schedule: string) {
         try {
             await db('teacher').where({ id }).update({ schedule });

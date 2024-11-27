@@ -19,6 +19,11 @@ import TestPage from "./pages/tests"
 import SeeSchedules from "./pages/see_schedules"
 import TeacherPosts from "./pages/teacher_posts"
 import VerifyEmail from "./pages/verify_email";
+import VerifyTeacher from "./pages/verify_teacher";
+import Messages from "./pages/messages";
+import UnverifiedStudent from "./pages/unverified_student";
+import UnverifiedTeacher from "./pages/unverified_teacher";
+
 
 function RoutesWeb() {
   return (
@@ -43,6 +48,10 @@ function RoutesWeb() {
         <Route path="/see_schedules" Component={SeeSchedules} />
         <Route path="/teacher_posts" Component={TeacherPosts} />
         <Route path="/verify_email" Component={VerifyEmail} />
+        <Route path="/verify_teacher" Component={VerifyTeacher} />
+        <Route path="/messages" Component={Messages} />
+        <Route path="/unverified_student" Component={UnverifiedStudent} />
+        <Route path="/unverified_teacher" Component={UnverifiedTeacher} />
       </Routes>
     </BrowserRouter>
   );
