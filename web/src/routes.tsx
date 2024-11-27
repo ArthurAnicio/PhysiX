@@ -19,6 +19,7 @@ import TestPage from "./pages/tests"
 import SeeSchedules from "./pages/see_schedules"
 import TeacherPosts from "./pages/teacher_posts"
 import VerifyEmail from "./pages/verify_email";
+import UnverifiedStudent from "./pages/unverified_student";
 
 function RoutesWeb() {
   return (
@@ -43,6 +44,7 @@ function RoutesWeb() {
         <Route path="/see_schedules" Component={SeeSchedules} />
         <Route path="/teacher_posts" Component={TeacherPosts} />
         <Route path="/verify_email" Component={VerifyEmail} />
+        <Route path="/unverified-student" Component={UnverifiedStudent} />
       </Routes>
     </BrowserRouter>
   );

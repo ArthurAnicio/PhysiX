@@ -205,7 +205,6 @@ export default class UserController {
     
     async verifyEmail(req: Request, res: Response) {
         const { token } = req.query;
-        console.log(token);
         try {
             const decoded = jwt.verify(token as string, process.env.JWT_SECRET ||'secret_key') as { email: string };
             const user = await userDAO.findByEmail(decoded.email);
