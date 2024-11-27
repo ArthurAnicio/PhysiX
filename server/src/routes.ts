@@ -50,6 +50,8 @@ routes.put('/updateTeacherPassword', teacherController.updateTeacherPassword);
 routes.put('/updateSchedule', teacherController.updateSchedule);
 routes.put('/updateScheduleItem', teacherController.updateScheduleItem);
 routes.post('/teacher-avatar', teacherController.createAvatar);
+routes.post('/verify-teacher', teacherController.sendEmail)
+routes.put('/verify-teacher', teacherController.verifyEmail)
 
 // User routes
 routes.post('/user', userController.create);

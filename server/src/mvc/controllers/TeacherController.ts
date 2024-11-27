@@ -156,7 +156,7 @@ export default class TeacherController {
             }
 
             const token = jwt.sign({ email }, process.env.JWT_SECRET || 'secret_key', { expiresIn: '1h' });
-            const resetLink = `http://localhost:3000/verify_email?token=${token}`;
+            const resetLink = `http://localhost:3000/verify_teacher?token=${token}`;
 
             const transporter = nodemailer.createTransport({
                 service: 'gmail',

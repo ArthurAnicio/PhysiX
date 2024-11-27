@@ -132,6 +132,26 @@ const Invite: React.FC<InviteProps> = ({ invite, sync }) => {
     }
   }
 
+  async function accept() {
+    api.get(`/getTeacher?id=${invite.teacher_id}`).then((response) => {
+      const newSchedule = JSON.parse(response.data.schedule).filter(
+        (item: Schedule) => item.id != schedule.id
+      );
+      api.put(`updateSchedule?id=${invite.teacher_id}`, {
+        schedule: JSON.stringify(newSchedule),
+      });
+      api
+        .put(`/invite`, {
+          id: invite.id,
+          teacher_id: invite.teacher_id,
+          schedule: newSchedule,
+        })
+        .then((response) => {
+          sync();
+        });
+    });
+  }
+
   return (
     <div className={styles.invite}>
       <div className={styles.perfil}>
@@ -146,12 +166,18 @@ const Invite: React.FC<InviteProps> = ({ invite, sync }) => {
         </div>
       </div>
       <div className={styles.botoes}>
-        <div className={styles.aceitar}>
-          <i className="fa-solid fa-check"></i>
-        </div>
-        <div className={styles.recusar} onClick={refuse}>
-          <i className="fa-solid fa-times"></i>
-        </div>
+        {!invite.accepted ? (
+          <div className={styles.actions}>
+            <div className={styles.aceitar} onClick={accept}>
+              <i className="fa-solid fa-check"></i>
+            </div>
+            <div className={styles.recusar} onClick={refuse}>
+              <i className="fa-solid fa-times"></i>
+            </div>
+          </div>
+        ) : (
+          <h1>Hello World!</h1>
+        )}
       </div>
     </div>
   );

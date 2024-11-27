@@ -25,7 +25,7 @@ function LogInStudent() {
                 setStateId(response.data.id)
                 history('/student_area', {state:{userId: response.data.id}})
             } else {
-                history('/unverified-student', {state:{email: response.data.email}})
+                history('/unverified_student', {state:{email: response.data.email}})
             }
         }
         else{

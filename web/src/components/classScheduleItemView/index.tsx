@@ -17,7 +17,8 @@ const ClassScheduleItemView: React.FC<CSIVProps> = ({
   const [from, setFrom] = useState(classSchedule.from);
   const [to, setTo] = useState(classSchedule.to);
   const [week_day, setWeek_Day] = useState("" + classSchedule.week_day);
-  const [schedule, setSchedule] = useState({ week_day, from, to });
+  const [id, setId] = useState(classSchedule.id);
+  const [schedule, setSchedule] = useState({ week_day, from, to, id });
 
   useEffect(() => {
     formatWeekDay();
@@ -46,7 +47,7 @@ const ClassScheduleItemView: React.FC<CSIVProps> = ({
   }
 
   function createSchedule() {
-    setSchedule({ week_day, from, to });
+    setSchedule({ week_day, from, to, id });
   }
 
   async function createInvite() {
