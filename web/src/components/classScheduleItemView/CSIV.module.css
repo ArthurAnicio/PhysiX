@@ -42,7 +42,7 @@ span{
     align-items: center;
 }
 
-label {
+#label {
     margin-bottom: 10px;
     text-align: center;
     width: 50px;

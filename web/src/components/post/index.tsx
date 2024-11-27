@@ -247,7 +247,9 @@ const Post: React.FC<PostProps> = ({ post, id, isMine, sync }) => {
           }
         >
           <img src={avatar} className={styles.postInfoIMG} />
-          <div className={styles.postInfoPerfil}>{teacher.name}</div>
+          <div className={styles.postInfoPerfil}>
+            {teacher.name.split(" ")[0]}
+          </div>
         </div>
         <div className={styles.date}>
           Postado em {formatDate(post.created_at.toString())}
