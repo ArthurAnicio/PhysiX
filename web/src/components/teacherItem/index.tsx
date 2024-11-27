@@ -11,12 +11,27 @@ type ReloadFunction = () => void;
 export interface Teacher {
   name: string;
   email: string;
-  description: string;
   id: number;
-  cost: number;
   number: string;
   avatar: string;
   favorite: boolean;
+  schedule: Schedule[]
+}
+export interface unmappedTeacher {
+  id: number;
+  name: string;
+  email: string;
+  number: string;
+  avatar: string;
+  favorite: boolean;
+  schedule: string
+}
+
+interface Schedule {
+  id: number;
+  week_day: string;
+  from: string;
+  to: string;
 }
 interface TeacherItemProps {
   teacher: Teacher;
