@@ -62,7 +62,12 @@ routes.get('/avatar', userController.getImage);
 routes.get('/favorite-user', userController.getUserFavorites);
 
 // Class routes
-
+routes.get('/classes', classController.index);
+routes.post('/class', classController.create);
+routes.get('/class', classController.getById);
+routes.get('/classesUser', classController.getByUser);
+routes.get('/classesTeacher',classController.getByTeacher);
+routes.delete('/class', classController.delete);
 
 // Invite routes
 routes.post('/invite', invitesController.create);
