@@ -6,6 +6,7 @@ import InvitesController from './mvc/controllers/InvitesController';
 import TestController from './mvc/controllers/TestController';
 import PostsController from './mvc/controllers/PostController';
 import ReplyController from './mvc/controllers/ReplyController';
+import MessageController from './mvc/controllers/MessageController';
 
 const routes = express.Router();
 const userController = new UserController();
@@ -15,6 +16,7 @@ const invitesController = new InvitesController();
 const testController = new TestController();
 const postsController = new PostsController();
 const replyController = new ReplyController();
+const messageController = new MessageController();
 
 //Reply Routes
 
@@ -62,12 +64,23 @@ routes.get('/avatar', userController.getImage);
 routes.get('/favorite-user', userController.getUserFavorites);
 
 // Class routes
-
+routes.get('/classes', classController.index);
+routes.post('/class', classController.create);
+routes.get('/class', classController.getById);
+routes.get('/classesUser', classController.getByUser);
+routes.get('/classesTeacher',classController.getByTeacher);
+routes.delete('/class', classController.delete);
 
 // Invite routes
 routes.post('/invite', invitesController.create);
 routes.put('/invite', invitesController.accept); 
 routes.get('/invite', invitesController.index);
 routes.delete('/invite', invitesController.delete);
+
+// Message routes
+routes.post('/message', messageController.create);
+routes.get('/messages', messageController.getAllMessagesByUserId);
+routes.put('/message', messageController.updateType);
+routes.delete('/message', messageController.delete);
 
 export default routes;

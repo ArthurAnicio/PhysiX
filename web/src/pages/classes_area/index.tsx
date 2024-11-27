@@ -104,14 +104,18 @@ function ClassesArea() {
 
       const conflictClasses = classSchedule.filter(
         (classSchedule) =>
-          (classSchedule.from < newClassSchedule.from &&
-            classSchedule.to > newClassSchedule.from) ||
-          (classSchedule.from < newClassSchedule.to &&
-            classSchedule.to > newClassSchedule.to) ||
-          (newClassSchedule.from < classSchedule.to &&
-            newClassSchedule.to > classSchedule.to) ||
-          (newClassSchedule.from < classSchedule.from &&
-            newClassSchedule.to > classSchedule.from)
+          (classSchedule.from <= newClassSchedule.from &&
+            classSchedule.week_day == newClassSchedule.week_day &&
+            classSchedule.to >= newClassSchedule.from) ||
+          (classSchedule.from <= newClassSchedule.to &&
+            classSchedule.week_day == newClassSchedule.week_day &&
+            classSchedule.to >= newClassSchedule.to) ||
+          (newClassSchedule.from <= classSchedule.to &&
+            classSchedule.week_day == newClassSchedule.week_day &&
+            newClassSchedule.to >= classSchedule.to) ||
+          (newClassSchedule.from <= classSchedule.from &&
+            classSchedule.week_day == newClassSchedule.week_day &&
+            newClassSchedule.to >= classSchedule.from)
       );
       if (conflictClasses.length > 0) {
         alert("Você não pode ter duas aulas no mesmo horário!");
