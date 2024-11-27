@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styles from "./Post.module.css";
 import Comment from "../comment";
 import api from "../../services/api";
-import { json } from "stream/consumers";
+import { useNavigate } from "react-router-dom";
 
 interface Post {
   id: number;
@@ -41,6 +41,7 @@ interface LikeData {
 }
 
 const Post: React.FC<PostProps> = ({ post, id, isMine, sync }) => {
+  const navigate = useNavigate();
   const [showComments, setShowComments] = useState(false);
   const [comments, setComments] = useState<CommentData[]>([]);
   const [newComment, setNewComment] = useState("");
@@ -237,7 +238,14 @@ const Post: React.FC<PostProps> = ({ post, id, isMine, sync }) => {
   return (
     <div className={styles.post}>
       <section className={styles.postInfo}>
-        <div className={styles.teachersInfo}>
+        <div
+          className={styles.teachersInfo}
+          onClick={() =>
+            navigate("/teacher_posts", {
+              state: { teacherId: post.teacher_id, id },
+            })
+          }
+        >
           <img src={avatar} className={styles.postInfoIMG} />
           <div className={styles.postInfoPerfil}>{teacher.name}</div>
         </div>

@@ -1,5 +1,8 @@
 import db from '../../database/connection';
 import Invite from '../models/Invites';
+import TeacherDAO from './TeacherDao';
+
+const teacherDAO = new TeacherDAO();
 
 export default class InviteDAO {
     async create(invite: Invite): Promise<void> {
@@ -33,10 +36,11 @@ export default class InviteDAO {
         }
     }
 
-    async acceptInvite(invite_id: number): Promise<void> {
+    async acceptInvite(id: number, teacher_id:number, schedule:string): Promise<void> {
         const trx = await db.transaction();
         try {
-            await trx('invites').where({ id: invite_id }).update({ accepted: true });
+            await teacherDAO.updateSchedule(teacher_id, schedule)
+            await trx('invites').where({ id }).update({ accepted: true });
             await trx.commit();
         } catch (err) {
             await trx.rollback();

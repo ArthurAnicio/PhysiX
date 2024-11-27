@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from './CSItem.module.css'
-import Submit from "../submit";
 import api from "../../services/api";
-
-import Edit from '../../assets/images/icons/edit';
-import { useLocation } from "react-router-dom";
 
 export interface ClassSchedule {
     week_day: number;
@@ -26,12 +22,10 @@ const ClassScheduleItem: React.FC<ClassScheduleItemProps> = ({ classSchedule,onD
     const [from, setFrom] = useState(classSchedule.from);
     const [to, setTo] = useState(classSchedule.to);
     const [week_day, setWeek_Day] = useState(classSchedule.week_day);
-    const location = useLocation();
     const [fullSchedule, setFullSchedule] = useState<ClassSchedule[]>([]);
 
     useEffect(()=>{
-        
-    loadClassSchedules()
+        loadClassSchedules()
     },[])
 
     useEffect(() => {

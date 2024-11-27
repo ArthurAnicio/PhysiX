@@ -25,10 +25,10 @@ export default class InvitesController {
         const { user_id, teacher_id, schedule } = req.body;
 
         if (!user_id || !teacher_id) {
-            return res.status(400).json('Todos os campos são obrigatórios: user_id, teacher_id');
+            return res.status(400).json('Todos os campos são obrigatórios: user_id');
         }
 
-        const invite = new Invite(user_id, teacher_id, false, stringify(schedule));
+        const invite = new Invite(user_id, teacher_id, false, schedule);
 
         try {
             await inviteDAO.create(invite);
@@ -39,14 +39,14 @@ export default class InvitesController {
     }
 
     async accept(req: Request, res: Response) {
-        const { invite_id } = req.body;
+        const { id, teacher_id, schedule } = req.body;
 
-        if (!invite_id) {
+        if (!id) {
             return res.status(400).json('Informe o id do convite');
         }
 
         try {
-            await inviteDAO.acceptInvite(Number(invite_id));
+            await inviteDAO.acceptInvite(Number(id), Number(teacher_id), schedule);
             return res.status(200).json('Convite aceito com sucesso');
         } catch (err) {
             return res.status(400).json({ error: `Erro ao aceitar convite: ${err}` });

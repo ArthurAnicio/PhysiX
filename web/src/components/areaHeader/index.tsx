@@ -12,7 +12,6 @@ interface HeaderParam extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 const AreaHeader: React.FC<HeaderParam> = ({ state, title, asideOpen }) => {
-  console.log(state);
 
   const navigate = useNavigate();
 

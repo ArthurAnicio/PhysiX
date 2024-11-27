@@ -19,6 +19,7 @@ function TeacherArea() {
   const navigate = useNavigate();
   const location = useLocation();
   const { teacherId } = location.state || { teacherId: 0 };
+  
   const asideRef = useRef<HTMLDivElement>(null);
 
   const [teacherName, setTeacherName] = useState("");
@@ -160,6 +161,7 @@ function TeacherArea() {
           ></i>
           <i 
             className="fa-solid fa-envelope"
+            id={styles.iconAside}
             onClick={() => navigate("/invites", { state: { teacherId } })}
           ></i>
           <i

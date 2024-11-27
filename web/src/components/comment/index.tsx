@@ -35,10 +35,13 @@ const Comment: React.FC<CommentProps> = ({ comment, id }) => {
     useEffect(() => {
         getOwner();
         getLikes();
-        if(teacher.avatar || user.avatar){
-            getAvatar(avatar);
+        if(teacher.avatar){
+            getAvatar(teacher.avatar);
         }
-    }, [user, teacher, avatar]); 
+        if(user.avatar){
+            getAvatar(user.avatar);
+        }
+    }, [teacher.avatar, user.avatar]); 
 
     async function getOwner(){
         if(id.teacher_id === undefined) {
@@ -103,10 +106,11 @@ const Comment: React.FC<CommentProps> = ({ comment, id }) => {
         try {
             const response = await api.get('/avatar', { params: { route: avatarPath } });
             if (response.status === 200) {
+                console.log(response.request.responseURL);
                 setAvatar(response.request.responseURL);
             } else {
                 alert('Falha no avatar!');
-                console.log(response);
+                console.log(response.data);
             }
         } catch (err) {
             alert('Falha no avatar!');

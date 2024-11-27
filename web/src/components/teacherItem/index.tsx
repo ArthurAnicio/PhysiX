@@ -67,9 +67,6 @@ const TeacherItem: React.FC<TeacherItemProps> = ({ teacher, reload }) => {
           Horários
         </button>
       </div>
-      <div id={styles.desc}>
-        {teacher.description || "Este professor não tem uma descrição"}
-      </div>
     </div>
   );
 };

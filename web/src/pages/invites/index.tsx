@@ -6,18 +6,27 @@ import React, { useState, useEffect, FormEvent } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import api from "../../services/api";
 
+interface Schedule{
+    week_day: string;
+    from: string;
+    to: string;
+    id: number;
+}
+
 interface InviteItem{
     id: number;
     user_id: number;
     teacher_id: number;
-    schedule: string;
+    accepted: boolean;
+    schedule: Schedule;
 }
 
 function Invites() {
 
     const [teacher, setTeacher] = useState({ name: '', email: '', id: 0, avatar: '',number:'', password: '', schedule: null });
     const [invites, setInvites] = useState<InviteItem[]>([]);
-    const [invite, setInvite] = useState<InviteItem>({id:1,user_id:1,teacher_id:1,schedule:''});
+    const [invitesFiltred, setInvitesFiltred] = useState<InviteItem[]>([])
+    const [invite, setInvite] = useState<InviteItem>({id:1,user_id:1,teacher_id:1,accepted:false,schedule:{"week_day":"1","from":"teste","to":"teste","id":0}});
     const location = useLocation();
     const navigate = useNavigate();
     const { teacherId } = location.state || { teacherId: 0 };
@@ -26,8 +35,11 @@ function Invites() {
 
     useEffect(() => {
         getTeacher();
-        
-    }, []);
+    },[teacherId]);
+
+    useEffect(()=>{
+        fetchInvites();
+    },[invite]);
 
     function teste(){}
 
@@ -50,11 +62,30 @@ function Invites() {
         }
     }
 
+    async function fetchInvites(){
+        try {
+            const response = await api.get(`/invite?teacher_id=${teacherId}`);
+            if (response.status === 200) {
+                console.log(response.data)
+                setInvites(response.data);
+                setInvitesFiltred(invites.filter((invite: InviteItem) => invite.accepted === false));
+            } else {
+                alert('Falha no login! Por favor tente novamente.');
+                navigate('/log_in_teacher');
+            }
+        } catch (error) {
+            alert('Falha no login!');
+            navigate('/log_in_teacher');
+            console.log(error);
+        }
+    }
+
     return (
         <div>
             <Header state={stateId} title='Pedidos de aula'/>
             <main className={styles.content}>
                 <Invite invite={invite} sync={teste} />
+                {invitesFiltred.map((invite: InviteItem) => <Invite key={invite.id} invite={invite} sync={fetchInvites} />)}
             </main>
             <Footer/>
         </div>

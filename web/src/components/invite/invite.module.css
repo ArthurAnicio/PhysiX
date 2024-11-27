@@ -1,6 +1,6 @@
 .invite{
     width: 800px;
-    padding: 1rem;
+    padding: 0.5rem 1rem;
     margin: 20px auto;
     background: var(--branco);
     border-radius: 1rem;
@@ -17,10 +17,9 @@
 }
 
 .foto{
-    width: 50px;
-    height: 50px;
+    width: 3rem;
+    height: 3rem;
     border: solid 5px var(--roxo1);
-    background: var(--preto);
     border-radius: 50%;
 }
 
@@ -44,10 +43,18 @@
 }
 
 .horario{
+    margin-top: 0.5rem;
     padding: 0.3rem;
     width: 80%;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
+    justify-content: space-around;
+}
+
+.horario label {
+    padding: 0.3rem;
+    background: var(--cinza3);
+    text-align: center;
+    border-radius: 1rem;
 }
 
 .botoes{
@@ -55,7 +62,7 @@
 }
 
 .aceitar{
-    background-color: var(--verde);
+    background-color: var(--verde3);
     color: var(--branco);
     font-size: 1.5rem;
     padding: 0.5rem 1rem;
@@ -65,12 +72,12 @@
 }
 
 .aceitar:hover{
-    background-color: var(--verde3);
+    background-color: var(--verde2);
     scale: 0.95;
 }
 
 .recusar{
-    background-color: var(--vermelho);
+    background-color: var(--vermelho2);
     color: var(--branco);
     font-size: 1.5rem;
     padding: 0.5rem 1rem;
@@ -81,6 +88,6 @@
 }
 
 .recusar:hover{
-    background-color: var(--vermelho2);
+    background-color: var(--vermelho);
     scale: 0.95;
 }

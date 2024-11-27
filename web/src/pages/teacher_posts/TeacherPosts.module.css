@@ -1,0 +1,5 @@
+.areaContainer{
+    background: var(--cinza1);
+    min-height: 80vh;
+    padding: 2rem;
+}

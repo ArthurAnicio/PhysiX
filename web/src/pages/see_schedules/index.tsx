@@ -31,14 +31,16 @@ const SeeSchedules = () => {
   return (
     <div>
       <Header state={userId} title="Horários do Professor" />
-      {classSchedule.map((schedule, index) => (
-        <ClassScheduleItem
-          key={schedule.id}
-          classSchedule={schedule}
-          onDelete={handleDelete}
-          teacherId={teacherId}
-        />
-      ))}
+      <main>
+        {classSchedule.map((schedule, index) => (
+          <ClassScheduleItem
+            key={schedule.id}
+            classSchedule={schedule}
+            onDelete={handleDelete}
+            teacherId={teacherId}
+          />
+        ))}
+      </main>
       <Footer/>
     </div>
   );
