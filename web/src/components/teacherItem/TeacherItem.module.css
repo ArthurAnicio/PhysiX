@@ -69,7 +69,4 @@
     #teacherCard {
         width: 80vw;
     }
-    #teacherCard>*:last-child{
-        display: none;
-    }
 }

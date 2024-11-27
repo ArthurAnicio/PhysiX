@@ -5,7 +5,7 @@ import { Teacher } from "../../components/teacherItem";
 import ClassScheduleItem, {
   ClassSchedule,
 } from "../../components/classScheduleItem";
-
+import styles from "./SeeSchedules.module.css";
 import Header from "../../components/header";
 import Footer from "../../components/footer";
 
@@ -31,17 +31,19 @@ const SeeSchedules = () => {
   return (
     <div>
       <Header state={userId} title="Horários do Professor" />
-      <main className=''>
-        {classSchedule.map((schedule, index) => (
-          <ClassScheduleItem
-            key={schedule.id}
-            classSchedule={schedule}
-            onDelete={handleDelete}
-            teacherId={teacherId}
-          />
-        ))}
-      </main>
-      <Footer/>
+      <div id={styles.classesContainer}>
+        <div id={styles.schedulesDiv}>
+          {classSchedule.map((schedule, index) => (
+            <ClassScheduleItem
+              key={schedule.id}
+              classSchedule={schedule}
+              onDelete={handleDelete}
+              teacherId={teacherId}
+            />
+          ))}
+        </div>
+      </div>
+      <Footer />
     </div>
   );
 };
