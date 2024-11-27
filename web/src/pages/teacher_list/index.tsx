@@ -6,8 +6,9 @@ import Footer from '../../components/footer';
 import Header from '../../components/header';
 import Select from '../../components/select';
 import Input from '../../components/input';
-import TeacherItem, { Teacher } from '../../components/teacherItem';
+import TeacherItem, { Teacher,unmappedTeacher } from '../../components/teacherItem';
 import api from '../../services/api';
+import Submit from '../../components/submit';
 
 function TeacherList() {
     const location = useLocation();
@@ -17,44 +18,65 @@ function TeacherList() {
     const [favorites, setFavorites] = useState([0]);
     const user_id = location.state || 0;
     const [stateId, setStateId] = useState(user_id.userId)
-    const [allTeachers, setAllTeachers] = useState<Teacher[]>([]);
+    const [filteredTeachers, setFilteredTeachers] = useState<Teacher[]>([]);
 
     useEffect(() => {
-        getFavorites(); 
         listTeachers()
     }, []);
 
-    async function getFavorites(){
-        try {
-            
-            const response = await api.get('/favorite-teacher',{
-                params: {
-                    user_id:user_id.userId
-                }
-            });
-            setFavorites(response.data);
-            
-        } catch (err) {
-            console.log(err);
+    useEffect(() => {
+        setFilter()
+    }, [week_day, time])
+
+    useEffect(() => {
+        setFilteredTeachers(teachers)
+    }, [teachers])
+
+    function setFilter() {
+        if (teachers) {
+            const filtered : Teacher[] = teachers.filter(teacher => teacher.schedule.some(schedule => {
+                const isSameDay = week_day == -1 ?  true : parseInt(schedule.week_day) == week_day
+
+            const timeToMinutes = (time:string) => {
+                const [hours, minutes] = time.split(':');
+                return parseInt(hours) * 60 + parseInt(minutes);
+            }
+
+            const timeFrom = timeToMinutes(schedule.from)
+            const timeTo = timeToMinutes(schedule.to)
+            const selectedtime = timeToMinutes(time)
+
+            return isSameDay && (timeFrom <= selectedtime && timeTo >= selectedtime)
+
+            }))
+            setFilteredTeachers(filtered)
         }
     }
-    
 
     async function listTeachers() {
-            getFavorites()
+
             try {
                 const response = await api.get('/teacher')
-                const teachersData = response.data; 
-                const updatedTeachers = await Promise.all(
-                    teachersData.map(async (teacher: Teacher) => {
+                const teachersData = response.data;
+                const updatedTeachers : unmappedTeacher[] = await Promise.all(
+                    teachersData.map(async (teacher: unmappedTeacher) => {
                         teacher.avatar = await getAvatar(teacher.avatar);
                         return teacher;
                     })
                 );
- 
-                setAllTeachers(updatedTeachers);
-                //console.log(teachersData)
-                setTeachers(updatedTeachers)
+                console.log(updatedTeachers)
+                const unfilteredTeachers = updatedTeachers.map(teacher => {
+                    return {
+                        id:teacher.id,
+                        name: teacher.name,
+                        email: teacher.email,
+                        avatar: teacher.avatar,
+                        schedule: teacher.schedule ? JSON.parse(teacher.schedule) : [],
+                        number: teacher.number,
+                        favorite: teacher.favorite
+                    };
+                })
+                setTeachers(unfilteredTeachers.filter(teacher => teacher.schedule.length > 0));
             } catch (err) {
                 alert('Falha na busca!');
                 console.log(err);
@@ -89,7 +111,7 @@ function TeacherList() {
                     onChange={(e) => { setWeekDay(parseInt(e.target.value)); 
                     }}
                     opitions={[
-                        { value: 'none', label: 'Sem filtro'},
+                        { value: '-1', label: 'Sem filtro'},
                         { value: '0', label: 'Domingo' },
                         { value: '1', label: 'Segunda-Feira' },
                         { value: '2', label: 'Terça-Feira' },
@@ -106,10 +128,11 @@ function TeacherList() {
                     value={time}
                     onChange={e => { setTime(e.target.value) }}
                 />
+                {(time != '' || week_day >= 0) && (<Submit label='Limpar Seleção' onClick={() => {setTime('');setWeekDay(-1);listTeachers()}}/>)}
             </form>
             <div id={styles.teacherListContainer}>
-                {teachers.map((teacher: Teacher) => (
-                    <TeacherItem key={teacher.id} teacher={teacher} reload={getFavorites}/>
+                {filteredTeachers.map((teacher: Teacher) => (
+                    <TeacherItem key={teacher.id} teacher={teacher} reload={listTeachers}/>
                 ))}
             </div>
             <Footer />
