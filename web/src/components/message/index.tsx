@@ -29,6 +29,17 @@ const Message: React.FC<MessageProps> = ({message, sync}) => {
         password: "",
         schedule: null,
     });
+
+    useEffect(() => {
+        getTeacher();
+    }, []);
+
+    useEffect(() => {
+        if (teacher.avatar) {
+          getAvatar(teacher.avatar);
+        }
+    }, [teacher.avatar]);
+
     async function getTeacher() {
         try {
           const response = await api.get("/getTeacher", {
@@ -62,12 +73,10 @@ const Message: React.FC<MessageProps> = ({message, sync}) => {
     
     return(
         <div className={styles.message}>
-            <p>{message.message}</p>
-            <p>Teacher ID: {message.teacher_id}</p>
-            <p>User ID: {message.user_id}</p>
-            <p>Type: {message.type}</p>
-            <p>Price: {message.price}</p>
-            <button onClick={()=>sync()}>Sync</button>
+            <div className={styles.teacher}>
+                <img src={avatar} alt={teacher.name} />
+                <span>{teacher.name}</span>
+            </div>
         </div>
     )
 }
