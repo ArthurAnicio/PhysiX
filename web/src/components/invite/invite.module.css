@@ -1,3 +1,86 @@
 .invite{
+    width: 800px;
+    padding: 1rem;
+    margin: 20px auto;
     background: var(--branco);
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.perfil{
+    display: flex;
+    align-items: center;
+    color: var(--preto);
+    font-size: 1.4rem;
+}
+
+.foto{
+    width: 50px;
+    height: 50px;
+    border: solid 5px var(--roxo1);
+    background: var(--preto);
+    border-radius: 50%;
+}
+
+.agenda{
+    margin: 1rem;
+    padding: 0.5rem;
+    width: 35%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: var(--cinza1);
+    border-radius: 1rem;
+}
+
+.diaSemana{
+    width: 80%;
+    padding: 0.3rem;
+    background: var(--cinza3);
+    text-align: center;
+    border-radius: 1rem;
+}
+
+.horario{
+    padding: 0.3rem;
+    width: 80%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.botoes{
+    display: flex;  
+}
+
+.aceitar{
+    background-color: var(--verde);
+    color: var(--branco);
+    font-size: 1.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 1rem;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.aceitar:hover{
+    background-color: var(--verde3);
+    scale: 0.95;
+}
+
+.recusar{
+    background-color: var(--vermelho);
+    color: var(--branco);
+    font-size: 1.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 1rem;
+    margin-left: 1rem;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.recusar:hover{
+    background-color: var(--vermelho2);
+    scale: 0.95;
 }
