@@ -5,14 +5,14 @@ import { useLocation } from 'react-router-dom'
 import api from '../../services/api'
 import { Link } from 'react-router-dom'
 
-function UnverifiedStudent() {
+function UnverifiedTeacher() {
     const [canReqAgain, setCanReqAgain] = useState(true)
     const location = useLocation()
     const {email} = location.state || ''
     async function handleSendEmail() {
         if (canReqAgain) {
             try {
-                await api.post('/verify-email', {email}).then(() => {
+                await api.post('/verify-teacher', {email}).then(() => {
                   alert('Email re-enviado!');
                 })} catch (err) {
                   alert('Erro ao enviar email!');
@@ -30,9 +30,9 @@ function UnverifiedStudent() {
             <h1>Você ainda não confirmou seu e-mail.</h1>
             <p>Por favor, verifique seu e-mail para confirmar sua conta.</p>
             <button onClick={handleSendEmail}>Clique aqui para enviar novamente o e-mail de verificação</button>
-            <Link to="/log_in_student">Voltar à tela de login</Link>
+            <Link to="/log_in_teacher">Voltar à tela de login</Link>
         </div>
     )
 }
 
-export default UnverifiedStudent
+export default UnverifiedTeacher
