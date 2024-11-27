@@ -39,8 +39,9 @@ export default class InviteDAO {
     async acceptInvite(id: number, teacher_id:number, schedule:string): Promise<void> {
         const trx = await db.transaction();
         try {
-            await teacherDAO.updateSchedule(teacher_id, schedule)
-            await trx('invites').where({ id }).update({ accepted: true });
+            console.log(id, teacher_id, schedule);
+            //await teacherDAO.updateSchedule(teacher_id, schedule)
+            await trx('invites').where('id', id).update({ accepted: true });
             await trx.commit();
         } catch (err) {
             await trx.rollback();
