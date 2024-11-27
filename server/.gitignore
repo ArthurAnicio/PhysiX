@@ -1,2 +1,6 @@
 /node_modules
+<<<<<<< HEAD
 /src/database/database.sqlite   
+=======
+/src/database/database.sqlite
+>>>>>>> 7669fe3befa5e61eeee8cf66f29c189d48fc4dff
