@@ -31,6 +31,19 @@ export default class MessageDAO {
         }
     }
 
+    async updateType(id: number,type: string): Promise<Message> {
+        const trx = await db.transaction();
+
+        try {
+            await trx("messages").where({ id }).update({ type });
+            const updatedMessage = await trx("messages").where({ id }).first();
+            return updatedMessage as Message;
+        }catch(err){
+            await trx.rollback();
+            throw new Error(`Erro ao atualizar o tipo da mensagem pelo id: ${err}`);
+        }
+    }
+
     async delete(id: number){
         const trx = await db.transaction();
 
