@@ -68,7 +68,7 @@ function StudentArea() {
   }
 
   return (
-    <div>
+    <div id={styles.allContainer}>
       <AreaHeader title="Área do Aluno" state={stateId} asideOpen={asideOpen} />
       <main id={styles.areaContainer}>
         <aside
@@ -104,7 +104,6 @@ function StudentArea() {
           ))}
         </nav>
       </main>
-      <Footer />
     </div>
   );
 }
