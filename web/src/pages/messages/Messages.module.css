@@ -1,0 +1,5 @@
+.content{
+    min-height: 80vh;
+    background: var(--cinza1);
+    padding: 2rem;
+}

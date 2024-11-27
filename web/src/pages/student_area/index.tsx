@@ -2,9 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import styles from "./StudentArea.module.css";
 import AreaHeader from "../../components/areaHeader";
-import Footer from "../../components/footer";
 import api from "../../services/api";
-import Avatar from "../../components/avatar";
 import Post from "../../components/post";
 
 // Definição da interface para os posts
@@ -85,6 +83,11 @@ function StudentArea() {
             className="fa-solid fa-chalkboard-user"
             id={styles.iconAside}
             onClick={() => navigate("/teacher_list", { state: { userId } })}
+          ></i>
+          <i
+            className="fa-solid fa-bell"
+            id={styles.iconAside}
+            onClick={() => navigate("/messages", { state: { userId } })}
           ></i>
           <i
             className="fa-solid fa-right-from-bracket"
