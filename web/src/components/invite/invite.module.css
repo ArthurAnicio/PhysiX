@@ -44,14 +44,13 @@
 
 .horario{
     margin-top: 0.5rem;
-    padding: 0.3rem;
     width: 80%;
     display: flex;
     justify-content: space-around;
 }
 
 .horario label {
-    padding: 0.3rem;
+    padding: 10px;
     background: var(--cinza3);
     text-align: center;
     border-radius: 1rem;
@@ -90,4 +89,20 @@
 .recusar:hover{
     background-color: var(--vermelho);
     scale: 0.95;
+}
+
+@media (max-width: 700px) {
+    .invite {
+        flex-flow: column;
+        width: 70vw;
+    }
+    .agenda {
+        width: 80%;
+    }
+    .perfil {
+        flex-flow: column;
+    }
+    .horario {
+        gap: 10px;
+    }
 }

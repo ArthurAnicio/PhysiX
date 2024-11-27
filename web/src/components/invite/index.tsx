@@ -136,13 +136,13 @@ const Invite: React.FC<InviteProps> = ({ invite, sync }) => {
     <div className={styles.invite}>
       <div className={styles.perfil}>
         <img className={styles.foto} src={avatar} alt="" />
-        <div className={styles.nome}>{user.name}</div>
+        <div className={styles.nome}>{user.name.split(" ")[0]}</div>
       </div>
       <div className={styles.agenda}>
         <label className={styles.diaSemana}>{schedule.week_day}</label>
         <div className={styles.horario}>
-          <label>De: {schedule.from}</label>
-          <label>Até: {schedule.to}</label>
+          <label className={styles.time}>De: {schedule.from}</label>
+          <label className={styles.time}>Até: {schedule.to}</label>
         </div>
       </div>
       <div className={styles.botoes}>
