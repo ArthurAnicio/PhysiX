@@ -52,8 +52,14 @@ function SignUpTeacher() {
             email,
             number: formattedNumber, // Envia o número formatado
             password,
-        }).then(() => {
-            alert('Cadastro realizado com sucesso!');
+        }).then(async () => {
+            try {
+            await api.post('/verify-teacher', {email}).then(() => {
+                alert('Usuário cadastrado, por favor verifique o seu email.');
+            })} catch (err) {
+                alert('Erro ao enviar email!');
+                console.log(err);
+            }
             history('/log_in_teacher');
         }).catch((err) => {
             alert('Erro no cadastro!');

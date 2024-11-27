@@ -1,19 +1,19 @@
-import styles from './VerifyEmail.module.css'
+import styles from './VerifyTeacher.module.css'
 import Header from '../../components/header'
 import { useLocation, useNavigate } from 'react-router-dom';
 import api from '../../services/api';
 
-function VerifyEmail() {
+function VerifyTeacher() {
     const location = useLocation()
     const navigate = useNavigate();
     const query = new URLSearchParams(location.search);
     const token = query.get("token");
     async function verifyEmail() {
         try {
-            await api.put(`/verify-email?token=${token}`).then(response => {
+            await api.put(`/verify-teacher?token=${token}`).then(response => {
                 if(response.status === 200) {
                     alert('Email verificado com sucesso!')
-                    navigate('/log_in_student')
+                    navigate('/log_in_teacher')
                 } else {
                     alert('Token inválido!')
                 }
@@ -36,4 +36,4 @@ function VerifyEmail() {
 }
 
 
-export default VerifyEmail;
+export default VerifyTeacher;

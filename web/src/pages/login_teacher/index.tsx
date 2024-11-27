@@ -20,9 +20,13 @@ function LogInTeacher() {
         try {
             const response = await api.get('/teacher-login', { params: { username, password } });
             if (response.status === 200) {
-                localStorage.setItem("loginType", "2");
-                setStateId(response.data.id)
-                history('/teacher_area', { state: {teacherId: response.data.id}});
+                if (response.data.verified == 1) {
+                    localStorage.setItem("loginType", "2");
+                    setStateId(response.data.id)
+                    history('/teacher_area', { state: {teacherId: response.data.id}});
+                } else {
+                    history('/unverified_teacher', {state: {email: response.data.email}});
+                }
             } else {
                 alert('Professor não encontrado');
             }
