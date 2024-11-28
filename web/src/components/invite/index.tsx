@@ -127,14 +127,14 @@ const Invite: React.FC<InviteProps> = ({ invite, sync }) => {
     const message = await api.post(`/message`, {
       user_id: invite.user_id,
       teacher_id: invite.teacher_id,
-      message: "Convite recusado",
+      message: "Solicitação recusado",
       type: "recusado",
       price: "",
     });
     if (response.status === 200) {
       sync();
     } else {
-      alert("Falha ao recusar convite.");
+      alert("Falha ao recusar solicitação.");
       console.log(response);
     }
   }
@@ -158,7 +158,7 @@ const Invite: React.FC<InviteProps> = ({ invite, sync }) => {
             .post("/message", {
               user_id: invite.user_id,
               teacher_id: invite.teacher_id,
-              message: "Convite aceito",
+              message: "Solicitação aceito",
               type: "aceito",
               price: "R$ 50,00",
             })

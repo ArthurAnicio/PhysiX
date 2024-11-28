@@ -15,7 +15,7 @@ export interface Teacher {
   number: string;
   avatar: string;
   favorite: boolean;
-  schedule: Schedule[]
+  schedule: Schedule[];
 }
 export interface unmappedTeacher {
   id: number;
@@ -24,7 +24,7 @@ export interface unmappedTeacher {
   number: string;
   avatar: string;
   favorite: boolean;
-  schedule: string
+  schedule: string;
 }
 
 interface Schedule {
@@ -56,9 +56,9 @@ const TeacherItem: React.FC<TeacherItemProps> = ({ teacher, reload }) => {
   //             user_id: userId,
   //             teacher_id: teacher.id
   //         });
-  //         alert('Convite enviado!');
+  //         alert('Solicitação enviado!');
   //     } catch (err) {
-  //         alert(`Erro ao mandar o convite: ${err}`);
+  //         alert(`Erro ao mandar o solicitação: ${err}`);
   //     }
   // }
 
