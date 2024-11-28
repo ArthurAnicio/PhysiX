@@ -29,6 +29,8 @@ const Message: React.FC<MessageProps> = ({message, sync}) => {
         password: "",
         schedule: null,
     });
+    const [isRefused, setIsRefused] = useState(false);
+    const [isPaying, setIsPaying] = useState(true);
 
     useEffect(() => {
         getTeacher();
@@ -69,13 +71,60 @@ const Message: React.FC<MessageProps> = ({message, sync}) => {
           alert("Falha no avatar!");
           console.log(err);
         }
+    }
+
+    async function apagar(){
+      try {
+        const response = await api.delete(`/message?id=${message.id}`);
+        if (response.status === 200) {
+          sync();
+        } else {
+          alert("Falha ao apagar!");
+        }
+      } catch (error) {
+        console.log(error);
       }
+    }
+
+    async function pagar(){
+      setIsPaying(false);
+      try {
+        const response = await api.post("/class", { teacher_id: message.teacher_id, user_id: message.user_id });
+        if (response.status === 200) {
+          alert("Pagamento realizado com sucesso!");
+        } else {
+          alert("Falha ao pagar!");
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
     
     return(
         <div className={styles.message}>
             <div className={styles.teacher}>
                 <img src={avatar} alt={teacher.name} />
-                <span>{teacher.name}</span>
+                <label>{teacher.name}</label>
+            </div>
+            {isRefused ?
+              <div className={styles.recusado}>
+                  <label>Convite recusado</label>
+              </div>
+            : 
+              <div className={styles.aceito}>
+                <label>Valor da aula é {message.price}</label>
+                <button onClick={() => setIsPaying(!isPaying)} className={styles.pagar}>Pagar</button>
+              </div>
+            }
+            {isPaying &&
+              <div className={styles.pagando}>
+                  <label>Número:</label>
+                  <input type="text" />
+                  <button onClick={pagar}>Pagar</button>
+              </div>
+            }
+            <div className={styles.apagar} onClick={apagar}>
+              <label>Apagar</label>
             </div>
         </div>
     )

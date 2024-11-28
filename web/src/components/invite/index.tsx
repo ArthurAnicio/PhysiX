@@ -1,4 +1,4 @@
-import styles from "./Invite.module.css";
+import styles from "./invite.module.css";
 import api from "../../services/api";
 import { InputHTMLAttributes, useState, useEffect } from "react";
 

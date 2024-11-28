@@ -7,10 +7,7 @@ export default class ClassDao {
         try {
             await trx("classes").insert({
                 user_id: classObj.user_id,
-                teacher_id: classObj.teacher_id,
-                week_day: classObj.week_day,
-                from: classObj.from,
-                to: classObj.to,
+                teacher_id: classObj.teacher_id
             });
             await trx.commit();
         } catch (error) {

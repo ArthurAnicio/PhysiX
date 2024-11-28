@@ -15,9 +15,6 @@ export async function up(knex: Knex){
             .inTable("teachers")
             .onUpdate("CASCADE")
             .onDelete("CASCADE");
-        table.string("week_day").notNullable();
-        table.string("from").notNullable();
-        table.string("to").notNullable();
     });
 }
 

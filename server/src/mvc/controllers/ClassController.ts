@@ -15,13 +15,13 @@ export default class ClassController {
     }
 
     async create(req: Request, res: Response){
-        const { user_id, teacher_id, week_day, from, to } = req.body;
+        const { user_id, teacher_id } = req.body;
         
-        if (!user_id ||!teacher_id ||!week_day ||!from ||!to) {
+        if (!user_id ||!teacher_id ) {
             return res.status(400).json('Todos os campos são obrigatórios');
         }
         
-        const classObj = new Class(user_id, teacher_id, week_day, from, to);
+        const classObj = new Class(user_id, teacher_id);
 
         try {
             await classDao.create(classObj);
