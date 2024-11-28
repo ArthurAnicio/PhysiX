@@ -23,7 +23,7 @@ import VerifyTeacher from "./pages/verify_teacher";
 import Messages from "./pages/messages";
 import UnverifiedStudent from "./pages/unverified_student";
 import UnverifiedTeacher from "./pages/unverified_teacher";
-
+import StudentClasses from "./pages/student_classes";
 
 function RoutesWeb() {
   return (
@@ -52,6 +52,7 @@ function RoutesWeb() {
         <Route path="/messages" Component={Messages} />
         <Route path="/unverified_student" Component={UnverifiedStudent} />
         <Route path="/unverified_teacher" Component={UnverifiedTeacher} />
+        <Route path="/student_classes" Component={StudentClasses} />
       </Routes>
     </BrowserRouter>
   );
