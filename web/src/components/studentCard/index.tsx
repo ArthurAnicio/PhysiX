@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from "react";
-import styles from "./TeacherCard.module.css";
+import styles from "./StudentCard.module.css";
 import api from "../../services/api";
 
 interface Class {
-  teacher_id: number;
+  student_id: number;
   week_day: number;
   from: string;
   to: string;
 }
 
-interface Teacher {
+interface Student {
   name: string;
   number: number;
 }
 
-const TeacherCard: React.FC<Class> = ({ teacher_id, week_day, from, to }) => {
-  const [teacher, setTeacher] = useState<Teacher>();
+const StudentCard: React.FC<Class> = ({ student_id, week_day, from, to }) => {
+  const [student, setStudent] = useState<Student>();
   const [weekDay, setWeekDay] = useState("Domingo");
 
   function formatWeekDay() {
@@ -40,26 +40,23 @@ const TeacherCard: React.FC<Class> = ({ teacher_id, week_day, from, to }) => {
   }
 
   useEffect(() => {
-    api.get(`/getTeacher?id=${teacher_id}`).then((response) => {
-      setTeacher(response.data);
+    api.get(`/getuser?id=${student_id}`).then((response) => {
+      setStudent(response.data);
     });
     formatWeekDay();
   }, []);
 
   return (
-    <div id={styles.teacherCard}>
-      <h1 id={styles.h1}>{teacher?.name}</h1>
+    <div id={styles.studentCard}>
+      <h1 id={styles.h1}>{student?.name}</h1>
       <h2 className={styles.h2}>{weekDay}</h2>
       <div id={styles.time}>
         <h2 className={styles.h2}>
           {from} - {to}
         </h2>
       </div>
-      <a href={`https://wa.me/${teacher?.number}`} id={styles.wppBtn}>
-        Enviar WhatsApp
-      </a>
     </div>
   );
 };
 
-export default TeacherCard;
+export default StudentCard;

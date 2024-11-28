@@ -22,9 +22,6 @@ export default class ClassDao {
     async getAll(): Promise<Class[]> {
         try {
             const classes = await db("classes").select("*");
-            if (!classes.length) {
-                throw new Error("Nenhuma aula encontrada");
-            }
             return classes;
         } catch (error) {
             throw error;
@@ -34,9 +31,6 @@ export default class ClassDao {
     async getAllByUserId(user_id: number): Promise<Class[]> {
         try {
             const classes = await db("classes").where({ user_id }).select("*");
-            if (!classes.length) {
-                throw new Error("Nenhuma aula encontrada");
-            }
             return classes;
         } catch (error) {
             throw error;
@@ -46,9 +40,6 @@ export default class ClassDao {
     async getAllByTeacherId(teacher_id: number): Promise<Class[]> {
         try {
             const classes = await db("classes").where({ teacher_id }).select("*");
-            if (!classes.length) {
-                throw new Error("Nenhuma aula encontrada");
-            }
             return classes;
         } catch (error) {
             throw error;

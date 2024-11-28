@@ -43,19 +43,19 @@ const Message: React.FC<MessageProps> = ({ message, sync }) => {
     getInviteSchedule();
   }, []);
 
-    useEffect(() => {
-        if (teacher.avatar) {
-          getAvatar(teacher.avatar);
-        }
-    }, [teacher.avatar]);
+  useEffect(() => {
+    if (teacher.avatar) {
+      getAvatar(teacher.avatar);
+    }
+  }, [teacher.avatar]);
 
-    useEffect(() => {
-      if(message.type === 'recusado'){
-        setIsRefused(true);
-      } else if(message.type === 'aceito'){
-        setIsRefused(false);
-      }
-    })
+  useEffect(() => {
+    if (message.type === "recusado") {
+      setIsRefused(true);
+    } else if (message.type === "aceito") {
+      setIsRefused(false);
+    }
+  });
 
   async function getTeacher() {
     try {
@@ -74,10 +74,13 @@ const Message: React.FC<MessageProps> = ({ message, sync }) => {
 
   async function getInviteSchedule() {
     try {
-      api.get('/inviteById', {params:{id:message.invite_id}}).then(res => {
-        const newSchedule = JSON.parse(res.data.schedule);
-        setSchedule(newSchedule);
-      })
+      api
+        .get("/inviteById", { params: { id: message.invite_id } })
+        .then((res) => {
+          const newSchedule = JSON.parse(res.data.schedule);
+          console.log(newSchedule);
+          setSchedule(newSchedule);
+        });
     } catch (error) {
       console.log(error);
     }
@@ -117,19 +120,23 @@ const Message: React.FC<MessageProps> = ({ message, sync }) => {
   async function pagar() {
     setIsPaying(false);
     try {
-      const response = await api.post("/class", {
-        teacher_id: message.teacher_id,
-        user_id: message.user_id,
-        week_day: parseInt(schedule?.week_day||'0'),
-        from: schedule?.from,
-        to: schedule?.to,
-      });
-      if (response.status === 200) {
-        apagar();
-        alert("Pagamento realizado com sucesso!");
-      } else {
-        alert("Falha ao pagar!");
-      }
+      api
+        .post("/class", {
+          teacher_id: message.teacher_id,
+          user_id: message.user_id,
+          week_day: parseInt(schedule?.week_day || "0"),
+          from: schedule?.from,
+          to: schedule?.to,
+        })
+        .then((response) => {
+          console.log(response);
+          if (response.status === 200) {
+            apagar();
+            alert("Pagamento realizado com sucesso!");
+          } else {
+            alert("Falha ao pagar!");
+          }
+        });
     } catch (error) {
       console.log(error);
     }

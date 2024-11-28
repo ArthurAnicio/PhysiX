@@ -150,20 +150,23 @@ function TeacherArea() {
             }
           ></i>
           <i
+            className="fa-solid fa-bell"
+            id={styles.iconAside}
+            onClick={() => navigate("/invites", { state: { teacherId } })}
+          ></i>
+          <i
             className="fa-solid fa-book-open"
             id={styles.iconAside}
-            onClick={() => navigate("/student_list", { state: { teacherId } })}
+            onClick={() =>
+              navigate("/teacher_classes", { state: { teacherId } })
+            }
           ></i>
           <i
             className="fa-solid fa-chalkboard-user"
             id={styles.iconAside}
             onClick={() => navigate("/classes_area", { state: { teacherId } })}
           ></i>
-          <i
-            className="fa-solid fa-envelope"
-            id={styles.iconAside}
-            onClick={() => navigate("/invites", { state: { teacherId } })}
-          ></i>
+
           <i
             className="fa-solid fa-right-from-bracket"
             id={styles.iconAside}

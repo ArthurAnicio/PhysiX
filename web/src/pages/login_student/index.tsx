@@ -50,7 +50,6 @@ function LogInStudent() {
                     <TextBox type="text" value={username} onChange={(e) => {setUsername(e.target.value)}} placeholder="Digite seu nome de usuário ou email"/>
                     <h1>Senha</h1>
                     <TextBox type="password" value={password} onChange={(e) => {setPassword(e.target.value)}} placeholder="Digite sua senha"/>
-                    <Link to="/forgot_password" id={styles.purpleLink}>Esqueci a senha</Link>
                     <Submit className={styles.btn} label="Entrar" onClick={validateLogin}/>
                     <Link to="/sign_up_student" id={styles.purpleLink}>Criar  uma conta</Link>
                     </section>

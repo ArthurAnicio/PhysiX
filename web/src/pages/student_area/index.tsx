@@ -80,11 +80,6 @@ function StudentArea() {
             onClick={() => navigate("/profile_student", { state: { userId } })}
           ></i>
           <i
-            className="fa-solid fa-chalkboard-user"
-            id={styles.iconAside}
-            onClick={() => navigate("/teacher_list", { state: { userId } })}
-          ></i>
-          <i
             className="fa-solid fa-bell"
             id={styles.iconAside}
             onClick={() => navigate("/messages", { state: { userId } })}
@@ -93,6 +88,11 @@ function StudentArea() {
             className="fa-solid fa-book-open"
             id={styles.iconAside}
             onClick={() => navigate("/student_classes", { state: { userId } })}
+          ></i>
+          <i
+            className="fa-solid fa-chalkboard-user"
+            id={styles.iconAside}
+            onClick={() => navigate("/teacher_list", { state: { userId } })}
           ></i>
           <i
             className="fa-solid fa-right-from-bracket"
