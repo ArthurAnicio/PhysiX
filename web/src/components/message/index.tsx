@@ -35,20 +35,19 @@ const Message: React.FC<MessageProps> = ({ message, sync }) => {
     getTeacher();
   }, []);
 
-  useEffect(() => {
-    if (teacher.avatar) {
-      getAvatar(teacher.avatar);
-    }
-  }, [teacher.avatar]);
+    useEffect(() => {
+        if (teacher.avatar) {
+          getAvatar(teacher.avatar);
+        }
+    }, [teacher.avatar]);
 
-  useEffect(() => {
-    if (message.type === "recusado") {
-      setIsRefused(true);
-      setIsPaying(false);
-    } else if (message.type === "aceito") {
-      setIsRefused(false);
-    }
-  });
+    useEffect(() => {
+      if(message.type === 'recusado'){
+        setIsRefused(true);
+      } else if(message.type === 'aceito'){
+        setIsRefused(false);
+      }
+    })
 
   async function getTeacher() {
     try {
