@@ -23,14 +23,14 @@ export default class MessageController {
     }
 
     async getAllMessagesByUserId(req: Request, res: Response) {
-        const { userId } = req.query;
+        const { user_id } = req.query;
 
-        if (!userId) {
+        if (!user_id) {
             return res.status(400).json('ID do usuário é obrigatório');
         }
 
         try {
-            const messages = await messageDAO.getByUserId(userId as string);
+            const messages = await messageDAO.getByUserId(user_id as string);
             return res.status(200).json(messages);
         } catch (error) {
             return res.status(400).json({ error: `Erro ao buscar as mensagens: ${error}` });

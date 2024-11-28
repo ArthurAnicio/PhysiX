@@ -42,6 +42,15 @@ const Message: React.FC<MessageProps> = ({message, sync}) => {
         }
     }, [teacher.avatar]);
 
+    useEffect(() => {
+      if(message.type === 'recusado'){
+        setIsRefused(true);
+        setIsPaying(false);
+      } else if(message.type === 'aceito'){
+        setIsPaying(false);
+      }
+    })
+
     async function getTeacher() {
         try {
           const response = await api.get("/getTeacher", {
@@ -108,10 +117,11 @@ const Message: React.FC<MessageProps> = ({message, sync}) => {
             </div>
             {isRefused ?
               <div className={styles.recusado}>
-                  <label>Convite recusado</label>
+                  <label>{message.message}</label>
               </div>
             : 
               <div className={styles.aceito}>
+                <label>{message.message}</label>
                 <label>Valor da aula é {message.price}</label>
                 <button onClick={() => setIsPaying(!isPaying)} className={styles.pagar}>Pagar</button>
               </div>

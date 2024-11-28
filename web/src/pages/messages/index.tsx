@@ -19,19 +19,20 @@ function Messages(){
     const location = useLocation();
     const { userId } = location.state || { userId: 0 };
     const [messages, setMessages] = useState<MessageItem[]>([]);
-    const message: MessageItem = {id:1, teacher_id:1, user_id:2, message:'Lorem ipsum dolor sit amet, consect', type:'pagamento', price:'R$ 4,50'}
+    useEffect(() =>{
+        fetchMessages();
+    })
 
     function fetchMessages(){
         api.get(`/messages?user_id=${userId}`)
-       .then(response => setMessages(response.data))
-       .catch(error => console.error(error));
+       .then((response) => {setMessages(response.data);console.log(messages)})
+       .catch(error => {console.error(error)});
     }
 
     return(
         <div className={styles.container}>
             <Header state={userId} title={'Suas mensagens'}/>
             <div className={styles.content}>
-                <Message message={message} sync={fetchMessages}/>
                 {messages.map((message:MessageItem) => <Message key={message.id} message={message} sync={fetchMessages}/>)}
             </div>
             <Footer />
