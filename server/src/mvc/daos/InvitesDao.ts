@@ -17,7 +17,7 @@ export default class InviteDAO {
             await trx.commit();
         } catch (err) {
             await trx.rollback();
-            throw new Error(`Erro ao criar convite: ${err}`);
+            throw new Error(`Erro ao criar solicitação: ${err}`);
         }
     }
 
@@ -32,7 +32,7 @@ export default class InviteDAO {
             return pendingInvites;
         } catch (err) {
             await trx.rollback();
-            throw new Error(`Erro ao buscar convites pendentes: ${err}`);
+            throw new Error(`Erro ao buscar solicitaçãos pendentes: ${err}`);
         }
     }
 
@@ -45,7 +45,7 @@ export default class InviteDAO {
             await trx.commit();
         } catch (err) {
             await trx.rollback();
-            throw new Error(`Erro ao aceitar convite: ${err}`);
+            throw new Error(`Erro ao aceitar solicitação: ${err}`);
         }
     }
 
@@ -56,7 +56,22 @@ export default class InviteDAO {
             await trx.commit();
         } catch (err) {
             await trx.rollback();
-            throw new Error(`Erro ao excluir convite: ${err}`);
+            throw new Error(`Erro ao excluir solicitação: ${err}`);
+        }
+    }
+
+    async getById(invite_id: number): Promise<Invite> {
+        const trx = await db.transaction();
+        try {
+            const invite = await trx('invites').where({ id: invite_id }).first();
+            await trx.commit();
+            if (!invite) {
+                throw new Error('Solicitação não encontrada');
+            }
+            return invite;
+        } catch (err) {
+            await trx.rollback();
+            throw new Error(`Erro ao buscar solicitação: ${err}`);
         }
     }
 }

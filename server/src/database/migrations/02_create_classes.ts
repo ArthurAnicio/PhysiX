@@ -15,6 +15,11 @@ export async function up(knex: Knex){
             .inTable("teachers")
             .onUpdate("CASCADE")
             .onDelete("CASCADE");
+        table.integer("week_day");
+        table.string("from")
+            .nullable();
+        table.string("to")
+            .nullable();
     });
 }
 

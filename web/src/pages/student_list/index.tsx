@@ -4,15 +4,13 @@ import Header from "../../components/header";
 import Footer from "../../components/footer";
 import UserCard from "../../components/userCard";
 import api from "../../services/api";
-import './styles.css';
+import "./styles.css";
 
 interface User {
     id: number;
     name: string;
     email: string;
     avatar: string;
-    inviteId: number;
-    accepted: boolean;
 }
 function StudentList() {
     const location = useLocation();
@@ -23,22 +21,20 @@ function StudentList() {
         searchUsers()
     }, [teacherId, users])
     async function searchUsers(){
-        const response = await api.get('/invite', {params:{teacher_id:teacherId}})
-        const invitesData = response.data
+        const response = await api.get('/classesTeacher', {params:{teacher_id:teacherId}})
         const updatedUsers = await Promise.all(
-            invitesData.map(async (inviteData: any) => {
-                const newUser: User = (await api.get('/getuser',{params:{id:inviteData.user_id}})).data;
+            response.data.map(async (userData: any) => {
+                const newUser: User = await getUser(userData.user_id);
                 const avatarUrl = await getAvatar(newUser.avatar);
                 return {
                     id: newUser.id,
                     name: newUser.name,
                     email: newUser.email,
-                    avatar: avatarUrl,
-                    inviteId: inviteData.id,
-                    accepted: inviteData.accepted,
-                }
+                    avatar: avatarUrl
+                };
             })
         )
+        console.log(updatedUsers)
         setUsers(updatedUsers)
     }
     async function getAvatar(avatarPath: string) {
@@ -57,25 +53,13 @@ function StudentList() {
             return '';
         }
     }
-    async function acceptInvite(inviteId:number){
-
-        try{
-            await api.put('/invite', { invite_id:inviteId }  ).then(()=>
-                alert('Aceito com sucesso!')
-            )
+    async function getUser(id:Number) : Promise<User> {
+        try {
+            const response = await api.get('/getUser', {params: {id: id}})
+            return response.data as User;
         } catch (err) {
-            alert('Erro em aceitar o convite!')
-            console.log(err);
-        }
-    }
-    async function declineInvite(inviteId:number){
-        try{
-            await api.delete('/invite',{params:{id:inviteId}}).then(()=>
-                alert('Deletado com sucesso!')
-            )
-        } catch (err) {
-            alert('Erro em rejeitar o convite!')
-            console.log(err);
+            console.error(err);
+            return {id: 0, name:'a', avatar: '', email: ''}
         }
     }
     return(
@@ -84,7 +68,7 @@ function StudentList() {
             
             <div id="studentList">
                 {users.map((user: User) => (
-                    <UserCard userName={user.name} avatarUrl={user.avatar} email={user.email} accepted={user.accepted} acceptFunction={acceptInvite} rejectFunction={declineInvite} invite_id={user.inviteId}/>
+                    <UserCard key={user.id} userName={user.name} email={user.email} avatarUrl={user.avatar}/>
                 ))}
             </div>
            

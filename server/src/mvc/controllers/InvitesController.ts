@@ -32,9 +32,9 @@ export default class InvitesController {
 
         try {
             await inviteDAO.create(invite);
-            return res.status(200).json('Convite enviado com sucesso');
+            return res.status(200).json('Solicitação enviado com sucesso');
         } catch (err) {
-            return res.status(400).json({ error: `Erro ao enviar convite: ${err}` });
+            return res.status(400).json({ error: `Erro ao enviar solicitação: ${err}` });
         }
     }
 
@@ -42,14 +42,14 @@ export default class InvitesController {
         const { id, teacher_id, schedule } = req.body;
 
         if (!id) {
-            return res.status(400).json('Informe o id do convite');
+            return res.status(400).json('Informe o id do solicitação');
         }
 
         try {
             await inviteDAO.acceptInvite(Number(id), Number(teacher_id), schedule);
-            return res.status(200).json('Convite aceito com sucesso');
+            return res.status(200).json('Solicitação aceito com sucesso');
         } catch (err) {
-            return res.status(400).json({ error: `Erro ao aceitar convite: ${err}` });
+            return res.status(400).json({ error: `Erro ao aceitar solicitação: ${err}` });
         }
     }
 
@@ -57,13 +57,31 @@ export default class InvitesController {
         const { id } = req.query;
         
         if (!id) {
-            return res.status(400).json('ID do convite é obrigatório');
+            return res.status(400).json('ID do solicitação é obrigatório');
         }
         try {
             await inviteDAO.delete(Number(id));
-            return res.status(200).json('Convite excluído com sucesso');
+            return res.status(200).json('Solicitação excluído com sucesso');
         } catch (err) {
-            return res.status(400).json({error:`Erro ao excluir convite: ${err}`});
+            return res.status(400).json({error:`Erro ao excluir solicitação: ${err}`});
+        }
+    }
+
+    async getById(req: Request, res: Response) {
+        const { id } = req.query;
+        
+        if (!id) {
+            return res.status(400).json('ID do solicitação é obrigatório');
+        }
+
+        try {
+            const invite = await inviteDAO.getById(Number(id));
+            if (!invite) {
+                return res.status(404).json('Solicitação não encontrada');
+            }
+            return res.status(200).json(invite);
+        } catch (err) {
+            return res.status(400).json({ error: `Erro ao acessar o banco: ${err}` });
         }
     }
 }

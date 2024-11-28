@@ -1,4 +1,4 @@
-import styles from "./invite.module.css";
+import styles from "./Invite.module.css";
 import api from "../../services/api";
 import { InputHTMLAttributes, useState, useEffect } from "react";
 
@@ -28,6 +28,8 @@ const Invite: React.FC<InviteProps> = ({ invite, sync }) => {
   const [schedule, setSchedule] = useState<Schedule>(
     JSON.parse(invite.schedule)
   );
+  const [value, setValue] = useState<number>();
+
   useEffect(() => {
     getUser();
   }, []);
@@ -124,17 +126,18 @@ const Invite: React.FC<InviteProps> = ({ invite, sync }) => {
 
   async function refuse() {
     const response = await api.delete(`/invite?id=${invite.id}`);
-    const message = await api.post(`/message`,{
-      user_id: invite.user_id, 
-      teacher_id: invite.teacher_id, 
-      message:'Convite recusado', 
-      type:'recusado',
-      price: '',
-    })
+    const message = await api.post(`/message`, {
+      user_id: invite.user_id,
+      teacher_id: invite.teacher_id,
+      message: "Solicitação recusado",
+      type: "recusado",
+      price: "",
+      invite_id: invite.id,
+    });
     if (response.status === 200) {
       sync();
     } else {
-      alert("Falha ao recusar convite.");
+      alert("Falha ao recusar solicitação.");
       console.log(response);
     }
   }
@@ -155,32 +158,36 @@ const Invite: React.FC<InviteProps> = ({ invite, sync }) => {
         })
         .then((response) => {
           api
-          .post('/message',({
-            user_id: invite.user_id, 
-            teacher_id: invite.teacher_id, 
-            message:'Convite aceito', 
-            type:'aceito',
-            price: 'R$ 50,00',
-          })).then((response) => {sync()})
+            .post("/message", {
+              user_id: invite.user_id,
+              teacher_id: invite.teacher_id,
+              invite_id: invite.id,
+              message: "Solicitação aceito",
+              type: "aceito",
+              price: `R$${value}`,
+            })
+            .then((response) => {
+              sync();
+            });
         });
     });
   }
 
   return (
     <div className={styles.invite}>
-      <div className={styles.perfil}>
-        <img className={styles.foto} src={avatar} alt="" />
-        <div className={styles.nome}>{user.name.split(" ")[0]}</div>
-      </div>
-      <div className={styles.agenda}>
-        <label className={styles.diaSemana}>{schedule.week_day}</label>
-        <div className={styles.horario}>
-          <label className={styles.time}>De: {schedule.from}</label>
-          <label className={styles.time}>Até: {schedule.to}</label>
+      <div id={styles.mainContent}>
+        <div className={styles.perfil}>
+          <img className={styles.foto} src={avatar} alt="" />
+          <div className={styles.nome}>{user.name.split(" ")[0]}</div>
         </div>
-      </div>
-      <div className={styles.botoes}>
-        {!invite.accepted ? (
+        <div className={styles.agenda}>
+          <label className={styles.diaSemana}>{schedule.week_day}</label>
+          <div className={styles.horario}>
+            <label className={styles.time}>De: {schedule.from}</label>
+            <label className={styles.time}>Até: {schedule.to}</label>
+          </div>
+        </div>
+        <div className={styles.botoes}>
           <div className={styles.actions}>
             <div className={styles.aceitar} onClick={accept}>
               <i className="fa-solid fa-check"></i>
@@ -189,9 +196,17 @@ const Invite: React.FC<InviteProps> = ({ invite, sync }) => {
               <i className="fa-solid fa-times"></i>
             </div>
           </div>
-        ) : (
-          <h1>Hello World!</h1>
-        )}
+        </div>
+      </div>
+      <div id={styles.value}>
+        <label>Insira o valor cobrado por essa aula:</label>
+        <input
+          type="number"
+          value={value}
+          onChange={(e) => {
+            setValue(parseInt(e.target.value));
+          }}
+        />
       </div>
     </div>
   );
