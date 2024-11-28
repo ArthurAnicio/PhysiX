@@ -19,6 +19,7 @@ function TeacherPosts() {
     const location = useLocation();
     const navigate = useNavigate();
     const { teacherId = 0, id = { teacher_id: undefined, user_id: undefined } } = location.state || {};
+    const [isMe,setIsMe] = useState(false);
     const [posts, setPosts] = useState<PostData[]>([]);
     const [techerPosts, setTeacherPosts] = useState<PostData[]>([]);
     const [teacher, setTeacher] = useState({
@@ -34,6 +35,9 @@ function TeacherPosts() {
     useEffect(() => {
         getTeacher();
         getPosts();
+        if (teacherId === id.teacher_id){
+          setIsMe(true);
+        }
       }, []);
 
     async function getTeacher() {
@@ -69,7 +73,7 @@ function TeacherPosts() {
             <Header state={teacherId} title={'Posts de '+teacher.name} />
             <main className={styles.areaContainer}>
                 {posts.map((post: PostData) =>
-                    <Post post={post} id={id} isMine={true} sync={getPosts}/>    
+                    <Post post={post} id={id} isMine={isMe} sync={getPosts}/>    
                 )}
             </main>
             <Footer />
