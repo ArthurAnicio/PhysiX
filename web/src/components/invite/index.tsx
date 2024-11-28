@@ -28,6 +28,8 @@ const Invite: React.FC<InviteProps> = ({ invite, sync }) => {
   const [schedule, setSchedule] = useState<Schedule>(
     JSON.parse(invite.schedule)
   );
+  const [value, setValue] = useState<number>();
+
   useEffect(() => {
     getUser();
   }, []);
@@ -160,7 +162,7 @@ const Invite: React.FC<InviteProps> = ({ invite, sync }) => {
               teacher_id: invite.teacher_id,
               message: "Solicitação aceito",
               type: "aceito",
-              price: "R$ 50,00",
+              price: `R$${value}`,
             })
             .then((response) => {
               sync();
@@ -171,19 +173,19 @@ const Invite: React.FC<InviteProps> = ({ invite, sync }) => {
 
   return (
     <div className={styles.invite}>
-      <div className={styles.perfil}>
-        <img className={styles.foto} src={avatar} alt="" />
-        <div className={styles.nome}>{user.name.split(" ")[0]}</div>
-      </div>
-      <div className={styles.agenda}>
-        <label className={styles.diaSemana}>{schedule.week_day}</label>
-        <div className={styles.horario}>
-          <label className={styles.time}>De: {schedule.from}</label>
-          <label className={styles.time}>Até: {schedule.to}</label>
+      <div id={styles.mainContent}>
+        <div className={styles.perfil}>
+          <img className={styles.foto} src={avatar} alt="" />
+          <div className={styles.nome}>{user.name.split(" ")[0]}</div>
         </div>
-      </div>
-      <div className={styles.botoes}>
-        {!invite.accepted ? (
+        <div className={styles.agenda}>
+          <label className={styles.diaSemana}>{schedule.week_day}</label>
+          <div className={styles.horario}>
+            <label className={styles.time}>De: {schedule.from}</label>
+            <label className={styles.time}>Até: {schedule.to}</label>
+          </div>
+        </div>
+        <div className={styles.botoes}>
           <div className={styles.actions}>
             <div className={styles.aceitar} onClick={accept}>
               <i className="fa-solid fa-check"></i>
@@ -192,9 +194,17 @@ const Invite: React.FC<InviteProps> = ({ invite, sync }) => {
               <i className="fa-solid fa-times"></i>
             </div>
           </div>
-        ) : (
-          <h1>Hello World!</h1>
-        )}
+        </div>
+      </div>
+      <div id={styles.value}>
+        <label>Insira o valor cobrado por essa aula:</label>
+        <input
+          type="number"
+          value={value}
+          onChange={(e) => {
+            setValue(parseInt(e.target.value));
+          }}
+        />
       </div>
     </div>
   );

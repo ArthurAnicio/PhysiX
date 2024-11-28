@@ -4,9 +4,17 @@
     margin: 20px auto;
     background: var(--branco);
     border-radius: 1rem;
+}
+
+#mainContent {
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+
+#value {
+    display: flex;
+    flex-flow: column;
 }
 
 .actions {
@@ -96,9 +104,16 @@
 }
 
 @media (max-width: 700px) {
-    .invite {
+    #mainContent {
         flex-flow: column;
         width: 70vw;
+    }
+    #value {
+        width: 100%;
+        margin: 10px 0;
+    }
+    .invite {
+        width: 300px;
     }
     .agenda {
         width: 80%;

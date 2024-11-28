@@ -1,5 +1,9 @@
 .content{
     min-height: 80vh;
     background: var(--cinza1);
-    padding: 2rem;
+    padding-top: 20px;
+    width: 100vw;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
 }
