@@ -126,14 +126,6 @@ const Invite: React.FC<InviteProps> = ({ invite, sync }) => {
 
   async function refuse() {
     const response = await api.delete(`/invite?id=${invite.id}`);
-    const message = await api.post(`/message`, {
-      user_id: invite.user_id,
-      teacher_id: invite.teacher_id,
-      message: "Solicitação recusado",
-      type: "recusado",
-      price: "",
-      invite_id: invite.id,
-    });
     if (response.status === 200) {
       sync();
     } else {
@@ -162,7 +154,7 @@ const Invite: React.FC<InviteProps> = ({ invite, sync }) => {
               user_id: invite.user_id,
               teacher_id: invite.teacher_id,
               invite_id: invite.id,
-              message: "Solicitação aceito",
+              message: "Solicitação aceita",
               type: "aceito",
               price: `R$${value}`,
             })

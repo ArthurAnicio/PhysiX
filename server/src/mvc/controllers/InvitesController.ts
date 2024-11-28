@@ -47,7 +47,7 @@ export default class InvitesController {
 
         try {
             await inviteDAO.acceptInvite(Number(id), Number(teacher_id), schedule);
-            return res.status(200).json('Solicitação aceito com sucesso');
+            return res.status(200).json('Solicitação aceita com sucesso');
         } catch (err) {
             return res.status(400).json({ error: `Erro ao aceitar solicitação: ${err}` });
         }
