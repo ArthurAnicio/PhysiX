@@ -90,6 +90,11 @@ function StudentArea() {
             onClick={() => navigate("/messages", { state: { userId } })}
           ></i>
           <i
+            className="fa-solid fa-book-open"
+            id={styles.iconAside}
+            onClick={() => navigate("/student_classes", { state: { userId } })}
+          ></i>
+          <i
             className="fa-solid fa-right-from-bracket"
             id={styles.iconAside}
             onClick={() => navigate("/")}
