@@ -18,25 +18,25 @@ export default class ReplyController {
     
     async create(req: Request, res: Response): Promise<Response> {
         const { post_id, text, teacher_id, user_id } = req.body;
-
+    
         if (!text || !post_id) {
             return res.status(400).json({ error: "Texto e ID do post são obrigatórios" });
         }
-
-        const reply = new Reply(
+    
+        const newReply = new Reply(
             Number(post_id),
             text,
             '[]',
-            undefined, 
-            teacher_id ? Number(teacher_id) : undefined,  
-            user_id ? Number(user_id) : undefined  
+            undefined,
+            teacher_id ? Number(teacher_id) : undefined,
+            user_id ? Number(user_id) : undefined
         );
-
+    
         try {
-            await replyDAO.create(reply);
-            return res.status(201).json(reply);
+            const reply = await replyDAO.create(newReply); // Recebe o Reply com ID
+            return res.status(201).json(reply); // Retorna o Reply completo na resposta
         } catch (err) {
-            return res.status(500).json(`Erro${err}`);
+            return res.status(500).json(`Erro: ${err}`);
         }
     }
 

@@ -12,7 +12,7 @@ export default class Reply {
         likes: string,
         id?: number,
         teacher_id?: number,  
-        user_id?: number      
+        user_id?: number    
     ) {
         this.id = id;
         this.teacher_id = teacher_id;

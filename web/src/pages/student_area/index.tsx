@@ -22,7 +22,7 @@ function StudentArea() {
   const [stateId, setStateId] = useState(userId);
   const asideRef = useRef<HTMLDivElement>(null);
   const [posts, setPosts] = useState<PostData[]>([]);
-  const id = { teacher_id: undefined, user_id: userId };
+  const id = { teacher_id: undefined, user_id: stateId };
 
   useEffect(() => {
     getUser();

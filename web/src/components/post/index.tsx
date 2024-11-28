@@ -149,13 +149,18 @@ const Post: React.FC<PostProps> = ({ post, id, isMine, sync }) => {
     if (!newComment) return;
 
     try {
+      console.log('o id aqui em baixo')
+      console.log(id)
       const response = await api.post("/reply", {
         post_id: post.id,
         text: newComment,
-        teacher_id: post.teacher_id,
+        teacher_id: id.teacher_id,
+        user_id: id.user_id,
       });
       await api.put(`/replyPost?post_id=${post.id}`);
-      setComments([response.data, ...comments]);
+      console.log('novo comentario aqui em baixo')
+      console.log(response.data);
+      fetchComments();
       setNewComment("");
     } catch (error) {
       console.error("Erro ao criar comentário:", error);
@@ -297,7 +302,7 @@ const Post: React.FC<PostProps> = ({ post, id, isMine, sync }) => {
 
           <div className={styles.comments}>
             {comments.map((comment) => (
-              <Comment key={comment.id} comment={comment} id={id} />
+              <Comment key={comment.id} comment={comment}/>
             ))}
           </div>
         </div>

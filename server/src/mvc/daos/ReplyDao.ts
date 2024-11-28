@@ -2,17 +2,29 @@ import db from "../../database/connection";
 import Reply from "../models/Reply";
 
 export default class ReplyDAO {
-    async create(reply: Reply): Promise<void> {
+    async create(reply: Reply): Promise<Reply> {
         const trx = await db.transaction();
         try {
-            await trx("replies").insert({
+            // Insere o reply no banco de dados e retorna o ID inserido
+            const [replyId] = await trx("replies").insert({
                 teacher_id: reply.teacher_id,
                 user_id: reply.user_id,
                 post_id: reply.post_id,
                 text: reply.text,
-                likes: reply.likes
+                likes: reply.likes,
             });
+    
             await trx.commit();
+    
+            // Retorna um objeto Reply com o ID gerado
+            return new Reply(
+                reply.post_id,
+                reply.text,
+                reply.likes,
+                replyId, // ID inserido
+                reply.teacher_id,
+                reply.user_id
+            );
         } catch (err) {
             await trx.rollback();
             throw new Error(`Erro ao cadastrar reply: ${err}`);

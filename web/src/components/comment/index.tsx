@@ -7,9 +7,6 @@ interface CommentProps {
     id: number;
     text: string;
     likes: number;
-    teacherId?: number;
-  };
-  id: {
     teacher_id?: number;
     user_id?: number;
   };
@@ -21,7 +18,7 @@ interface LikeData {
   replyId: number;
 }
 
-const Comment: React.FC<CommentProps> = ({ comment, id }) => {
+const Comment: React.FC<CommentProps> = ({ comment}) => {
   const [likes, setLikes] = useState<LikeData[]>([]);
   const [teacher, setTeacher] = useState({
     name: "",
@@ -55,16 +52,18 @@ const Comment: React.FC<CommentProps> = ({ comment, id }) => {
   }, [teacher.avatar, user.avatar]);
 
   async function getOwner() {
-    if (id.teacher_id === undefined) {
-      const response = await api.get(`/getuser?id=${id.user_id}`);
+    if (comment.teacher_id === null) {
+      const response = await api.get(`/getuser?id=${comment.user_id}`);
       if (response.status === 200) {
         setUser(response.data);
+        console.log(response.data);
         setName(user.name);
       }
     } else {
-      const response = await api.get(`/getTeacher?id=${id.teacher_id}`);
+      const response = await api.get(`/getTeacher?id=${comment.teacher_id}`);
       if (response.status === 200) {
         setTeacher(response.data);
+        console.log(response.data);
         setName(teacher.name);
       }
     }
@@ -88,20 +87,20 @@ const Comment: React.FC<CommentProps> = ({ comment, id }) => {
       likes.filter(
         (like) =>
           like.replyId == comment.id &&
-          like.userId == id.user_id &&
-          like.teacherId == id.teacher_id
+          like.userId == comment.user_id &&
+          like.teacherId == comment.teacher_id
       ).length > 0
     ) {
       updatedLikes = likes.filter(
         (like) =>
           like.replyId != comment.id &&
-          like.userId != id.user_id &&
-          like.teacherId != id.teacher_id
+          like.userId != comment.user_id &&
+          like.teacherId != comment.teacher_id
       );
     } else {
       const newLike: LikeData = {
-        userId: id.user_id,
-        teacherId: id.teacher_id,
+        userId: comment.user_id,
+        teacherId: comment.teacher_id,
         replyId: comment.id,
       };
       updatedLikes = [...likes, newLike];
