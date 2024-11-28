@@ -124,6 +124,13 @@ const Invite: React.FC<InviteProps> = ({ invite, sync }) => {
 
   async function refuse() {
     const response = await api.delete(`/invite?id=${invite.id}`);
+    const message = await api.post(`/message`,{
+      user_id: invite.user_id, 
+      teacher_id: invite.teacher_id, 
+      message:'Convite recusado', 
+      type:'recusado',
+      price: '',
+    })
     if (response.status === 200) {
       sync();
     } else {
@@ -147,7 +154,14 @@ const Invite: React.FC<InviteProps> = ({ invite, sync }) => {
           schedule: newSchedule,
         })
         .then((response) => {
-          sync();
+          api
+          .post('/message',({
+            user_id: invite.user_id, 
+            teacher_id: invite.teacher_id, 
+            message:'Convite aceito', 
+            type:'aceito',
+            price: 'R$ 50,00',
+          }))
         });
     });
   }
