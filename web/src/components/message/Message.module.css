@@ -1,0 +1,82 @@
+.message {
+    display: flex;
+    flex-flow: column !important;
+    background-color: var(--branco);
+    border-radius: 20px;
+    width: 600px;
+    align-items: center;
+    padding: 20px;
+}
+
+.aceito {
+    display: flex;
+    flex-flow: column !important;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.aceito button {
+    background-color: var(--roxo1);
+    color: var(--branco);
+    font-size: 1em;
+    padding: 10px;
+    border-radius: 10px;
+    border: 0;
+    outline: 0;
+    cursor: pointer !important;
+}
+
+.pagando {
+    display: flex;
+    flex-flow: column !important;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.pagando button {
+    background-color: var(--roxo1);
+    color: var(--branco);
+    font-size: 1em;
+    padding: 10px;
+    border-radius: 10px;
+    border: 0;
+    outline: 0;
+    cursor: pointer;
+    width: 100px;
+    align-self: center;
+}
+
+.teacher {
+    text-align: center;
+}
+
+.teacher label {
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.apagar {
+    cursor: pointer;
+}
+
+.apagar:hover {
+    color: var(--roxo1);
+}
+
+#avatar {
+    width: 200px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+#avatar img {
+    width: 100%;
+}
+
+@media (max-width: 700px){
+    .message {
+        width: 80vw;
+    }
+}

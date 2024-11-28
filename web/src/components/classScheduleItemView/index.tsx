@@ -59,7 +59,7 @@ const ClassScheduleItemView: React.FC<CSIVProps> = ({
         schedule,
       });
     } catch (err) {
-      alert("Falha ao solicitar convite");
+      alert("Falha ao solicitar solicitação");
       console.error(err);
     }
   }

@@ -4,7 +4,7 @@ import Header from "../../components/header";
 import Footer from "../../components/footer";
 import UserCard from "../../components/userCard";
 import api from "../../services/api";
-import './styles.css';
+import "./styles.css";
 
 interface User {
     id: number;
