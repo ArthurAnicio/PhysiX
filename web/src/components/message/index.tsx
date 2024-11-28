@@ -45,7 +45,6 @@ const Message: React.FC<MessageProps> = ({message, sync}) => {
     useEffect(() => {
       if(message.type === 'recusado'){
         setIsRefused(true);
-        setIsPaying(false);
       } else if(message.type === 'aceito'){
         setIsRefused(false);
       }
