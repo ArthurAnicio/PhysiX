@@ -47,7 +47,7 @@ const Message: React.FC<MessageProps> = ({message, sync}) => {
         setIsRefused(true);
         setIsPaying(false);
       } else if(message.type === 'aceito'){
-        setIsPaying(false);
+        setIsRefused(false);
       }
     })
 
@@ -84,6 +84,7 @@ const Message: React.FC<MessageProps> = ({message, sync}) => {
 
     async function apagar(){
       try {
+        console.log('id da mensagem enviado:'+message.id);
         const response = await api.delete(`/message?id=${message.id}`);
         if (response.status === 200) {
           sync();
@@ -100,6 +101,7 @@ const Message: React.FC<MessageProps> = ({message, sync}) => {
       try {
         const response = await api.post("/class", { teacher_id: message.teacher_id, user_id: message.user_id });
         if (response.status === 200) {
+          apagar();
           alert("Pagamento realizado com sucesso!");
         } else {
           alert("Falha ao pagar!");

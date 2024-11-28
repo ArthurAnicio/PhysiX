@@ -21,7 +21,7 @@ function Messages(){
     const [messages, setMessages] = useState<MessageItem[]>([]);
     useEffect(() =>{
         fetchMessages();
-    })
+    },[])
 
     function fetchMessages(){
         api.get(`/messages?user_id=${userId}`)

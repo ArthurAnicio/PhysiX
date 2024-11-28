@@ -53,7 +53,9 @@ export default class MessageController {
     }
 
     async delete(req: Request, res: Response) {
-        const { id } = req.params;
+        const { id } = req.query;
+
+        console.log('id recebido: ' + id);
 
         if (!id) {
             return res.status(400).json('ID da mensagem é obrigatório');

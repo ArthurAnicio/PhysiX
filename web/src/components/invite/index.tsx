@@ -161,7 +161,7 @@ const Invite: React.FC<InviteProps> = ({ invite, sync }) => {
             message:'Convite aceito', 
             type:'aceito',
             price: 'R$ 50,00',
-          }))
+          })).then((response) => {sync()})
         });
     });
   }
