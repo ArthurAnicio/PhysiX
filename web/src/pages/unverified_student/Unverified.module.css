@@ -2,23 +2,27 @@
     height: 100vh;
     display: flex;
     flex-flow: column;
+    background-color: var(--cinza1);
 }
 
-.content {
+#content {
     flex: 1;
     background-color: var(--cinza1);
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-flow: column;
 }
 
 #card {
+    width: 500px;
     background-color: var(--branco);
     padding: 20px;
     border-radius: 8px;
     display: flex;
     align-items: center;
     flex-flow: column;
+    text-align: center;
 }
 
 #card button {
