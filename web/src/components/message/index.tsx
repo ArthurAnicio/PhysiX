@@ -10,6 +10,7 @@ interface MessageItem {
   message: string;
   type: string;
   price: string;
+  invite_id: number;
 }
 
 interface MessageProps {
@@ -17,6 +18,11 @@ interface MessageProps {
   sync: () => void;
 }
 
+interface ScheduleItem {
+  week_day: string;
+  from: string;
+  to: string;
+}
 const Message: React.FC<MessageProps> = ({ message, sync }) => {
   const [avatar, setAvatar] = useState("");
   const [teacher, setTeacher] = useState({
@@ -30,9 +36,11 @@ const Message: React.FC<MessageProps> = ({ message, sync }) => {
   });
   const [isRefused, setIsRefused] = useState(false);
   const [isPaying, setIsPaying] = useState(false);
+  const [schedule, setSchedule] = useState<ScheduleItem>();
 
   useEffect(() => {
     getTeacher();
+    getInviteSchedule();
   }, []);
 
     useEffect(() => {
@@ -63,6 +71,18 @@ const Message: React.FC<MessageProps> = ({ message, sync }) => {
       console.log(error);
     }
   }
+
+  async function getInviteSchedule() {
+    try {
+      api.get('/inviteById', {params:{id:message.invite_id}}).then(res => {
+        const newSchedule = JSON.parse(res.data.schedule);
+        setSchedule(newSchedule);
+      })
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   async function getAvatar(avatarPath: string) {
     try {
       const response = await api.get("/avatar", {
@@ -100,6 +120,9 @@ const Message: React.FC<MessageProps> = ({ message, sync }) => {
       const response = await api.post("/class", {
         teacher_id: message.teacher_id,
         user_id: message.user_id,
+        week_day: parseInt(schedule?.week_day||'0'),
+        from: schedule?.from,
+        to: schedule?.to,
       });
       if (response.status === 200) {
         apagar();

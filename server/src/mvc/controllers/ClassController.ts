@@ -15,13 +15,13 @@ export default class ClassController {
     }
 
     async create(req: Request, res: Response){
-        const { user_id, teacher_id } = req.body;
+        const { user_id, teacher_id, week_day, from, to } = req.body;
         
-        if (!user_id ||!teacher_id ) {
+        if (!user_id ||!teacher_id||!week_day || !from || !to) {
             return res.status(400).json('Todos os campos são obrigatórios');
         }
         
-        const classObj = new Class(user_id, teacher_id);
+        const classObj = new Class(user_id, teacher_id, week_day, from, to);
 
         try {
             await classDao.create(classObj);
@@ -55,7 +55,11 @@ export default class ClassController {
 
         try {
             const classes = await classDao.getAllByTeacherId(Number(teacher_id));
-            return res.status(200).json(classes);
+            if (classes) {
+                return res.status(200).json(classes);
+            } else {
+                return res.status(404).json('Nenhuma classe encontrada para este professor');
+            }
         } catch (err) {
             return res.status(400).json(`Erro: ${err}`);
         }

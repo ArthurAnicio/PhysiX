@@ -13,6 +13,7 @@ interface MessageItem{
     message: string;
     type: string;
     price: string;
+    invite_id: number;
 }
 
 function Messages(){

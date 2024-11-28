@@ -6,13 +6,13 @@ const messageDAO = new MessageDAO();
 
 export default class MessageController {
     async create(req: Request, res: Response){
-        const { user_id, teacher_id, message, type, price } = req.body;
+        const { user_id, teacher_id, invite_id, message, type, price } = req.body;
         
-        if (!user_id ||!teacher_id ||!message ||!type ||!price) {
+        if (!user_id ||!teacher_id ||!message ||!type ||!price|| !invite_id) {
             return res.status(400).json('Todos os campos são obrigatórios');
         }
 
-        const newMessage = new Message(user_id, teacher_id, message, type, price);
+        const newMessage = new Message(user_id, teacher_id, invite_id, message, type, price, );
 
         try {
             await messageDAO.create(newMessage);

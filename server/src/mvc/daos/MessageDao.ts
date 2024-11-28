@@ -8,6 +8,7 @@ export default class MessageDAO {
             const [insertedId] = await trx("messages").insert({
                 user_id: message.user_id,
                 teacher_id: message.teacher_id,
+                invite_id: message.invite_id,
                 message: message.message,
                 type: message.type,
                 price: message.price,

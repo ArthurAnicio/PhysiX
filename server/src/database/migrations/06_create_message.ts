@@ -14,6 +14,11 @@ export async function up(knex: Knex){
             .inTable("users")
             .onUpdate("CASCADE")
             .onDelete("CASCADE");
+            table.integer("invite_id")
+            .references("id")
+            .inTable("invites")
+            .onUpdate("CASCADE")
+            .onDelete("CASCADE");
             table.string("message").notNullable();
             table.string("type").notNullable();
             table.string("price").nullable();

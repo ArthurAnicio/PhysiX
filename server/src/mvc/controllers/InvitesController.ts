@@ -66,4 +66,22 @@ export default class InvitesController {
             return res.status(400).json({error:`Erro ao excluir solicitação: ${err}`});
         }
     }
+
+    async getById(req: Request, res: Response) {
+        const { id } = req.query;
+        
+        if (!id) {
+            return res.status(400).json('ID do solicitação é obrigatório');
+        }
+
+        try {
+            const invite = await inviteDAO.getById(Number(id));
+            if (!invite) {
+                return res.status(404).json('Solicitação não encontrada');
+            }
+            return res.status(200).json(invite);
+        } catch (err) {
+            return res.status(400).json({ error: `Erro ao acessar o banco: ${err}` });
+        }
+    }
 }

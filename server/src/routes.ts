@@ -79,6 +79,7 @@ routes.delete('/class', classController.delete);
 routes.post('/invite', invitesController.create);
 routes.put('/invite', invitesController.accept); 
 routes.get('/invite', invitesController.index);
+routes.get('/inviteById', invitesController.getById)
 routes.delete('/invite', invitesController.delete);
 
 // Message routes

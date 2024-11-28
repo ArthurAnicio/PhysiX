@@ -59,4 +59,19 @@ export default class InviteDAO {
             throw new Error(`Erro ao excluir solicitação: ${err}`);
         }
     }
+
+    async getById(invite_id: number): Promise<Invite> {
+        const trx = await db.transaction();
+        try {
+            const invite = await trx('invites').where({ id: invite_id }).first();
+            await trx.commit();
+            if (!invite) {
+                throw new Error('Solicitação não encontrada');
+            }
+            return invite;
+        } catch (err) {
+            await trx.rollback();
+            throw new Error(`Erro ao buscar solicitação: ${err}`);
+        }
+    }
 }

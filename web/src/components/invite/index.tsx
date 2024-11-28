@@ -130,6 +130,7 @@ const Invite: React.FC<InviteProps> = ({ invite, sync }) => {
       message: "Solicitação recusado",
       type: "recusado",
       price: "",
+      invite_id: invite.id,
     });
     if (response.status === 200) {
       sync();
@@ -158,6 +159,7 @@ const Invite: React.FC<InviteProps> = ({ invite, sync }) => {
             .post("/message", {
               user_id: invite.user_id,
               teacher_id: invite.teacher_id,
+              invite_id: invite.id,
               message: "Solicitação aceito",
               type: "aceito",
               price: "R$ 50,00",
