@@ -41,13 +41,18 @@
 ### Cliente 🖥️
 
 `cd web`
+
 `npm install`
+
 `npm start`
 
 ### Servidor💾
 `cd server`
+
 `npm install`
+
 `npm run migrate`
+
 `npm start`
 
 ## Colaboradores
