@@ -22,16 +22,16 @@
 
 ### FrontEnd💻
 
--React
--Typescript
--HTML
--CSS
--Javascript
+- React
+- Typescript
+- HTML
+- CSS
+- Javascript
 
 ### BackEnd🔩
 
--Typescript
--Node JS
--Express
--Sqlite3
--Knex
+- Typescript
+- Node JS
+- Express
+- Sqlite3
+- Knex
