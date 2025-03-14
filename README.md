@@ -1,96 +1,62 @@
-PhysiX
+# **PhysiX⚛️**
 
-PhysiX é um projeto full-stack com um servidor back-end em Node.js e um cliente front-end desenvolvido em React. O objetivo do projeto é [descrever objetivo do projeto aqui].
+## O que é🔍
 
-Tecnologias Utilizadas
+*PhysiX é um projeto de finalização do curso de tecnologia da informação do Colégio Cotemig. Consiste numa plataforma com o objetivo de facilitar o estudo de fisica para estudantes e prover um meio de estabelecer contato com professores. Uma rede social focada em conectar professores e alunos*
 
-Backend
+![LandingPage](https://cdn.discordapp.com/attachments/1079859999196598323/1349044453775511682/image.png?ex=67d1ab0d&is=67d0598d&hm=acd13f1436948f8ffa1b750ae7e446e55e966d1cbe40af3b24404e206190da40&)
 
-Node.js
+*Aqui professores postam materiais e os alunos podem reagir ao post curtindo ou comentando*
 
-Express
+![Exemple](https://cdn.discordapp.com/attachments/1079859999196598323/1349046470996660244/image.png?ex=67d1acee&is=67d05b6e&hm=75892e36b07df17083e54a4b4900cc404cbc95bdf018fb181576affc3a6dfd17&)
 
-Knex.js
+![Classes](https://cdn.discordapp.com/attachments/1079859999196598323/1349047478779117693/image.png?ex=67d1addf&is=67d05c5f&hm=a449c1d5492e2665a866838a021b8446640cdcf342176104cda59160aa76388b&)
 
-SQLite
+*Alunos têm acesso aos horários disponíveis de um professor e solicitar a aula*
 
-TypeScript
+![Invites](https://cdn.discordapp.com/attachments/1079859999196598323/1349048388125200474/image.png?ex=67d1aeb7&is=67d05d37&hm=d2bbd79c0b7e91fc88ee3a786619451cd63363bb4b3386b18824b24970294df7&)
 
-Frontend
+*O professor recebe uma requisição e pode aceitar ou não. O aluno recebe a confirmação então paga ao professor(ilustramente)*
 
-React.js
+## **Tecnologias🛠️**
 
-Vite
+### FrontEnd💻
 
-TypeScript
+- React
+- Typescript
+- HTML
+- CSS
+- Javascript
 
-Instalação e Execução
+### BackEnd🔩
 
-Backend
+- Typescript
+- Node JS
+- Express
+- Sqlite3
+- Knex
 
-Navegue até a pasta do servidor:
+## Como usar✍️
 
-cd server
+### Cliente 🖥️
 
-Instale as dependências:
+`cd web`
 
-npm install
+`npm install`
 
-Configure as variáveis de ambiente (crie um arquivo .env com as configurações necessárias).
+`npm start`
 
-Execute as migrations do banco de dados:
+### Servidor💾
+`cd server`
 
-npx knex migrate:latest
+`npm install`
 
-Inicie o servidor:
+`npm run migrate`
 
-npm run dev
+`npm start`
 
-Frontend
+## Colaboradores
 
-Navegue até a pasta do cliente:
-
-cd client
-
-Instale as dependências:
-
-npm install
-
-Inicie a aplicação:
-
-npm run dev
-
-Estrutura do Projeto
-
-PhysiX/
-├── server/   # Backend
-│   ├── src/
-│   │   ├── controllers/
-│   │   ├── database/
-│   │   ├── routes.ts
-│   │   ├── server.ts
-│   ├── package.json
-│   ├── tsconfig.json
-├── client/   # Frontend
-│   ├── src/
-│   ├── package.json
-│   ├── vite.config.ts
-
-Contribuição
-
-Se desejar contribuir, siga os passos:
-
-Fork este repositório
-
-Crie um branch (git checkout -b feature-nova)
-
-Commit suas alterações (git commit -m 'Adiciona nova funcionalidade')
-
-Faça push do branch (git push origin feature-nova)
-
-Abra um Pull Request
-
-Licença
-
-Este projeto está licenciado sob a [Nome da Licença].
-
+- Arthur Anício-TechLead
+- Marcelo Guimarães-Desenvolvedor FrontEnd
+- Gabriel Katahira-Desenvolvedor BackEnd
